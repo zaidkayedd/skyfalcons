@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+ * SKYFALCONS BRAND TYPOGRAPHY
+ * Real Blacker Sans Text is bundled by next/font/local (see app/layout.tsx),
+ * which exposes it as the CSS variable --font-blacker (no manual @font-face,
+ * no /fonts/*.woff 404s). Only Blacker was supplied, so headings and body/UI
+ * both use it until Klarna Text files are added.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+  /* Headings / display (Blacker Sans Text) */
+  --font-display: var(--font-blacker), Georgia, "Times New Roman", serif;
+  /* Body / UI (Blacker Sans Text) */
+  --font-sans: var(--font-blacker), system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Monospace (Blacker Sans Text) */
+  --font-mono: var(--font-blacker), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  @apply bg-porcelain text-graphite font-sans antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body * {
+  text-transform: none;
+}
+
+/* Display headings */
+.display {
+  @apply font-display leading-[1.05] tracking-[-0.01em];
+}
+
+/* Focus visibility — accessibility floor */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid theme(colors.gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar for the charter table on desktop */
+.table-scroll::-webkit-scrollbar { height: 8px; }
+.table-scroll::-webkit-scrollbar-thumb {
+  background: theme(colors.mist);
+  border-radius: 999px;
+}
+
+/* Strategic alliance map — arcs draw out then retract, looping */
+@keyframes draw-retract {
+  0%   { stroke-dashoffset: 1; }   /* empty */
+  33%  { stroke-dashoffset: 0; }   /* drawn (Amman -> cities) */
+  60%  { stroke-dashoffset: 0; }   /* hold fully drawn */
+  87%  { stroke-dashoffset: 1; }   /* retract (cities -> Amman) */
+  100% { stroke-dashoffset: 1; }   /* brief empty, then loop */
+}
+.arc-draw {
+  animation: draw-retract 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .arc-draw { animation: none; stroke-dasharray: none; }
+}
+
+/* Hero photography treatment — raw / authentic / edgy / winter mood
+   (matches the brand moodboard: desaturated, cool, high-contrast). Swap the
+   hero image URLs for the client's own aircraft photography in this style. */
+.hero-photo {
+  filter: grayscale(0.4) contrast(1.08) brightness(0.94) saturate(0.85);
+}
+
+/* Apply brand fonts to every form control (no OS default fonts) */
+input, select, textarea, button, optgroup { font-family: inherit; }
+
+/* Gold range sliders (Advanced Options) */
+.range-gold {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 6px; border-radius: 999px; outline: none; cursor: pointer;
+}
+.range-gold::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 999px;
+  background: #fff; border: 2px solid #BE985A; cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  margin-top: -6px; /* center the 18px thumb on the 6px track */
+}
+.range-gold::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 999px;
+  background: #fff; border: 2px solid #BE985A; cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.range-gold::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; }
+.range-gold::-moz-range-track { height: 6px; border-radius: 999px; }
+
+/* Elegant logo marquee (home Global Network highlight) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 45s linear infinite; will-change: transform; }
+.marquee-row:hover .animate-marquee { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none; }
+}
+.animate-marquee-reverse { animation: marquee 55s linear infinite reverse; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-reverse { animation: none; }
+}
