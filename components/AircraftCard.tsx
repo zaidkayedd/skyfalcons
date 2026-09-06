@@ -60,18 +60,20 @@ export function AircraftCard({ item }: { item: Aircraft }) {
         </div>
 
         {/* Two-metric stat row: Passengers | Range */}
-        <div className="mt-6 grid grid-cols-2 divide-x divide-mist rounded-card border border-mist">
-          <Stat label="Passengers" value={String(item.passengers)} />
-          <Stat label="Range" value={`${item.rangeNm.toLocaleString()} nm`} />
-        </div>
+        <div className="mt-auto">
+          <div className="mt-6 grid min-h-[84px] shrink-0 grid-cols-2 divide-x divide-mist rounded-card border border-mist">
+            <Stat label="Passengers" value={String(item.passengers)} />
+            <Stat label="Range" value={`${item.rangeNm.toLocaleString()} nm`} />
+          </div>
 
-        <div className="mt-auto pt-6">
-          <span className="group/link inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors group-hover:text-gold">
-            More info
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
-              →
+          <div className="pt-6">
+            <span className="group/link inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors group-hover:text-gold">
+              More info
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
+                →
+              </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
     </Link>
@@ -80,7 +82,7 @@ export function AircraftCard({ item }: { item: Aircraft }) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="px-5 py-4">
+    <div className="flex min-w-0 flex-col justify-center px-5 py-4">
       <p className="text-[11px] font-semibold uppercase tracking-eyebrow text-slate">
         {label}
       </p>

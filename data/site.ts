@@ -58,8 +58,9 @@ export const pillars = [
  */
 export const cta = {
   eyebrow: "Aviation Brokerage, Perfected",
-  heading: "Ready when you are.",
-  body: "Speak with a Sky Falcons broker about acquisition, sale, or your next charter — anywhere in the world, at any hour.",
-  primary: { label: "Request a Consultation", href: "/contact" },
+  heading: "Stay Updated on",
+  accent: "Marketplace Listings",
+  body: "Subscribe to marketplace notifications and discover new luxury private jet listings. Be the first informed when new aircraft match your investment criteria.",
+  primary: { label: "Subscribe to Marketplace Alerts", href: "/marketplace" },
   secondary: { label: "Explore the Marketplace", href: "/marketplace" }
 };

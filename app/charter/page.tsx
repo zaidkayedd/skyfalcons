@@ -13,14 +13,13 @@ export default function CharterPage() {
   return (
     <>
       <PageHero
-        line1="GLOBAL CHARTER"
-        image="/hero.jpg"
+        eyebrow="Charter"
+        title="Private Charter,"
+        accent="On Demand"
+        subtitle="Request a tailored quote or book exclusive empty-leg flights — anywhere in the world, around the clock."
       />
       <CharterExplorer />
-      <GlobalCTA
-        heading="Need to fly soon?"
-        body="Our charter desk is available around the clock. Send your route and dates for an immediate quote."
-      />
+      <GlobalCTA />
     </>
   );
 }

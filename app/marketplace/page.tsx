@@ -13,14 +13,13 @@ export default function MarketplacePage() {
   return (
     <>
       <PageHero
-        line1="GLOBAL MARKETPLACE"
-        image="/hero.jpg"
+        eyebrow="Marketplace"
+        title="Aircraft, Sourced &"
+        accent="Vetted"
+        subtitle="Browse a curated selection of business jets — each represented, inspected and ready for its next owner."
       />
       <MarketplaceExplorer />
-      <GlobalCTA
-        heading="Looking for something specific?"
-        body="Tell us your mission and budget — our acquisition team will source the right aircraft, on or off market."
-      />
+      <GlobalCTA />
     </>
   );
 }

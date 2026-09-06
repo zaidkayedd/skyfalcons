@@ -81,7 +81,7 @@ export function StrategicAllianceMap() {
         aria-label="Strategic alliance world map"
       >
         {/* dotted continents — a single path node (3k+ dots) for performance */}
-        <path fill="currentColor" className="text-mist" d={DOTS_PATH} />
+        <path fill="currentColor" className="text-slate/30" d={DOTS_PATH} />
 
         {/* arcs from hub — draw out (start→end) then retract (end→start), looping */}
         <g fill="none" strokeLinecap="round" className="text-gold">

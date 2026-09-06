@@ -3,17 +3,17 @@ import { Reveal } from "@/components/Reveal";
 import { Radar, Store, Network, Quote, type LucideIcon } from "lucide-react";
 import { whoWeAre } from "@/data/home";
 
-/**
- * WHO WE ARE — editorial layout: centered intro, a Founded-2019 / lead split,
- * a large pull-quote, and three differentiator pillars (AvHub · Marketplace ·
- * Partner Network) with a closing outcome line.
- */
 const ICONS: Record<string, LucideIcon> = {
   radar: Radar,
   store: Store,
   network: Network
 };
 
+/**
+ * WHO WE ARE — editorial layout: centered intro, a Founded-2019 / lead split,
+ * a large pull-quote, and three differentiator pillars (AvHub · Marketplace ·
+ * Partner Network) with a closing outcome line.
+ */
 export function WhoWeAre() {
   return (
     <section className="py-20 sm:py-28">
@@ -57,19 +57,19 @@ export function WhoWeAre() {
         </Reveal>
 
         {/* Pillars */}
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:grid-cols-3 md:gap-0">
           {whoWeAre.pillars.map((p, i) => {
             const Icon = ICONS[p.icon] ?? Radar;
             return (
               <Reveal
                 key={p.title}
                 delay={i * 100}
-                className="group rounded-[20px] border border-mist bg-white p-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-gold/50"
+                className={`group p-7 md:px-8 ${i < whoWeAre.pillars.length - 1 ? "md:border-r md:border-r-gold/35" : ""}`}
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/12 text-gold">
-                  <Icon className="h-6 w-6" strokeWidth={1.8} />
-                </span>
-                <h3 className="display mt-5 text-xl text-ink">{p.title}</h3>
+                <div className="flex items-center gap-3">
+                  <Icon className="h-7 w-7 shrink-0 text-gold" strokeWidth={1.8} aria-hidden />
+                  <h3 className="display text-xl text-ink">{p.title}</h3>
+                </div>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-slate">
                   {p.desc}
                 </p>

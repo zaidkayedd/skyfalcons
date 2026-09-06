@@ -102,7 +102,7 @@ export function TurnKeySolution() {
         >
           {/* subtle radial disc */}
           <div className="absolute inset-[2%] rounded-full bg-[radial-gradient(circle_at_center,rgba(190,152,90,0.10),rgba(190,152,90,0)_66%)]" />
-          <div className="absolute inset-[12%] rounded-full border border-mist/40" />
+          <div className="absolute inset-[12%] rounded-full border border-mist/40 shadow-[0_10px_30px_-18px_rgba(26,26,26,0.18)]" />
 
           {/* central aircraft — fixed & anchored (outside the rotating ring) */}
           <div className="absolute inset-0 flex items-center justify-center">

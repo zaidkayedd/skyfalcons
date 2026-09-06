@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Globe, CalendarDays, ArrowRight } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
+import { DatePicker } from "@/components/DatePicker";
 import { tripTypes, charterCategories, charterQuote } from "@/data/charter";
 
 /**
@@ -15,6 +16,8 @@ export function CharterQuote() {
   const [passengers, setPassengers] = useState("");
   const [category, setCategory] = useState<string>(charterCategories[0]);
   const [showMore, setShowMore] = useState(false);
+  const [departDate, setDepartDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
 
   return (
     <div className="rounded-card border border-mist/70 bg-white p-7 shadow-card sm:p-9">
@@ -65,11 +68,11 @@ export function CharterQuote() {
               <input placeholder="e.g., KBOS, Boston" className={inputCls} />
             </Field>
             <Field label="Departure Date">
-              <input type="date" className={inputCls} />
+              <DatePicker value={departDate} onChange={setDepartDate} placeholder="Select date" />
             </Field>
             {tripType === "Round Trip" && (
               <Field label="Return Date">
-                <input type="date" className={inputCls} />
+                <DatePicker value={returnDate} onChange={setReturnDate} placeholder="Select date" />
               </Field>
             )}
             <Field label="Full Name">

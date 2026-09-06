@@ -14,8 +14,10 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        line1="CONTACT US"
-        image="/hero.jpg"
+        eyebrow="Contact"
+        title="Let's Talk"
+        accent="Aviation"
+        subtitle="Speak with a Sky Falcons broker about acquisition, sale or your next charter — we respond within 24 hours."
       />
       <ContactSection />
       <GlobalNetwork />

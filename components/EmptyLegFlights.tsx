@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { DatePicker } from "@/components/DatePicker";
 import {
   Search as SearchIcon,
   Plane,
@@ -94,7 +95,7 @@ export function EmptyLegFlights({ hideHeading = false }: { hideHeading?: boolean
             <input value={to} onChange={(e) => setTo(e.target.value)} placeholder="e.g., KBOS, Boston" className={inputCls} />
           </Field>
           <Field label="Departure Date" required>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputCls} />
+            <DatePicker value={date} onChange={setDate} placeholder="Select date" />
           </Field>
           <div className="flex items-end">
             <button

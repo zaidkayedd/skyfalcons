@@ -6,13 +6,18 @@
  */
 
 export const homeHero = {
-  eyebrow: "Aviation Brokerage, Perfected", // [CONFIRMED]
-  heading: "The world, on your schedule.",
+  // Hero headline (three lines; "Vision" is gold)
+  line1: "Where",
+  line2Gold: "Vision",
+  line2Rest: "Extends",
+  line3: "Beyond Limits",
   body:
-    "Sales & acquisition, global charter, and strategic consultation for discerning clients worldwide.", // [CONFIRMED pillars]
-  primary: { label: "Explore the Marketplace", href: "/marketplace" },
-  secondary: { label: "Request a Charter", href: "/charter" },
-  // Drop a real brand video at /public/hero.mp4 (poster at /public/hero-poster.jpg).
+    "More than a marketplace — SkyFalcons delivers complete aviation solutions. Intelligence-driven marketing attracts qualified prospects, a global network creates opportunities, and a hands-on approach ensures every detail is managed from inquiry to seamless aircraft integration.",
+  links: [
+    { label: "Sales & Acquisition", href: "/marketplace" },
+    { label: "Marketplace", href: "/marketplace" },
+    { label: "Charter Services", href: "/charter" }
+  ],
   videoSrc: "/hero-video.mp4",
   poster: "/hero-poster.jpg"
 };

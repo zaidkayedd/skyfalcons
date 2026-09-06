@@ -38,7 +38,7 @@ export function Footer() {
   return (
     <footer className="bg-[#1f1f1f] text-white/70">
       <Container className="py-16">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1.2fr]">
+        <div className="grid gap-12 md:grid-cols-2 lg:gap-2 lg:grid-cols-[1.7fr_1fr_1fr_1.2fr] lg:[&>div:nth-child(n+2)]:translate-x-32">
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center">

@@ -5,7 +5,6 @@ import { WhoWeAre } from "@/sections/home/WhoWeAre";
 import { TurnKeySolution } from "@/sections/home/TurnKeySolution";
 import { HistoricalTransactions } from "@/sections/home/HistoricalTransactions";
 import { NetworkHighlight } from "@/sections/home/NetworkHighlight";
-import { cta } from "@/data/site";
 
 export default function HomePage() {
   return (
@@ -23,7 +22,7 @@ export default function HomePage() {
         <TurnKeySolution />
         <HistoricalTransactions />
         <NetworkHighlight />
-        <GlobalCTA heading={cta.eyebrow} />
+        <GlobalCTA />
       </main>
     </>
   );

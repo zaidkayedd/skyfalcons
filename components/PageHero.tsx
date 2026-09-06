@@ -1,39 +1,53 @@
-import { splitDisplayText } from "@/lib/utils";
+import { Container } from "@/components/Container";
 
 /**
- * PAGE HERO — the centered "GLOBAL … / BEYOND LIMITS" hero used on the
- * Charter, Marketplace and Contact pages. The image is shown clean (no
- * overlays, filters or fades); text keeps a soft shadow only for legibility.
+ * PAGE HERO — a clean, image-free hero for the Marketplace, Charter and Contact
+ * pages. One shared component/design; only the copy differs per page. Light,
+ * editorial layout with an eyebrow, a two-tone Blacker headline, a subtitle and
+ * a faint falcon watermark for depth (no photography).
  */
 export function PageHero({
-  line1,
-  line2 = "BEYOND LIMITS",
-  image
+  eyebrow,
+  title,
+  accent,
+  subtitle
 }: {
-  line1: string;
-  line2?: string;
-  image: string;
+  eyebrow: string;
+  title: string;
+  accent?: string;
+  subtitle?: string;
 }) {
   return (
-    <section className="relative isolate flex min-h-[46vh] items-center justify-center overflow-hidden sm:min-h-[52vh]">
-      <div className="absolute inset-0 -z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image}
-          alt=""
-          className="h-full w-full scale-105 object-cover animate-ken-burns"
-        />
-        {/* Black fade from bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+    <section className="relative overflow-hidden border-b border-mist bg-porcelain pt-36 pb-16 sm:pt-44 sm:pb-20">
+      {/* faint falcon watermark */}
+      <div className="pointer-events-none absolute right-[-3%] top-1/2 hidden w-[44%] max-w-[560px] -translate-y-1/2 opacity-[0.05] md:block">
+        <img src="/logos/goldIcon.png" alt="" className="h-auto w-full" />
       </div>
-      <div className="px-6 pt-24 text-center animate-fade-up">
-        <h1 className="display text-4xl leading-none text-gold drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:text-6xl lg:text-7xl">
-          {splitDisplayText(line1)}
-        </h1>
-        <p className="display mt-2 text-3xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-6xl">
-          {splitDisplayText(line2)}
-        </p>
-      </div>
+      {/* soft gold wash */}
+      <div className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(circle_at_88%_35%,rgba(190,152,90,0.10),transparent_55%)]" />
+
+      <Container className="relative">
+        <div className="max-w-3xl animate-fade-up">
+          <span className="font-sans text-xs font-semibold uppercase tracking-[0.28em] text-gold">
+            {eyebrow}
+          </span>
+          <h1 className="display mt-5 text-4xl leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
+            {title}
+            {accent && (
+              <>
+                {" "}
+                <span className="text-gold">{accent}</span>
+              </>
+            )}
+          </h1>
+          {subtitle && (
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate sm:text-lg">
+              {subtitle}
+            </p>
+          )}
+          <div className="mt-8 h-px w-16 bg-gold/60" />
+        </div>
+      </Container>
     </section>
   );
 }
