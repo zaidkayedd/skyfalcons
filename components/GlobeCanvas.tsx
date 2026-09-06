@@ -19,6 +19,7 @@ const RAW_DOTS = map.dots as [number, number][];
 const CITIES = map.cities as { name: string; x: number; y: number; hub?: boolean }[];
 
 const GOLD = "190,152,90";
+const SLATE = "125,125,125";
 
 function toVec(x: number, y: number): Vec3 {
   const lon = ((x / VBW) * 360 - 180) * (Math.PI / 180);
@@ -161,7 +162,7 @@ export function GlobeCanvas({ className = "" }: { className?: string }) {
         const py = cy - v[1] * R;
         ctx.beginPath();
         ctx.arc(px, py, 0.7 * v[2] + 0.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(120,120,120,${0.05 + v[2] * 0.13})`;
+        ctx.fillStyle = `rgba(${SLATE},${0.08 + v[2] * 0.22})`;
         ctx.fill();
       }
 
@@ -174,7 +175,7 @@ export function GlobeCanvas({ className = "" }: { className?: string }) {
         const facing = v[2];
         ctx.beginPath();
         ctx.arc(px, py, 0.5 + 1.3 * facing, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(50,50,50,${0.18 + facing * 0.62})`;
+        ctx.fillStyle = `rgba(${SLATE},${facing * 0.3})`;
         ctx.fill();
       }
 
@@ -267,7 +268,7 @@ export function GlobeCanvas({ className = "" }: { className?: string }) {
         ctx.fill();
         ctx.beginPath();
         ctx.arc(px, py, 2.1, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(233,206,156,${0.5 + facing * 0.5})`;
+        ctx.fillStyle = `rgba(${GOLD},${0.55 + facing * 0.45})`;
         ctx.fill();
       }
     };

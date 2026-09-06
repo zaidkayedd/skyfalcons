@@ -129,3 +129,24 @@ input, select, textarea, button, optgroup { font-family: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee-reverse { animation: none; }
 }
+
+/* Page hero — subtle "live" motion (floating gold particles + drifting mark) */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+@keyframes hero-float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(12px); }
+}
+@keyframes hero-drift {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(-14px); }
+}
+@keyframes hero-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.35); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim { animation: none !important; }
+}

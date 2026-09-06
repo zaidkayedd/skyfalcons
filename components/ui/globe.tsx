@@ -1,11 +1,11 @@
 "use client";
 
 import createGlobe, { COBEOptions } from "cobe";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-// SkyFalcons brand colours: warm light globe + gold markers.
+// SkyFalcons brand colours: light globe + gold markers.
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
@@ -17,7 +17,7 @@ const GLOBE_CONFIG: COBEOptions = {
   diffuse: 0.4,
   mapSamples: 16000,
   mapBrightness: 1.2,
-  baseColor: [1, 1, 1], // white sphere / grey continents (as in the reference)
+  baseColor: [1, 1, 1],
   markerColor: [190 / 255, 152 / 255, 90 / 255], // brand gold
   glowColor: [1, 1, 1],
   markers: [
@@ -41,83 +41,108 @@ export function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointerInteracting = useRef<number | null>(null);
-  const pointerInteractionMovement = useRef(0);
-
-  // refs so onRender always reads live values (no stale closures / resets)
-  const phiRef = useRef(0);
-  const widthRef = useRef(0);
-  const rRef = useRef(0);
-  const [r, setR] = useState(0);
-  rRef.current = r;
-
-  const updatePointerInteraction = (value: number | null) => {
-    pointerInteracting.current = value;
-    if (canvasRef.current) {
-      canvasRef.current.style.cursor = value !== null ? "grabbing" : "grab";
-    }
-  };
-
-  const updateMovement = (clientX: number) => {
-    if (pointerInteracting.current !== null) {
-      const delta = clientX - pointerInteracting.current;
-      pointerInteractionMovement.current = delta;
-      setR(delta / 200);
-    }
-  };
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Create a FRESH <canvas> for every mount. React StrictMode (dev) mounts →
+    // cleans up (cobe loses the WebGL context) → re-mounts on the same node;
+    // reusing that poisoned canvas is what makes getContext() return null.
+    const canvas = document.createElement("canvas");
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.opacity = "0";
+    canvas.style.transition = "opacity 0.5s";
+    canvas.style.cursor = "grab";
+    (canvas.style as unknown as { contain: string }).contain = "layout paint size";
+    container.appendChild(canvas);
+
+    let phi = 0;
+    let r = 0;
+    let width = 0;
+    let pointerInteracting: number | null = null;
+    let pointerMovement = 0;
+
     const onResize = () => {
-      if (canvasRef.current) widthRef.current = canvasRef.current.offsetWidth;
+      width = canvas.offsetWidth;
     };
     window.addEventListener("resize", onResize);
     onResize();
 
-    const globe = createGlobe(canvasRef.current!, {
-      ...config,
-      width: widthRef.current * 2,
-      height: widthRef.current * 2,
-      onRender: (state) => {
-        if (!pointerInteracting.current) phiRef.current += 0.005;
-        state.phi = phiRef.current + rRef.current;
-        state.width = widthRef.current * 2;
-        state.height = widthRef.current * 2;
+    const onDown = (e: PointerEvent) => {
+      pointerInteracting = e.clientX - pointerMovement;
+      canvas.style.cursor = "grabbing";
+    };
+    const onUp = () => {
+      pointerInteracting = null;
+      canvas.style.cursor = "grab";
+    };
+    const onMove = (e: PointerEvent) => {
+      if (pointerInteracting !== null) {
+        const delta = e.clientX - pointerInteracting;
+        pointerMovement = delta;
+        r = delta / 200;
       }
-    });
+    };
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches[0] && pointerInteracting !== null) {
+        const delta = e.touches[0].clientX - pointerInteracting;
+        pointerMovement = delta;
+        r = delta / 200;
+      }
+    };
+    canvas.addEventListener("pointerdown", onDown);
+    canvas.addEventListener("pointerup", onUp);
+    canvas.addEventListener("pointerout", onUp);
+    canvas.addEventListener("mousemove", onMove as EventListener);
+    canvas.addEventListener("touchmove", onTouch as EventListener);
 
-    const t = setTimeout(() => {
-      if (canvasRef.current) canvasRef.current.style.opacity = "1";
-    }, 0);
+    let globe: ReturnType<typeof createGlobe> | null = null;
+    const size = (width || 500) * 2; // never 0
+
+    try {
+      globe = createGlobe(canvas, {
+        ...config,
+        width: size,
+        height: size,
+        onRender: (state) => {
+          if (!pointerInteracting) phi += 0.005;
+          state.phi = phi + r;
+          state.width = (width || 500) * 2;
+          state.height = (width || 500) * 2;
+        }
+      });
+      requestAnimationFrame(() => {
+        canvas.style.opacity = "1";
+      });
+    } catch (err) {
+      // WebGL unavailable — fail gracefully (blank) instead of throwing.
+      // eslint-disable-next-line no-console
+      console.error("Globe: WebGL init failed", err);
+    }
 
     return () => {
-      clearTimeout(t);
       window.removeEventListener("resize", onResize);
-      globe.destroy();
+      canvas.removeEventListener("pointerdown", onDown);
+      canvas.removeEventListener("pointerup", onUp);
+      canvas.removeEventListener("pointerout", onUp);
+      canvas.removeEventListener("mousemove", onMove as EventListener);
+      canvas.removeEventListener("touchmove", onTouch as EventListener);
+      if (globe) globe.destroy();
+      canvas.remove(); // discard the (now context-lost) canvas
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div
+      ref={containerRef}
       className={cn(
         "absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]",
         className
       )}
-    >
-      <canvas
-        className={cn(
-          "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
-        )}
-        ref={canvasRef}
-        onPointerDown={(e) =>
-          updatePointerInteraction(e.clientX - pointerInteractionMovement.current)
-        }
-        onPointerUp={() => updatePointerInteraction(null)}
-        onPointerOut={() => updatePointerInteraction(null)}
-        onMouseMove={(e) => updateMovement(e.clientX)}
-        onTouchMove={(e) => e.touches[0] && updateMovement(e.touches[0].clientX)}
-      />
-    </div>
+    />
   );
 }
