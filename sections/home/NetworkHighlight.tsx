@@ -75,45 +75,41 @@ export function NetworkHighlight() {
         
           </div>
 
-          {/* First Row: Standard Preview Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
-            {rowOnePartners.map((p, i) => (
-              <div key={`${p.id}-${i}`} className="flex items-center justify-center p-6 rounded-xl border border-mist/60 bg-white/50 h-28 shadow-sm">
-                {p.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={p.logo}
-                    alt={p.name}
-                    loading="lazy"
-                    className="max-h-16 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
-                  />
-                ) : (
-                  <span className="font-display text-base text-slate text-center">{p.name}</span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Second Row: Extra line of logos with a more faded appearance */}
-          {rowTwoPartners.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center mt-6">
-              {rowTwoPartners.map((p, i) => (
-                <div key={`${p.id}-faded-${i}`} className="flex items-center justify-center p-6 rounded-xl border border-mist/40 bg-white/30 h-28 opacity-60 transition-all duration-300 hover:opacity-90">
+          <div className="overflow-hidden rounded-[2rem] border bg-gradient-to-b from-white/80 via-white/40 to-white/20 p-6 shadow-[0_20px_50px_rgba(212,175,55,0.06),inset_0_1px_2px_rgba(255,255,255,1),inset_0_0_20px_rgba(255,255,255,0.5)] backdrop-blur-2xl sm:p-8">
+            <div className="grid grid-cols-2 items-center gap-x-3 gap-y-1 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-2 lg:grid-cols-6 lg:gap-x-4 lg:gap-y-3">
+              {rowOnePartners.map((p, i) => (
+                <div key={`${p.id}-${i}`} className="flex h-16 items-center justify-center sm:h-20">
                   {p.logo ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={p.logo}
                       alt={p.name}
                       loading="lazy"
-                      className="max-h-14 w-auto object-contain opacity-40 grayscale hover:opacity-80"
+                      className="h-10 max-w-full object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-12"
                     />
                   ) : (
-                    <span className="font-display text-sm text-slate/70 text-center">{p.name}</span>
+                    <span className="text-center font-display text-base text-slate">{p.name}</span>
+                  )}
+                </div>
+              ))}
+
+              {rowTwoPartners.map((p, i) => (
+                <div key={`${p.id}-faded-${i}`} className="flex h-16 items-center justify-center opacity-60 transition-opacity duration-300 hover:opacity-90 sm:h-20">
+                  {p.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.logo}
+                      alt={p.name}
+                      loading="lazy"
+                      className="h-10 max-w-full object-contain opacity-40 grayscale transition-opacity duration-300 hover:opacity-80 sm:h-12"
+                    />
+                  ) : (
+                    <span className="text-center font-display text-sm text-slate/70">{p.name}</span>
                   )}
                 </div>
               ))}
             </div>
-          )}
+          </div>
         </div>
 
         {/* Global CTA button */}

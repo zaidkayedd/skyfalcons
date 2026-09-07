@@ -63,7 +63,7 @@ export function HomeHero() {
       </Container>
 
       {/* Service line */}
-      <div className="absolute bottom-9 left-1/2 -translate-x-1/2 px-4">
+      <div className="hidden lg:flex absolute bottom-9 left-1/2 -translate-x-1/2 px-4">
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-sm font-semibold text-white sm:text-base">
           {homeHero.links.map((l, i) => (
             <span key={l.label} className="flex items-center gap-4">

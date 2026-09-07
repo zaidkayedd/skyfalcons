@@ -150,3 +150,45 @@ input, select, textarea, button, optgroup { font-family: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .hero-anim { animation: none !important; }
 }
+
+/* Page hero — animated flight path */
+@keyframes route-move {
+  from { stroke-dashoffset: 340; }
+  to { stroke-dashoffset: 0; }
+}
+.route-anim { animation: route-move 3.2s linear infinite; }
+@keyframes route-plane {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .route-anim { animation: none; }
+}
+
+/* Page hero — floating private-jet motion */
+@keyframes jet-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(0.6deg); }
+}
+@keyframes jet-spin-ring { to { transform: rotate(360deg); } }
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: 0.55; }
+  70%, 100% { transform: scale(2.4); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jet-anim, .ring-anim { animation: none !important; }
+}
+
+/* Page hero — flying jet motion */
+@keyframes jet-fly {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-18px) rotate(-2deg); }
+}
+@keyframes streak {
+  0% { transform: translateX(0); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translateX(-70px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jet-fly, .streak { animation: none !important; }
+}

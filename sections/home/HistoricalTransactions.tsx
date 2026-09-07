@@ -22,7 +22,7 @@ export function HistoricalTransactions() {
           align="center"
         />
         <div className="mt-12 rounded-[26px] border border-mist bg-white/70 p-6 shadow-[0_12px_36px_rgba(0,0,0,0.05)] sm:p-10">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 grid-cols-2 lg:grid-cols-3">
             {aircraft.slice(0, 3).map((item, index) => (
               <Reveal key={item.id} delay={index * 120} className="h-full">
                 <AircraftCard item={item} />
