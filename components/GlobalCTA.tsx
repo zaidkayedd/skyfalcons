@@ -27,6 +27,7 @@ export function GlobalCTA({
             border-ink/10
             bg-[#F8F8F6]
             shadow-[0_12px_36px_rgba(0,0,0,0.07)]
+            py-[2rem]
           "
         >
           {/* ============================
@@ -85,8 +86,8 @@ export function GlobalCTA({
                   text-[24px]
                   leading-[1.2]
                   text-ink
-                  sm:text-[28px]
-                  lg:text-[27px]
+                  sm:text-[32px]
+                  lg:text-[33px]
                 "
               >
                 {splitDisplayText(heading)}{" "}

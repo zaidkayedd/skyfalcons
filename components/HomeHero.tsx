@@ -33,7 +33,7 @@ export function HomeHero() {
     <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-night">
       <video
         ref={videoRef}
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        className="absolute inset-0 -z-20 h-full w-full object-cover brightness-[1.18] contrast-[1.02]"
         autoPlay
         muted
         loop
@@ -43,8 +43,10 @@ export function HomeHero() {
         <source src={homeHero.videoSrc} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night via-night/50 to-night/40" />
-      <div className="absolute inset-0 -z-10 bg-ink/20 mix-blend-multiply" />
+      {/* lighter overlays — keep just enough contrast for the copy */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night/65 via-night/15 to-night/15" />
+      {/* subtle white wash */}
+      <div className="absolute inset-0 -z-10 bg-white/10" />
 
       <Container className="pt-24">
         <div className="max-w-4xl animate-fade-up">

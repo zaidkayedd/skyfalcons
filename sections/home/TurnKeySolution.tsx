@@ -82,7 +82,7 @@ export function TurnKeySolution() {
 
   return (
     <section
-      className="overflow-hidden border-y border-mist bg-white py-20 sm:py-28"
+      className="overflow-hidden border-y border-mist bg-white py-24 sm:py-28"
       onClick={() => setActive(null)}
     >
       <Container>
@@ -98,7 +98,7 @@ export function TurnKeySolution() {
 
         <div
           ref={boxRef}
-          className="relative mx-auto mt-16 aspect-square w-full max-w-[670px] translate-x-3 sm:translate-x-0"
+          className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[670px] translate-x-3 sm:translate-x-0 lg:block"
         >
           {/* subtle radial disc */}
           <div className="absolute inset-[2%] rounded-full bg-[radial-gradient(circle_at_center,rgba(190,152,90,0.10),rgba(190,152,90,0)_66%)]" />
@@ -234,43 +234,85 @@ export function TurnKeySolution() {
             })}
           </div>
 
-          {/* expanded detail modal */}
-          {isModal && (
-            <div className="absolute inset-0 z-50 flex items-center justify-center">
+          {/* (modal moved to section level below so it works on all layouts) */}
+        </div>
+
+        {/* ===== Mobile layout — pill list + jet ===== */}
+        <div className="relative mt-24 lg:hidden">
+          {/* jet on the right, cropped by the edge */}
+          <div className="pointer-events-none absolute -right-[16.25rem] top-[55%] h-[680px] w-[480px] max-w-none -translate-y-1/2">
+            <Image
+              src={turnKey.aircraft}
+              alt="Business jet, top-down view"
+              fill
+              sizes="440px"
+              className="object-contain object-right drop-shadow-[0_24px_44px_rgba(6,15,28,0.16)]"
+            />
+          </div>
+          {/* pill list */}
+          <div className="relative z-10 flex w-[68%] flex-col gap-3">
+            {services.map((s, i) => {
+              const Icon = ICONS[s.icon] ?? ShoppingCart;
+              return (
+                <button
+                  key={s.label}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setModal(i);
+                  }}
+                  className="flex items-center gap-3 rounded-pill border border-mist bg-white px-5 py-3 text-left shadow-card transition hover:border-gold/60"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-gold" strokeWidth={2} />
+                  <span className="font-sans text-sm font-medium text-graphite">
+                    {s.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* expanded detail modal (shared by both layouts) */}
+        {modal !== null && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={() => setModal(null)}
+              className="absolute inset-0 cursor-default bg-night/40 backdrop-blur-md"
+            />
+            <div
+              className="relative z-10 w-full max-w-md rounded-card border border-mist/70 bg-white p-9 text-center shadow-modal"
+              style={{ animation: `tk-modal-in 300ms ${EASE} both` }}
+            >
               <button
                 type="button"
-                aria-label="Close"
                 onClick={() => setModal(null)}
-                className="absolute inset-0 cursor-default bg-white/40 backdrop-blur-md"
-              />
-              <div
-                className="relative z-10 w-[86%] max-w-md rounded-card border border-mist/70 bg-white p-9 text-center shadow-modal"
-                style={{ animation: `tk-modal-in 300ms ${EASE} both` }}
+                aria-label="Close"
+                className="absolute right-4 top-4 text-slate transition hover:text-ink"
               >
-                <button
-                  type="button"
-                  onClick={() => setModal(null)}
-                  aria-label="Close"
-                  className="absolute right-4 top-4 text-slate transition hover:text-ink"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/12 text-gold">
-                  {(() => {
-                    const Icon = ICONS[services[modal].icon] ?? ShoppingCart;
-                    return <Icon className="h-6 w-6" strokeWidth={2} />;
-                  })()}
-                </span>
-                <h3 className="display mt-5 text-3xl text-ink">
-                  {services[modal].label}
-                </h3>
-                <p className="mx-auto mt-4 max-w-sm font-sans text-sm leading-relaxed text-slate">
-                  {services[modal].description}
-                </p>
-              </div>
+                <X className="h-4 w-4" />
+              </button>
+         
+              <h3 className="display mt-5 text-3xl text-ink">
+                {services[modal].label}
+              </h3>
+              <p className="mx-auto mt-4 max-w-sm font-sans text-sm leading-relaxed text-slate">
+                {services[modal].description}
+              </p>
+               <div className="mx-auto my-5 h-px w-full bg-mist" />
+          <Link
+                href="/contact"
+                className="flex w-full items-center justify-between gap-2 rounded-card bg-gold px-5 py-3 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
+              >
+                {CTA[services[modal].icon] ?? "Learn More"}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-          )}
-        </div>
+          </div>
+          
+        )}
       </Container>
 
       <style jsx>{`
