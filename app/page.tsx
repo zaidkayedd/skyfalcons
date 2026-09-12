@@ -12,16 +12,16 @@ export default function HomePage() {
       <HomeHero />
       <main className="relative isolate overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* <img
           src="/logos/goldIcon.png"
           alt=""
           aria-hidden="true"
           className="pointer-events-none absolute -right-32 top-[13%] z-10 w-[min(72vw,56rem)] -translate-y-1/2 opacity-[0.1]"
-        />
+        /> */}
         <WhoWeAre />
         <TurnKeySolution />
         <HistoricalTransactions />
-        <NetworkHighlight />
+        {/* <NetworkHighlight /> */}
         <GlobalCTA />
       </main>
     </>

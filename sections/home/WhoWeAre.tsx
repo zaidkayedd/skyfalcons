@@ -63,7 +63,7 @@ export function WhoWeAre() {
 
             return (
               <Reveal
-                key={p.title}
+                key={p.desc}
                 delay={i * 100}
                 className={`group p-7 md:px-8 ${i < whoWeAre.pillars.length - 1 ? "md:border-r md:border-r-gold/35" : ""}`}
               >
@@ -71,15 +71,16 @@ export function WhoWeAre() {
                   {isImage ? (
                     <img
                       src={p.icon}
-                      alt=""
-                      className="h-7 w-7 shrink-0 object-contain"
-                      aria-hidden="true"
+                      alt={p.title || "AvHub"}
+                      className="h-9 w-auto max-w-[110px] shrink-0 object-contain object-left"
                     />
                   ) : (() => {
                       const Icon = ICONS[p.icon] ?? Radar;
                       return <Icon className="h-7 w-7 shrink-0 text-gold" strokeWidth={1.8} aria-hidden />;
                     })()}
-                  <h3 className="display text-xl text-ink">{p.title}</h3>
+                  {p.title && (
+                    <h3 className="display text-xl text-ink">{p.title}</h3>
+                  )}
                 </div>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-slate">
                   {p.desc}

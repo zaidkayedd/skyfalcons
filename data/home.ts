@@ -35,8 +35,8 @@ export const whoWeAre = {
     "We are not just brokers — we are pilots, aerospace engineers, and strategists who understand aircraft from both a technical and investment perspective.",
   pillars: [
     {
-      icon: "/AvHubIcon.png",
-      title: "AvHub",
+      icon: "/avhub_Logo_DB.png",
+      title: "",
       desc: "Our exclusive business-aviation intelligence system."
     },
     {

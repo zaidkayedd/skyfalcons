@@ -50,7 +50,7 @@ export function HomeHero() {
 
       <Container className="pt-24">
         <div className="max-w-4xl animate-fade-up">
-          <h1 className="display leading-[0.92] tracking-tight text-white text-6xl sm:text-7xl lg:text-8xl">
+          <h1 className="display tracking-tight text-white leading-[1.03] text-[clamp(2rem,8vw,4.5rem)] lg:text-[6rem] lg:leading-[0.92]">
             <span className="block">{homeHero.line1}</span>
             <span className="block">
               <span className="text-gold">{homeHero.line2Gold}</span>{" "}
@@ -58,7 +58,7 @@ export function HomeHero() {
             </span>
             <span className="block">{homeHero.line3}</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:mt-8 sm:text-lg lg:text-xl">
             {homeHero.body}
           </p>
         </div>
