@@ -98,7 +98,7 @@ export function TurnKeySolution() {
 
         <div
           ref={boxRef}
-          className="relative mx-auto mt-16 aspect-square w-full max-w-[670px]"
+          className="relative mx-auto mt-16 aspect-square w-full max-w-[670px] translate-x-3 sm:translate-x-0"
         >
           {/* subtle radial disc */}
           <div className="absolute inset-[2%] rounded-full bg-[radial-gradient(circle_at_center,rgba(190,152,90,0.10),rgba(190,152,90,0)_66%)]" />
