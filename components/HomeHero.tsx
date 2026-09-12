@@ -63,16 +63,9 @@ export function HomeHero() {
       </Container>
 
       {/* Service line */}
-      <div className="hidden lg:flex absolute bottom-9 left-1/2 -translate-x-1/2 px-4">
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-sm font-semibold text-white sm:text-base">
-          {homeHero.links.map((l, i) => (
-            <span key={l.label} className="flex items-center gap-4">
-              {i > 0 && <span className="text-gold/70">|</span>}
-              <Link href={l.href} className="transition-colors hover:text-gold">
-                {l.label}
-              </Link>
-            </span>
-          ))}
+   <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="h-10 w-6 rounded-pill border border-white/40 p-1">
+          <div className="mx-auto h-2 w-1 animate-bounce rounded-pill bg-white/70" />
         </div>
       </div>
     </section>

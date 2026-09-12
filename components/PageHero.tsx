@@ -23,7 +23,7 @@ export function PageHero({
       {/* very faint brand emblem */}
       <div className="pointer-events-none absolute left-[65%] top-1/2 w-[520px] max-w-[80%] -translate-x-1/2 -translate-y-1/2 opacity-[0.1]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logos/goldIcon.png" alt="" className="h-auto w-full" />
+        {/* <img src="/logos/goldIcon.png" alt="" className="h-auto w-full" /> */}
       </div>
       {/* whisper of warmth */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(190,152,90,0.05),transparent_60%)]" />

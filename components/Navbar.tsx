@@ -72,12 +72,12 @@ export function Navbar() {
           className="flex items-center"
         >
           <Image
-            src="/logos/logoNav.png"
+            src="/logos/goldIcon.png"
             alt="Sky Falcons"
             width={108}
             height={29}
             priority
-            className="h-8 w-auto translate-y-1"
+            className="h-12 w-auto translate-y-0"
           />
         </Link>
 
