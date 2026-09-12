@@ -59,7 +59,8 @@ export function WhoWeAre() {
         {/* Pillars */}
         <div className="mt-16 grid gap-6 md:grid-cols-3 md:gap-0">
           {whoWeAre.pillars.map((p, i) => {
-            const Icon = ICONS[p.icon] ?? Radar;
+            const isImage = p.icon.startsWith("/");
+
             return (
               <Reveal
                 key={p.title}
@@ -67,7 +68,17 @@ export function WhoWeAre() {
                 className={`group p-7 md:px-8 ${i < whoWeAre.pillars.length - 1 ? "md:border-r md:border-r-gold/35" : ""}`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="h-7 w-7 shrink-0 text-gold" strokeWidth={1.8} aria-hidden />
+                  {isImage ? (
+                    <img
+                      src={p.icon}
+                      alt=""
+                      className="h-7 w-7 shrink-0 object-contain"
+                      aria-hidden="true"
+                    />
+                  ) : (() => {
+                      const Icon = ICONS[p.icon] ?? Radar;
+                      return <Icon className="h-7 w-7 shrink-0 text-gold" strokeWidth={1.8} aria-hidden />;
+                    })()}
                   <h3 className="display text-xl text-ink">{p.title}</h3>
                 </div>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-slate">
