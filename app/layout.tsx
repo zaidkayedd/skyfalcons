@@ -28,7 +28,12 @@ export const metadata: Metadata = {
   title: `${brand.fullName} — Premium Aircraft Sales & Charter`,
   description: brand.description,
   icons: {
-    icon: "/logos/goldIcon.png"
+    icon: [
+      {
+        url: "/Icon.ico",
+
+      }
+    ]
   },
   keywords: [
     "aircraft sales",

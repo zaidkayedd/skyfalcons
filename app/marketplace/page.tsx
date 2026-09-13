@@ -6,19 +6,22 @@ import { MarketplaceExplorer } from "@/sections/marketplace/MarketplaceExplorer"
 export const metadata: Metadata = {
   title: "Marketplace — SkyFalcons Aviation Brokerage",
   description:
-    "Browse aircraft for sale — sourced, vetted and represented by SkyFalcons."
+    "Browse aircraft for sale — sourced, vetted and represented by SkyFalcons.",
 };
 
 export default function MarketplacePage() {
   return (
     <>
-      <PageHero
+      {/* <PageHero
         eyebrow="Marketplace"
         title="Aircraft, Sourced &"
         accent="Vetted"
         subtitle="Browse a curated selection of business jets — each represented, inspected and ready for its next owner."
-      />
-      <MarketplaceExplorer />
+      /> */}
+      <div className="mt-[5rem]">
+        {" "}
+        <MarketplaceExplorer />
+      </div>
       <GlobalCTA />
     </>
   );
