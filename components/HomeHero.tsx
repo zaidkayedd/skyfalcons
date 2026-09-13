@@ -45,8 +45,8 @@ export function HomeHero() {
 
       {/* lighter overlays — keep just enough contrast for the copy */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night/65 via-night/15 to-night/15" />
-      {/* subtle white wash */}
-      <div className="absolute inset-0 -z-10 bg-white/10" />
+      {/* white layer — washes the video toward white */}
+      <div className="absolute inset-0 -z-10 bg-white/40" />
 
       <Container className="pt-24">
         <div className="max-w-4xl animate-fade-up">
