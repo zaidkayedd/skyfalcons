@@ -22,7 +22,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden border-b border-mist bg-porcelain pt-40 pb-24 text-center sm:pt-48 sm:pb-32">
       {/* very faint brand emblem */}
-      <div className="pointer-events-none absolute left-[50%] top-[65%] w-[920px] max-w-[80%] -translate-x-1/2 -translate-y-1/2 opacity-[0.9]">
+      <div className="pointer-events-none absolute left-[35%] top-[65%] w-[920px] max-w-[80%] -translate-x-1/2 -translate-y-1/2 opacity-[0.7]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {/* <img src="/logos/goldIcon.png" alt="" className="h-auto w-full" /> */}
           <AnimatedNetworkGrid />
