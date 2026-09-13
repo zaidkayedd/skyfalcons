@@ -57,11 +57,7 @@ export function AnimatedNetworkGrid() {
         <path fill="currentColor" className="text-slate/30" d={DOTS_PATH} />
 
         {/* city markers & labels (no connecting lines) */}
-        <g>
-          {cities.map((c) => (
-            <CityMarker key={c.name} city={c} drawn={drawn} />
-          ))}
-        </g>
+ 
       </svg>
     </div>
   );

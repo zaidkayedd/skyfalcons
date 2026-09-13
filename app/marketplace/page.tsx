@@ -12,16 +12,15 @@ export const metadata: Metadata = {
 export default function MarketplacePage() {
   return (
     <>
-      {/* <PageHero
+      <PageHero
         eyebrow="Marketplace"
         title="Aircraft, Sourced &"
         accent="Vetted"
         subtitle="Browse a curated selection of business jets — each represented, inspected and ready for its next owner."
-      /> */}
-      <div className="mt-[5rem]">
-        {" "}
+      />
+
         <MarketplaceExplorer />
-      </div>
+    
       <GlobalCTA />
     </>
   );
