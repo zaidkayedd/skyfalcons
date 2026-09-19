@@ -29,7 +29,7 @@ export function GlobalCTA({
             shadow-[0_12px_36px_rgba(0,0,0,0.07)]
             pb-[1rem]
             s,:pb-[2rem]
-            pt-[13rem]
+            pt-[20rem]
             sm:pt-[2rem]
           "
         >
@@ -41,10 +41,10 @@ export function GlobalCTA({
               pointer-events-none
               absolute
               z-0
-              -right-[140px]
-              -bottom-[-140px]
-              h-[500px]
-              w-[500px]
+              -right-[200px]
+              -bottom-[-120px]
+              h-[600px]
+              w-[600px]
               opacity-40
               sm:opacity-60
               sm:-right-[80px]
