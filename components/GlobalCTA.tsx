@@ -31,6 +31,7 @@ export function GlobalCTA({
             s,:pb-[2rem]
             pt-[20rem]
             sm:pt-[2rem]
+           
           "
         >
           {/* ============================
@@ -41,12 +42,12 @@ export function GlobalCTA({
               pointer-events-none
               absolute
               z-0
-              -right-[200px]
+              -right-[240px]
               -bottom-[-120px]
-              h-[600px]
+              h-[650px]
               w-[600px]
-              opacity-40
-              sm:opacity-60
+              opacity-100
+              sm:opacity-100
               sm:-right-[80px]
               sm:-bottom-[100px]
               sm:h-[500px]
