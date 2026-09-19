@@ -27,7 +27,10 @@ export function GlobalCTA({
             border-ink/10
             bg-[#F8F8F6]
             shadow-[0_12px_36px_rgba(0,0,0,0.07)]
-            py-[2rem]
+            pb-[1rem]
+            s,:pb-[2rem]
+            pt-[13rem]
+            sm:pt-[2rem]
           "
         >
           {/* ============================
@@ -38,10 +41,10 @@ export function GlobalCTA({
               pointer-events-none
               absolute
               z-0
-              -right-[120px]
-              -bottom-[140px]
-              h-[400px]
-              w-[400px]
+              -right-[140px]
+              -bottom-[-140px]
+              h-[500px]
+              w-[500px]
               opacity-40
               sm:opacity-60
               sm:-right-[80px]
@@ -79,15 +82,15 @@ export function GlobalCTA({
               lg:py-12
             "
           >
-            <div className="max-w-[520px]">
+            <div className="max-w-[570px]">
               <h2
                 className="
                   display
-                  text-[24px]
+                  text-[26px]
                   leading-[1.2]
                   text-ink
-                  sm:text-[32px]
-                  lg:text-[33px]
+                  sm:text-[34px]
+                  lg:text-[36px]
                 "
               >
                 {splitDisplayText(heading)}{" "}

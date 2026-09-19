@@ -32,7 +32,7 @@ export function GlobalNetwork() {
           {/* Subtle decorative inner glossy highlight sheen with a warm gold touch */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-90" />
 
-          <div className="grid grid-cols-2 gap-x-3 gap-y-1 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-2 lg:grid-cols-6 lg:gap-x-4 lg:gap-y-3">
+          <div className="grid grid-cols-4 gap-x-3 gap-y-1 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-2 lg:grid-cols-6 lg:gap-x-4 lg:gap-y-3">
             {partners.map((p, i) => {
               const isLastPartner = i === partners.length - 1;
               const totalPartners = partners.length;

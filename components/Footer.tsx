@@ -7,29 +7,22 @@ import {
   Linkedin,
   Instagram,
   Facebook,
-  Twitter
+  Twitter,
 } from "lucide-react";
 import { Container } from "./Container";
 import { brand, contact } from "@/data/site";
 
-const socialIcons: Record<string, typeof Linkedin> = {
-  linkedin: Linkedin,
-  x: Twitter,
-  instagram: Instagram,
-  facebook: Facebook
-};
-
 const services = [
   { label: "Sales & Acquisition", href: "/marketplace" },
   { label: "Charter", href: "/charter" },
-  { label: "Marketplace", href: "/marketplace" }
+  { label: "Marketplace", href: "/marketplace" },
 ];
 
 const company = [
   { label: "Strategic Consultation", href: "/contact" },
   { label: "Global Network", href: "/#network" },
   { label: "Historical Transactions", href: "/#transactions" },
-  { label: "Contact", href: "/contact" }
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Footer() {
@@ -38,7 +31,7 @@ export function Footer() {
   return (
     <footer className="bg-[#1f1f1f] text-white/70">
       <Container className="py-16">
-        <div className="grid gap-12 md:grid-cols-2 lg:gap-2 lg:grid-cols-[1.7fr_1fr_1fr_1.2fr] lg:[&>div:nth-child(n+2)]:translate-x-32">
+        <div className="grid gap-12 md:grid-cols-[7fr_1fr_1fr] lg:gap-2 lg:grid-cols-[7fr_2fr_1fr_1.2fr] lg:[&>div:nth-child(n+2)]:translate-x-32">
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center">
@@ -56,46 +49,75 @@ export function Footer() {
               discerning clients worldwide.
             </p>
             <div className="mt-6 flex items-center gap-3">
-              {contact.socials.map((s) => {
-                const Icon = socialIcons[s.icon] ?? Linkedin;
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    aria-label={s.label}
-                    className="text-white/60 transition-colors hover:text-gold"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
-                );
-              })}
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/skyfalcons/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-white/60 transition-colors hover:text-gold"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+
+              <a
+                href="https://twitter.com/your-twitter-handle"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X"
+                className="text-white/60 transition-colors hover:text-gold"
+              >
+                <svg
+                  className="h-4 w-4 fill-current"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/skyfalcons_ltd?stkn=MWk0NHVidnZscnhybw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-white/60 transition-colors hover:text-gold"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/SkyFalcons.ltd/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-white/60 transition-colors hover:text-gold"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
           {/* Services */}
-          <FooterCol title="Services">
-            {services.map((s) => (
-              <li key={s.label}>
-                <Link href={s.href} className="transition-colors hover:text-gold">
-                  {s.label}
-                </Link>
-              </li>
-            ))}
-          </FooterCol>
-
-          {/* Company */}
-          <FooterCol title="Company">
-            {company.map((s) => (
-              <li key={s.label}>
-                <Link href={s.href} className="transition-colors hover:text-gold">
-                  {s.label}
-                </Link>
-              </li>
-            ))}
-          </FooterCol>
+          <div className="hidden md:block">
+            <FooterCol title="Services">
+              {services.map((s) => (
+                <li key={s.label}>
+                  <Link
+                    href={s.href}
+                    className="transition-colors hover:text-gold"
+                  >
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+            </FooterCol>
+          </div>
 
           {/* Contact */}
-          <div>
+          <div className="hidden md:block">
             <h3 className="font-sans text-sm font-semibold uppercase tracking-wide text-white">
               Contact
             </h3>
@@ -122,12 +144,11 @@ export function Footer() {
                 <MapPin className="h-4 w-4 shrink-0 text-gold" />
                 {contact.address}
               </li>
-           
             </ul>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 font-sans text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 font-sans text-[0.7rem] sm:text-[0.75rem] text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {brand.name}. All rights reserved. Developed by{" "}
             <a
@@ -155,7 +176,7 @@ export function Footer() {
 
 function FooterCol({
   title,
-  children
+  children,
 }: {
   title: string;
   children: React.ReactNode;

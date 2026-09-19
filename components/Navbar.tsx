@@ -63,7 +63,7 @@ export function Navbar() {
         "lg:top-4 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:max-w-6xl lg:w-[calc(100%-3rem)] lg:rounded-full",
         solid
           ? "bg-porcelain/90 backdrop-blur-md border-b lg:border border-mist shadow-lg shadow-black/5"
-          : "bg-night/35 backdrop-blur-md border-b border-white/10 lg:border lg:border-white/15 lg:bg-night/30"
+          : "bg-porcelain/90 backdrop-blur-md border-b border-white/10 lg:border lg:border-white/15 lg:bg-porcelain/80"
       )}
     >
       <nav className="mx-auto flex h-[72px] max-w-content items-center justify-between px-6 sm:px-8">
@@ -91,7 +91,7 @@ export function Navbar() {
                   href={item.href}
                   className={cn(
                     "relative text-sm font-medium transition-colors",
-                    solid ? "text-graphite" : "text-white/90",
+                    solid ? "text-graphite" : "text-graphite",
                     "hover:text-gold",
                     active && "text-gold"
                   )}
@@ -113,7 +113,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           className={cn(
             "flex h-10 w-10 items-center justify-center lg:hidden",
-            solid ? "text-ink" : "text-white"
+            solid ? "text-ink" : "text-ink"
           )}
         >
           <div className="relative h-4 w-6">
