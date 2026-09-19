@@ -1,6 +1,5 @@
 import { Container } from "@/components/Container";
 import { AnimatedNetworkGrid } from "@/components/AnimatedNetworkGrid";
-
 /**
  * PAGE HERO — a restrained, editorial hero for a discerning audience.
  * Centered typography with a refined kicker rule, a large Blacker headline
@@ -12,11 +11,13 @@ export function PageHero({
   eyebrow,
   title,
   accent,
+  accentBlock = false,
   subtitle
 }: {
   eyebrow: string;
   title: string;
   accent?: string;
+  accentBlock?: boolean;
   subtitle?: string;
 }) {
   return (
@@ -25,7 +26,7 @@ export function PageHero({
       <div className="pointer-events-none absolute left-[35%] top-[65%] w-[920px] max-w-[80%] -translate-x-1/2 -translate-y-1/2 opacity-[0.7]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {/* <img src="/logos/goldIcon.png" alt="" className="h-auto w-full" /> */}
-          <AnimatedNetworkGrid />
+        <AnimatedNetworkGrid/>
       </div>
       {/* whisper of warmth */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(190,152,90,0.05),transparent_60%)]" />
@@ -39,12 +40,15 @@ export function PageHero({
 
             <h1 className="display mt-7 text-5xl leading-[1.06] text-ink sm:text-6xl lg:text-7xl">
               {title}
-              {accent && (
-                <>
-                  {" "}
-                  <span className="italic text-gold">{accent}</span>
-                </>
-              )}
+              {accent &&
+                (accentBlock ? (
+                  <span className="block italic text-gold">{accent}</span>
+                ) : (
+                  <>
+                    {" "}
+                    <span className="italic text-gold">{accent}</span>
+                  </>
+                ))}
             </h1>
           </div>
 

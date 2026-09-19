@@ -17,6 +17,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Let's Talk"
         accent="Aviation"
+        accentBlock
         subtitle="Speak with a Sky Falcons broker about acquisition, sale or your next charter — we respond within 24 hours."
       />
       <ContactSection />

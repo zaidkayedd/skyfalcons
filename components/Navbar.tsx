@@ -63,7 +63,7 @@ export function Navbar() {
         "lg:top-4 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:max-w-6xl lg:w-[calc(100%-3rem)] lg:rounded-full",
         solid
           ? "bg-porcelain/90 backdrop-blur-md border-b lg:border border-mist shadow-lg shadow-black/5"
-          : "bg-transparent lg:border lg:border-white/15 lg:bg-white/10 lg:backdrop-blur-md"
+          : "bg-night/35 backdrop-blur-md border-b border-white/10 lg:border lg:border-white/15 lg:bg-night/30"
       )}
     >
       <nav className="mx-auto flex h-[72px] max-w-content items-center justify-between px-6 sm:px-8">
