@@ -38,10 +38,8 @@ const CTA: Record<string, string> = {
 
 const services = turnKey.services;
 
-// Fixed angular slot per service on the ring — degrees CLOCKWISE from top.
-// top / upper-right / lower-right / bottom / lower-left / upper-left.
 const BASE = [0, 60, 120, 180, 240, 300];
-const RADIUS = 0.41; // fraction of container width
+const RADIUS = 0.41;
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const SPIN_MS = 760;
 
@@ -49,7 +47,8 @@ export function TurnKeySolution() {
   const [active, setActive] = useState<number | null>(null);
   const [lastActive, setLastActive] = useState(0);
   const [modal, setModal] = useState<number | null>(null);
-  const [rot, setRot] = useState(0); // ring rotation (deg) — single source of truth
+  const [mobileOpen, setMobileOpen] = useState<number | null>(null);
+  const [rot, setRot] = useState(0);
 
   const boxRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(640);
@@ -69,10 +68,9 @@ export function TurnKeySolution() {
 
   const select = (i: number) => {
     if (active === i) {
-      setActive(null); // deselect — ring stays where it is
+      setActive(null);
       return;
     }
-    // rotate the whole ring the SHORTEST way to bring slot i to the top (0deg)
     const target = -BASE[i];
     const delta = (((target - rot + 180) % 360) + 360) % 360 - 180;
     setRot(rot + delta);
@@ -96,15 +94,14 @@ export function TurnKeySolution() {
           subtitle={turnKey.subtitle}
         />
 
+        {/* Desktop Ring Layout */}
         <div
           ref={boxRef}
           className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[670px] translate-x-3 sm:translate-x-0 lg:block"
         >
-          {/* subtle radial disc */}
           <div className="absolute inset-[2%] rounded-full bg-[radial-gradient(circle_at_center,rgba(190,152,90,0.10),rgba(190,152,90,0)_66%)]" />
           <div className="absolute inset-[12%] rounded-full border border-mist/40 shadow-[0_10px_30px_-18px_rgba(26,26,26,0.18)]" />
 
-          {/* central aircraft — fixed & anchored (outside the rotating ring) */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div
               className="relative h-[70%] w-[70%]"
@@ -126,7 +123,6 @@ export function TurnKeySolution() {
             </div>
           </div>
 
-          {/* connector line */}
           <div
             className="pointer-events-none absolute left-1/2 top-[13%] z-[25] w-px -translate-x-1/2 bg-gradient-to-b from-gold/70 to-gold/0"
             style={{
@@ -136,7 +132,6 @@ export function TurnKeySolution() {
             }}
           />
 
-          {/* active service card */}
           <div
             className="absolute left-1/2 top-[20%] z-30 w-[78%] max-w-sm rounded-card border border-mist/70 bg-white/95 p-7 text-center shadow-modal backdrop-blur-sm"
             onClick={(event) => event.stopPropagation()}
@@ -163,7 +158,6 @@ export function TurnKeySolution() {
             </div>
           </div>
 
-          {/* ROTATING ORBITAL RING — one transform drives all six nodes */}
           <div
             className="absolute inset-0 z-20"
             style={{
@@ -185,12 +179,10 @@ export function TurnKeySolution() {
                   }}
                   className="absolute left-1/2 top-1/2 whitespace-nowrap"
                   style={{
-                    // place at fixed slot on the ring (upright within the ring frame)
                     transform: `translate(-50%, -50%) rotate(${BASE[i]}deg) translateY(${-R}px) rotate(${-BASE[i]}deg)`,
                     zIndex: activeThis ? 5 : 1
                   }}
                 >
-                  {/* counter-rotate so the label stays upright while the ring spins */}
                   <div
                     style={{
                       transform: `rotate(${-rot}deg)`,
@@ -233,13 +225,10 @@ export function TurnKeySolution() {
               );
             })}
           </div>
-
-          {/* (modal moved to section level below so it works on all layouts) */}
         </div>
 
-        {/* ===== Mobile layout — pill list + jet ===== */}
-        <div className="relative mt-24 lg:hidden">
-          {/* jet on the right, cropped by the edge */}
+        {/* ===== Mobile layout — Stacked Accordion List + Jet Background ===== */}
+        <div className="relative mt-16 lg:hidden">
           <div className="pointer-events-none absolute -right-[16.25rem] top-[55%] h-[680px] w-[480px] max-w-none -translate-y-1/2">
             <Image
               src={turnKey.aircraft}
@@ -249,33 +238,70 @@ export function TurnKeySolution() {
               className="object-contain object-right drop-shadow-[0_24px_44px_rgba(6,15,28,0.16)]"
             />
           </div>
-          {/* pill list */}
-          <div className="relative z-10 flex w-[68%] flex-col gap-3">
+
+          <div className="relative z-10 flex w-[70%] max-w-md flex-col gap-3">
             {services.map((s, i) => {
               const Icon = ICONS[s.icon] ?? ShoppingCart;
+              const isThisOpen = mobileOpen === i;
+
               return (
-                <button
-                  key={s.label}
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setModal(i);
-                  }}
-                  className="flex items-center gap-3 rounded-pill border border-mist bg-white px-5 py-3 text-left shadow-card transition hover:border-gold/60"
-                >
-                  <Icon className="h-4 w-4 shrink-0 text-gold" strokeWidth={2} />
-                  <span className="font-sans text-sm font-medium text-graphite">
-                    {s.label}
-                  </span>
-                </button>
+                <div key={s.label} className="flex flex-col">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setMobileOpen(isThisOpen ? null : i);
+                    }}
+                    className={`flex items-center gap-3 rounded-pill border px-5 py-3 text-left transition-all duration-300 ${
+                      isThisOpen 
+                        ? "border-gold bg-gold text-white shadow-md scale-[1.02]" 
+                        : "border-mist bg-white text-graphite hover:border-gold/60 shadow-card"
+                    }`}
+                  >
+                    <Icon className={`h-4 w-4 shrink-0 transition-colors duration-300 ${isThisOpen ? "text-white" : "text-gold"}`} strokeWidth={2} />
+                    <span className={`font-sans text-sm font-medium transition-all duration-300 ${isThisOpen ? "text-white font-semibold" : "text-graphite"}`}>
+                      {s.label}
+                    </span>
+                  </button>
+
+                  {/* Smooth Accordion Box Dropdown */}
+                  <div 
+                    className="grid transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    style={{
+                      gridTemplateRows: isThisOpen ? "1fr" : "0fr",
+                      opacity: isThisOpen ? 1 : 0,
+                    }}
+                  >
+                    <div className="overflow-hidden">
+                      <div 
+                        className="mt-2 mb-2 rounded-card border border-mist/70 bg-white p-5 text-left shadow-modal"
+                        style={{
+                          animation: isThisOpen ? `tk-expand 400ms ${EASE} both` : "none"
+                        }}
+                      >
+                        <p className="font-sans text-sm leading-relaxed text-slate">
+                          {s.description}
+                        </p>
+                        <div className="my-4 h-px w-full bg-mist" />
+                        <Link
+                          href="/contact"
+                          className="flex w-full items-center justify-between gap-2 rounded-card bg-gold px-4 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
+                        >
+                          {CTA[s.icon] ?? "Learn More"}
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
         </div>
 
-        {/* expanded detail modal (shared by both layouts) */}
+        {/* Desktop modal fallback */}
         {modal !== null && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[60] hidden lg:flex items-center justify-center p-4">
             <button
               type="button"
               aria-label="Close"
@@ -302,7 +328,7 @@ export function TurnKeySolution() {
                 {services[modal].description}
               </p>
                <div className="mx-auto my-5 h-px w-full bg-mist" />
-          <Link
+              <Link
                 href="/contact"
                 className="flex w-full items-center justify-between gap-2 rounded-card bg-gold px-5 py-3 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
               >
@@ -311,7 +337,6 @@ export function TurnKeySolution() {
               </Link>
             </div>
           </div>
-          
         )}
       </Container>
 
@@ -324,6 +349,16 @@ export function TurnKeySolution() {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+        @keyframes tk-expand {
+          from {
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
         }
         @keyframes tk-modal-in {

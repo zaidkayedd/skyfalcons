@@ -28,7 +28,7 @@ export function CharterExplorer() {
         </Container>
       </section>
 
-      <section className="border-t border-mist bg-porcelain py-16 sm:py-24">
+      {/* <section className="border-t border-mist bg-porcelain py-16 sm:py-24">
         <Container className="max-w-6xl">
           <SectionHeading
             align="center"
@@ -43,7 +43,7 @@ export function CharterExplorer() {
             <EmptyLegFlights hideHeading />
           </div>
         </Container>
-      </section>
+      </section> */}
     </>
   );
 }
