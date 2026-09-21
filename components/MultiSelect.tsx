@@ -8,13 +8,15 @@ export function MultiSelect({
   onChange,
   options,
   placeholder = "Select…",
-  noun = "selected"
+  noun = "selected",
+  inline = false
 }: {
   value: string[];
   onChange: (v: string[]) => void;
   options: string[];
   placeholder?: string;
   noun?: string;
+  inline?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

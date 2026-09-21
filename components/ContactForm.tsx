@@ -169,11 +169,11 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <label className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <span className="font-sans text-sm font-semibold text-ink">
         {label} {required && <span className="text-gold">*</span>}
       </span>
       {children}
-    </label>
+    </div>
   );
 }

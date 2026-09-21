@@ -33,12 +33,14 @@ export function DatePicker({
   value,
   onChange,
   placeholder = "Select a date",
-  min
+  min,
+  inline = false
 }: {
   value?: string;
   onChange: (value: string) => void;
   placeholder?: string;
   min?: Date;
+  inline?: boolean;
 }) {
   const selected = parse(value);
   const [open, setOpen] = useState(false);
@@ -84,7 +86,11 @@ export function DatePicker({
       </button>
 
       {open && (
-        <div className="absolute z-50 mt-2 w-[300px] rounded-card border border-mist bg-white p-4 shadow-modal">
+        <div
+          className={`${
+            inline ? "relative" : "absolute z-[100]"
+          } mt-2 w-[300px] max-w-full rounded-card border border-mist bg-white p-4 shadow-modal`}
+        >
           <div className="mb-3 flex items-center justify-between">
             <button
               type="button"

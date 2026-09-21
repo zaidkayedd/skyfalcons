@@ -7,11 +7,13 @@ import { airports } from "@/data/airports";
 export function AirportSelect({
   value,
   onChange,
-  placeholder = "Search airports..."
+  placeholder = "Search airports...",
+  inline = false
 }: {
   value?: string;
   onChange: (code: string) => void;
   placeholder?: string;
+  inline?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -60,7 +62,7 @@ export function AirportSelect({
       </button>
 
       {open && (
-        <div className="absolute z-[90] mt-2 w-full min-w-[280px] overflow-hidden rounded-card border border-mist bg-white shadow-modal">
+        <div className={`${inline ? "relative" : "absolute z-[90]"} mt-2 w-full min-w-[280px] overflow-hidden rounded-card border border-mist bg-white shadow-modal`}>
           <div className="flex items-center gap-2 border-b border-mist px-3 py-2.5">
             <Search className="h-4 w-4 shrink-0 text-slate" />
             <input

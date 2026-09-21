@@ -100,11 +100,11 @@ export function MarketplaceAlertsModal({
 
             <h4 className="display mt-7 text-lg text-ink">Preferred Manufacturers <span className="text-gold">*</span></h4>
             <p className="mb-2 mt-1 text-xs text-slate">Select at least one manufacturer you're interested in.</p>
-            <MultiSelect value={f.preferredManufacturers} onChange={(v) => set({ preferredManufacturers: v })} options={alertManufacturers} placeholder="Select manufacturers" noun="manufacturers selected" />
+            <MultiSelect value={f.preferredManufacturers} onChange={(v) => set({ preferredManufacturers: v })} options={alertManufacturers} placeholder="Select manufacturers" noun="manufacturers selected" inline />
 
             <h4 className="display mt-6 text-lg text-ink">Preferred Models <span className="text-gold">*</span></h4>
             <p className="mb-2 mt-1 text-xs text-slate">Select at least one model you're interested in.</p>
-            <MultiSelect value={f.preferredModels} onChange={(v) => set({ preferredModels: v })} options={alertModels} placeholder="Select models" noun="models selected" />
+            <MultiSelect value={f.preferredModels} onChange={(v) => set({ preferredModels: v })} options={alertModels} placeholder="Select models" noun="models selected" inline />
 
             <h4 className="display mt-7 text-lg text-ink">Age Criteria</h4>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -133,11 +133,11 @@ export function MarketplaceAlertsModal({
 
 function Label({ t, req, children }: { t: string; req?: boolean; children: React.ReactNode }) {
   return (
-    <label className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <span className="font-sans text-sm font-semibold text-ink">
         {t} {req && <span className="text-gold">*</span>}
       </span>
       {children}
-    </label>
+    </div>
   );
 }

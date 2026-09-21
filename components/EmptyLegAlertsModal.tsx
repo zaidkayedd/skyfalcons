@@ -100,7 +100,7 @@ export function EmptyLegAlertsModal({
                 <input required value={f.phoneNumber} onChange={(e) => set({ phoneNumber: e.target.value })} placeholder="+XXX (XXX) XXX XXX" className={input} />
               </Label>
               <Label t="Home Base Airport" req>
-                <AirportSelect value={f.homeAirport} onChange={(v) => set({ homeAirport: v })} placeholder="Select your home airport" />
+                <AirportSelect value={f.homeAirport} onChange={(v) => set({ homeAirport: v })} placeholder="Select your home airport"  />
               </Label>
             </div>
 
@@ -110,7 +110,7 @@ export function EmptyLegAlertsModal({
             </p>
             <div className="flex items-end gap-3">
               <div className="flex-1">
-                <AirportSelect value={routeDraft} onChange={setRouteDraft} placeholder="Add destination airport" />
+                <AirportSelect value={routeDraft} onChange={setRouteDraft} placeholder="Add destination airport" inline />
               </div>
               <button
                 type="button"
@@ -155,11 +155,11 @@ export function EmptyLegAlertsModal({
 
 function Label({ t, req, children }: { t: string; req?: boolean; children: React.ReactNode }) {
   return (
-    <label className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <span className="font-sans text-sm font-semibold text-ink">
         {t} {req && <span className="text-gold">*</span>}
       </span>
       {children}
-    </label>
+    </div>
   );
 }

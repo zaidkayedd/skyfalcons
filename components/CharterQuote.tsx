@@ -30,6 +30,16 @@ export function CharterQuote() {
   const set = (patch: Partial<RequestCharterQuoteForm>) =>
     setForm((f) => ({ ...f, ...patch }));
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const returnMin = (() => {
+    if (!form.departureDate) return today;
+    const [y, m, d] = form.departureDate.split("-").map(Number);
+    const dt = new Date(y, m - 1, d);
+    dt.setDate(dt.getDate() + 1);
+    return dt;
+  })();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!showAll) {
@@ -97,8 +107,10 @@ export function CharterQuote() {
 
       {/* Hidden / Expanding fields with smooth animation */}
       <div
-        className={`grid overflow-hidden transition-all duration-500 ease-in-out ${
-          showAll ? "max-h-[1200px] opacity-150 mt-6" : "max-h-0 opacity-0 mt-0"
+        className={`grid transition-all duration-500 ease-in-out ${
+          showAll
+            ? "max-h-[1600px] opacity-100 mt-6 overflow-visible"
+            : "max-h-0 opacity-0 mt-0 overflow-hidden"
         }`}
       >
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -119,8 +131,16 @@ export function CharterQuote() {
           <Field label="Departure Date">
             <DatePicker
               value={form.departureDate}
-              onChange={(v) => set({ departureDate: v })}
+              onChange={(v) =>
+                set({
+                  departureDate: v,
+                  ...(form.returnDate && form.returnDate <= v
+                    ? { returnDate: "" }
+                    : {})
+                })
+              }
               placeholder="Select date"
+              min={today}
             />
           </Field>
           {form.tripType === "Round Trip" && (
@@ -129,6 +149,7 @@ export function CharterQuote() {
                 value={form.returnDate}
                 onChange={(v) => set({ returnDate: v })}
                 placeholder="Select date"
+                min={returnMin}
               />
             </Field>
           )}
@@ -197,11 +218,11 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <label className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <span className="font-sans text-sm font-semibold text-ink">
         {label} {required && <span className="text-gold">*</span>}
       </span>
       {children}
-    </label>
+    </div>
   );
 }
