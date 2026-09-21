@@ -44,6 +44,7 @@ export type Aircraft = {
   rangeNm: number;
   knots: number;
   totalHours: number;
+  airframeHours?: number;
   airframeCycles: number;
   price: string;
   image: string;
