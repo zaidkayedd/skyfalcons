@@ -20,10 +20,10 @@ export default function CharterPage() {
       />
       <CharterExplorer />
      <GlobalCTA 
-  heading="Ready to Book Your Next" 
-  subheadingHighlight="Private Flight?" 
-  body="Experience seamless 24/7 global charter access tailored to your schedule. Contact our aviation experts to arrange your itinerary today."
-  buttonLabel="Request a Charter"
+  heading="Stay Updated on " 
+  subheadingHighlight="Empty Leg Flights " 
+  body="Subscribe to empty leg notifications and save on luxury private jet flights. Set your preferred routes and get alerts when opportunities match your travel plans."
+  buttonLabel="Subscribe to Empty Leg Alerts"
   buttonHref="/contact"
 />
     </>
