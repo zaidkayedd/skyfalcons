@@ -10,7 +10,6 @@ export function AircraftTabs({ item }: { item: Aircraft }) {
 
   return (
     <div className="mt-10">
-
       <div className="grid grid-cols-3 overflow-hidden rounded-card border border-mist bg-white sm:grid-cols-6">
         {specTabs.map((t) => (
           <button
@@ -26,7 +25,6 @@ export function AircraftTabs({ item }: { item: Aircraft }) {
           </button>
         ))}
       </div>
-
 
       <div className="mt-6 flex flex-col gap-6">
         {tab === "Overview" && <GroupCards groups={item.overview} />}
@@ -118,7 +116,10 @@ function MaintenanceHistory({ rows }: { rows?: MaintRow[] }) {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.date + r.event} className="border-b border-mist/60 last:border-0">
+              <tr 
+                key={(r.date ?? "") + (r.event ?? "")} 
+                className="border-b border-mist/60 last:border-0"
+              >
                 <td className="whitespace-nowrap px-6 py-3.5 font-sans text-sm font-semibold text-ink">
                   {r.date}
                 </td>
@@ -133,7 +134,6 @@ function MaintenanceHistory({ rows }: { rows?: MaintRow[] }) {
     </div>
   );
 }
-
 
 function BulletCard({ title, items }: { title: string; items?: string[] }) {
   if (!items || items.length === 0)
