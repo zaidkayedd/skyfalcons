@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 import { AirportSelect } from "./AirportSelect";
+import type { EmptyLegAlertsFormData } from "@/types/forms";
 
 const input =
   "w-full rounded-card border border-mist bg-white px-4 py-2.5 font-sans text-sm text-ink placeholder:text-slate/60 outline-none transition focus:border-gold focus:outline-none";
@@ -15,15 +16,15 @@ export function EmptyLegAlertsModal({
   onClose: () => void;
 }) {
   const [done, setDone] = useState(false);
-  const [f, setF] = useState({
+  const [f, setF] = useState<EmptyLegAlertsFormData>({
     fullName: "",
     email: "",
     phone: "",
     homeAirport: "",
-    routes: [] as string[]
+    routes: []
   });
   const [routeDraft, setRouteDraft] = useState("");
-  const set = (p: Partial<typeof f>) => setF((s) => ({ ...s, ...p }));
+  const set = (p: Partial<EmptyLegAlertsFormData>) => setF((s) => ({ ...s, ...p }));
   if (!open) return null;
 
   const close = () => {
@@ -115,7 +116,7 @@ export function EmptyLegAlertsModal({
                   {f.routes.map((r) => (
                     <span key={r} className="inline-flex items-center gap-1.5 rounded-pill bg-ink px-3 py-1 font-sans text-xs font-semibold text-white">
                       <ArrowRight className="h-3 w-3" /> {r}
-                      <button type="button" onClick={() => set({ routes: f.routes.filter((x) => x !== r) })} aria-label={`Remove ${r}`}>
+                      <button type="button" onClick={() => set({ routes: f.routes.routes ? f.routes.filter((x: string) => x !== r) : f.routes.filter((x) => x !== r) })} aria-label={`Remove ${r}`}>
                         <X className="h-3 w-3" />
                       </button>
                     </span>

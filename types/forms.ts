@@ -23,3 +23,21 @@ export interface RequestCharterQuoteForm {
   phoneNumber: string;
   notes: string;
 }
+
+export interface marketplaceFormData {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  preferredManufacturers: string[];
+  preferredModels: string[];
+  minYear: number;
+  maxYear: number;
+  notes: string;
+}
+export interface EmptyLegAlertsFormData {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  homeAirport: string;
+  preferredRoutes: string[];
+}

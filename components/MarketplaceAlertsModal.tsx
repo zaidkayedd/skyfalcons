@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { MultiSelect } from "./MultiSelect";
 import { alertManufacturers, alertModels } from "@/data/alerts";
+import type { marketplaceFormData } from "@/types/forms";
 
 const input =
   "w-full rounded-card border border-mist bg-white px-4 py-2.5 font-sans text-sm text-ink placeholder:text-slate/60 outline-none transition focus:border-gold focus:outline-none";
@@ -16,20 +17,17 @@ export function MarketplaceAlertsModal({
   onClose: () => void;
 }) {
   const [done, setDone] = useState(false);
-  const [f, setF] = useState({
+  const [f, setF] = useState<marketplaceFormData>({
     fullName: "",
     email: "",
-    phone: "",
-    manufacturers: [] as string[],
-    models: [] as string[],
-    minYear: "",
-    maxYear: "",
-    minPax: "",
-    maxPax: "",
-    maxPrice: "",
+    phoneNumber: "",
+    preferredManufacturers: [],
+    preferredModels: [],
+    minYear: 0,
+    maxYear: 0,
     notes: ""
   });
-  const set = (p: Partial<typeof f>) => setF((s) => ({ ...s, ...p }));
+  const set = (p: Partial<marketplaceFormData>) => setF((s) => ({ ...s, ...p }));
   if (!open) return null;
 
   const close = () => {
@@ -84,29 +82,22 @@ export function MarketplaceAlertsModal({
                 <input required type="email" value={f.email} onChange={(e) => set({ email: e.target.value })} placeholder="your.email@example.com" className={input} />
               </Label>
               <Label t="Phone Number" req>
-                <input required value={f.phone} onChange={(e) => set({ phone: e.target.value })} placeholder="+XXX (XXX) XXX XXX" className={input} />
+                <input required value={f.phoneNumber} onChange={(e) => set({ phoneNumber: e.target.value })} placeholder="+XXX (XXX) XXX XXX" className={input} />
               </Label>
             </div>
 
             <h4 className="display mt-7 text-lg text-ink">Preferred Manufacturers <span className="text-gold">*</span></h4>
             <p className="mb-2 mt-1 text-xs text-slate">Select at least one manufacturer you're interested in.</p>
-            <MultiSelect value={f.manufacturers} onChange={(v) => set({ manufacturers: v })} options={alertManufacturers} placeholder="Select manufacturers" noun="manufacturers selected" />
+            <MultiSelect value={f.preferredManufacturers} onChange={(v) => set({ preferredManufacturers: v })} options={alertManufacturers} placeholder="Select manufacturers" noun="manufacturers selected" />
 
             <h4 className="display mt-6 text-lg text-ink">Preferred Models <span className="text-gold">*</span></h4>
             <p className="mb-2 mt-1 text-xs text-slate">Select at least one model you're interested in.</p>
-            <MultiSelect value={f.models} onChange={(v) => set({ models: v })} options={alertModels} placeholder="Select models" noun="models selected" />
+            <MultiSelect value={f.preferredModels} onChange={(v) => set({ preferredModels: v })} options={alertModels} placeholder="Select models" noun="models selected" />
 
             <h4 className="display mt-7 text-lg text-ink">Age Criteria</h4>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
-              <Label t="Minimum Year"><input value={f.minYear} onChange={(e) => set({ minYear: e.target.value })} placeholder="e.g., 2015" className={input} /></Label>
-              <Label t="Maximum Year"><input value={f.maxYear} onChange={(e) => set({ maxYear: e.target.value })} placeholder="e.g., 2024" className={input} /></Label>
-            </div>
-
-            <h4 className="display mt-7 text-lg text-ink">Additional Criteria</h4>
-            <div className="mt-3 grid gap-4 sm:grid-cols-3">
-              <Label t="Min Passengers"><input value={f.minPax} onChange={(e) => set({ minPax: e.target.value })} placeholder="e.g., 8" className={input} /></Label>
-              <Label t="Max Passengers"><input value={f.maxPax} onChange={(e) => set({ maxPax: e.target.value })} placeholder="e.g., 19" className={input} /></Label>
-              <Label t="Max Price (USD)"><input value={f.maxPrice} onChange={(e) => set({ maxPrice: e.target.value })} placeholder="e.g., 50000000" className={input} /></Label>
+              <Label t="Minimum Year"><input type="number" value={f.minYear || ""} onChange={(e) => set({ minYear: Number(e.target.value) })} placeholder="e.g., 2015" className={input} /></Label>
+              <Label t="Maximum Year"><input type="number" value={f.maxYear || ""} onChange={(e) => set({ maxYear: Number(e.target.value) })} placeholder="e.g., 2024" className={input} /></Label>
             </div>
 
             <h4 className="display mt-7 text-lg text-ink">Additional Notes</h4>
