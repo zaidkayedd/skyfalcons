@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Container";
@@ -61,6 +61,18 @@ export function TurnKeySolution() {
     return () => ro.disconnect();
   }, []);
 
+  // Close mobile box on scroll up or down
+  useEffect(() => {
+    const handleScroll = () => {
+      if (mobileOpen !== null) {
+        setMobileOpen(null);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mobileOpen]);
+
   const isActive = active !== null;
   const isModal = modal !== null;
   const shown = active ?? lastActive;
@@ -83,7 +95,7 @@ export function TurnKeySolution() {
       className="overflow-hidden border-y border-mist bg-white py-24 sm:py-28"
       onClick={() => {
         setActive(null);
-        setMobileOpen(null); // <-- Added this to close mobile box on outside click
+        setMobileOpen(null);
       }}
     >
       <Container>
@@ -229,7 +241,7 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-        {/* Mobile View: Added stopPropagation so clicks inside don't trigger section close */}
+        {/* Mobile View */}
         <div 
           className="relative mt-20 lg:hidden h-[400px]"
           onClick={(e) => e.stopPropagation()} 
