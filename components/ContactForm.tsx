@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
+import type { ContactFormData } from "@/types/forms";
 
 const inquiryPurposes = [
   "Sales & Acquisition",
@@ -12,16 +13,24 @@ const inquiryPurposes = [
 ];
 const contactMethods = ["Email", "Phone", "Text Message", "Any Method"];
 
+const emptyContact: ContactFormData = {
+  fullName: "",
+  phoneNumber: "",
+  email: "",
+  company: "",
+  purposeOfInquiry: "",
+  preferredContactMethod: "Email",
+  message: ""
+};
+
 /**
- * SEND US A MESSAGE — matches the live contact form:
- * Full Name / Phone Number · Email Address · Company/Organization ·
- * Purpose of Inquiry (custom dropdown) · Preferred Contact Method
- * (custom dropdown) · Message · Send Message.
+ * SEND US A MESSAGE — controlled form backed by ContactFormData.
  */
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
-  const [purpose, setPurpose] = useState("");
-  const [method, setMethod] = useState("Email");
+  const [form, setForm] = useState<ContactFormData>(emptyContact);
+  const set = (patch: Partial<ContactFormData>) =>
+    setForm((f) => ({ ...f, ...patch }));
 
   if (submitted) {
     return (
@@ -51,31 +60,53 @@ export function ContactForm() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          // form holds the full ContactFormData object
           setSubmitted(true);
         }}
         className="mt-8 flex flex-col gap-6"
       >
         <div className="grid gap-6 sm:grid-cols-2">
           <Field label="Full Name" required>
-            <input required className={inputCls} placeholder="" />
+            <input
+              required
+              value={form.fullName}
+              onChange={(e) => set({ fullName: e.target.value })}
+              className={inputCls}
+            />
           </Field>
           <Field label="Phone Number" required>
-            <input required type="tel" className={inputCls} placeholder="" />
+            <input
+              required
+              type="tel"
+              value={form.phoneNumber}
+              onChange={(e) => set({ phoneNumber: e.target.value })}
+              className={inputCls}
+            />
           </Field>
         </div>
 
         <Field label="Email Address" required>
-          <input required type="email" className={inputCls} placeholder="" />
+          <input
+            required
+            type="email"
+            value={form.email}
+            onChange={(e) => set({ email: e.target.value })}
+            className={inputCls}
+          />
         </Field>
 
         <Field label="Company/Organization">
-          <input className={inputCls} placeholder="" />
+          <input
+            value={form.company}
+            onChange={(e) => set({ company: e.target.value })}
+            className={inputCls}
+          />
         </Field>
 
         <Field label="Purpose of Inquiry" required>
           <Dropdown
-            value={purpose}
-            onChange={setPurpose}
+            value={form.purposeOfInquiry}
+            onChange={(v) => set({ purposeOfInquiry: v })}
             placeholder="Select your inquiry purpose"
             options={inquiryPurposes}
             buttonClassName="py-3"
@@ -84,8 +115,8 @@ export function ContactForm() {
 
         <Field label="Preferred Contact Method">
           <Dropdown
-            value={method}
-            onChange={setMethod}
+            value={form.preferredContactMethod}
+            onChange={(v) => set({ preferredContactMethod: v })}
             options={contactMethods}
             buttonClassName="py-3"
           />
@@ -95,6 +126,8 @@ export function ContactForm() {
           <textarea
             required
             rows={5}
+            value={form.message}
+            onChange={(e) => set({ message: e.target.value })}
             placeholder="Please provide details about your requirements, timeline, and any specific questions you have..."
             className="w-full rounded-card border border-mist bg-porcelain/40 px-4 py-3 font-sans text-sm text-ink placeholder:text-slate/60 outline-none transition focus:outline-none focus:ring-0 focus:rounded-card"
           />

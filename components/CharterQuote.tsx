@@ -5,22 +5,31 @@ import { Globe, CalendarDays, ArrowRight } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
 import { DatePicker } from "@/components/DatePicker";
 import { tripTypes, charterCategories, charterQuote } from "@/data/charter";
+import type { RequestCharterQuoteForm } from "@/types/forms";
 
 /**
- * Request Charter Quote card — matches the live charter page:
- * Trip Details (Trip Type / Passengers / Aircraft Category) with all
- * route, dates, and contact fields permanently expanded.
+ * Request Charter Quote card — controlled form backed by RequestCharterQuoteForm.
  */
 export function CharterQuote() {
-  const [tripType, setTripType] = useState<string>(tripTypes[0]);
-  const [passengers, setPassengers] = useState("");
-  const [category, setCategory] = useState<string>(charterCategories[0]);
-  const [departDate, setDepartDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [form, setForm] = useState<RequestCharterQuoteForm>({
+    tripType: tripTypes[0],
+    passengers: 0,
+    aircraftCategory: charterCategories[0],
+    departureAirport: "",
+    destinationAirport: "",
+    departureDate: "",
+    returnDate: "",
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    notes: ""
+  });
+  const set = (patch: Partial<RequestCharterQuoteForm>) =>
+    setForm((f) => ({ ...f, ...patch }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
+    // form holds the full RequestCharterQuoteForm object
   };
 
   return (
@@ -40,20 +49,28 @@ export function CharterQuote() {
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         <Field label="Trip Type" required>
-          <Dropdown value={tripType} onChange={setTripType} options={[...tripTypes]} />
+          <Dropdown
+            value={form.tripType}
+            onChange={(v) => set({ tripType: v })}
+            options={[...tripTypes]}
+          />
         </Field>
         <Field label="Passengers" required>
           <input
             type="number"
             min={1}
-            value={passengers}
-            onChange={(e) => setPassengers(e.target.value)}
+            value={form.passengers || ""}
+            onChange={(e) => set({ passengers: Number(e.target.value) || 0 })}
             placeholder="Number of passengers"
             className="w-full rounded-card border border-mist bg-white px-4 py-2.5 font-sans text-sm text-ink placeholder:text-slate/60 outline-none focus:outline-none focus:rounded-card focus:ring-0"
           />
         </Field>
         <Field label="Aircraft Category">
-          <Dropdown value={category} onChange={setCategory} options={[...charterCategories]} />
+          <Dropdown
+            value={form.aircraftCategory}
+            onChange={(v) => set({ aircraftCategory: v })}
+            options={[...charterCategories]}
+          />
         </Field>
       </div>
 
@@ -61,30 +78,69 @@ export function CharterQuote() {
       <div className="mt-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Departure Airport">
-            <input placeholder="e.g., KTEB, Teterboro" className={inputCls} />
+            <input
+              value={form.departureAirport}
+              onChange={(e) => set({ departureAirport: e.target.value })}
+              placeholder="e.g., KTEB, Teterboro"
+              className={inputCls}
+            />
           </Field>
           <Field label="Destination Airport">
-            <input placeholder="e.g., KBOS, Boston" className={inputCls} />
+            <input
+              value={form.destinationAirport}
+              onChange={(e) => set({ destinationAirport: e.target.value })}
+              placeholder="e.g., KBOS, Boston"
+              className={inputCls}
+            />
           </Field>
           <Field label="Departure Date">
-            <DatePicker value={departDate} onChange={setDepartDate} placeholder="Select date" />
+            <DatePicker
+              value={form.departureDate}
+              onChange={(v) => set({ departureDate: v })}
+              placeholder="Select date"
+            />
           </Field>
-          {tripType === "Round Trip" && (
+          {form.tripType === "Round Trip" && (
             <Field label="Return Date">
-              <DatePicker value={returnDate} onChange={setReturnDate} placeholder="Select date" />
+              <DatePicker
+                value={form.returnDate}
+                onChange={(v) => set({ returnDate: v })}
+                placeholder="Select date"
+              />
             </Field>
           )}
           <Field label="Full Name">
-            <input placeholder="Your name" className={inputCls} />
+            <input
+              value={form.fullName}
+              onChange={(e) => set({ fullName: e.target.value })}
+              placeholder="Your name"
+              className={inputCls}
+            />
           </Field>
           <Field label="Email">
-            <input type="email" placeholder="you@example.com" className={inputCls} />
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => set({ email: e.target.value })}
+              placeholder="you@example.com"
+              className={inputCls}
+            />
           </Field>
           <Field label="Phone">
-            <input placeholder="Phone number" className={inputCls} />
+            <input
+              value={form.phoneNumber}
+              onChange={(e) => set({ phoneNumber: e.target.value })}
+              placeholder="Phone number"
+              className={inputCls}
+            />
           </Field>
           <Field label="Notes">
-            <input placeholder="Anything else we should know?" className={inputCls} />
+            <input
+              value={form.notes}
+              onChange={(e) => set({ notes: e.target.value })}
+              placeholder="Anything else we should know?"
+              className={inputCls}
+            />
           </Field>
         </div>
       </div>
