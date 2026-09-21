@@ -5,7 +5,6 @@ import { ChevronDown, Check } from "lucide-react";
 
 export type Option = { value: string; label: string };
 
-
 export function Dropdown({
   value,
   onChange,
@@ -66,7 +65,7 @@ export function Dropdown({
       {open && (
         <ul
           role="listbox"
-          className={`absolute z-50 mt-2 max-h-64 w-full min-w-[12rem] overflow-auto rounded-card border border-mist bg-white p-1.5 shadow-modal ${
+          className={`absolute z-50 mt-2 max-h-64 w-full min-w-[12rem] overflow-auto rounded-card border border-mist bg-white p-1.5 shadow-modal [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
             align === "end" ? "right-0" : "left-0"
           }`}
         >

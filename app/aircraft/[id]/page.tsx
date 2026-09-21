@@ -100,7 +100,7 @@ export default function AircraftDetailPage({
      
           <div className="mt-10 rounded-card border border-mist/70 bg-white p-6 shadow-card sm:p-8">
             <h2 className="display mb-6 text-2xl text-ink">Quick Facts</h2>
-            <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-4">
+            <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-7">
               <FactItem k="Make" v={item.make} />
               <FactItem k="Model" v={item.model} />
               <FactItem k="Year" v={`${item.year}`} />

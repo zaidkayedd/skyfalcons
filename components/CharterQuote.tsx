@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Globe, CalendarDays, ArrowRight } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
 import { DatePicker } from "@/components/DatePicker";
+import { AirportSelect } from "@/components/AirportSelect";
 import { tripTypes, charterCategories, charterQuote } from "@/data/charter";
 import type { RequestCharterQuoteForm } from "@/types/forms";
 
@@ -27,7 +28,7 @@ export function CharterQuote() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+  
   };
 
   return (
@@ -76,19 +77,17 @@ export function CharterQuote() {
       <div className="mt-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Departure Airport">
-            <input
+            <AirportSelect
               value={form.departureAirport}
-              onChange={(e) => set({ departureAirport: e.target.value })}
-              placeholder="e.g., KTEB, Teterboro"
-              className={inputCls}
+              onChange={(v) => set({ departureAirport: v })}
+              placeholder="Search departure airport..."
             />
           </Field>
           <Field label="Destination Airport">
-            <input
+            <AirportSelect
               value={form.destinationAirport}
-              onChange={(e) => set({ destinationAirport: e.target.value })}
-              placeholder="e.g., KBOS, Boston"
-              className={inputCls}
+              onChange={(v) => set({ destinationAirport: v })}
+              placeholder="Search destination airport..."
             />
           </Field>
           <Field label="Departure Date">

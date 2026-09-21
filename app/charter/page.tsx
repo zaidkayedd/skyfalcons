@@ -19,13 +19,13 @@ export default function CharterPage() {
         subtitle="Request a tailored quote or book exclusive empty-leg flights — anywhere in the world, around the clock."
       />
       <CharterExplorer />
-     <GlobalCTA 
-  heading="Stay Updated on " 
-  subheadingHighlight="Empty Leg Flights " 
-  body="Subscribe to empty leg notifications and save on luxury private jet flights. Set your preferred routes and get alerts when opportunities match your travel plans."
-  buttonLabel="Subscribe to Empty Leg Alerts"
-  buttonHref="/contact"
-/>
+      <GlobalCTA
+        heading="Stay Updated on "
+        subheadingHighlight="Empty Leg Flights"
+        body="Subscribe to empty leg notifications and save on luxury private jet flights. Set your preferred routes and get alerts when opportunities match your travel plans."
+        buttonLabel="Subscribe to Empty Leg Alerts"
+        modalVariant="emptyleg"
+      />
     </>
   );
 }
