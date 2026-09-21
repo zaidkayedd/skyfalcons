@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
 import type { ContactFormData } from "@/types/forms";
+import { postForm } from "@/lib/api";
 
 const inquiryPurposes = [
   "Sales & Acquisition",
@@ -26,6 +27,8 @@ const emptyContact: ContactFormData = {
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<ContactFormData>(emptyContact);
   const set = (patch: Partial<ContactFormData>) =>
     setForm((f) => ({ ...f, ...patch }));
@@ -56,10 +59,18 @@ export function ContactForm() {
       </p>
 
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-       
-          setSubmitted(true);
+          setError("");
+          setSubmitting(true);
+          try {
+            await postForm("/api/v1/contact/", form);
+            setSubmitted(true);
+          } catch (submissionError) {
+            setError(submissionError instanceof Error ? submissionError.message : "Unable to send your message.");
+          } finally {
+            setSubmitting(false);
+          }
         }}
         className="mt-8 flex flex-col gap-6"
       >
@@ -133,11 +144,13 @@ export function ContactForm() {
 
         <button
           type="submit"
+          disabled={submitting}
           className="mt-1 flex w-full items-center justify-center gap-2 rounded-card bg-gold px-5 py-4 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
         >
           <Send className="h-4 w-4" />
-          Send Message
+          {submitting ? "Sending..." : "Send Message"}
         </button>
+        {error && <p className="text-sm text-red-700" role="alert">{error}</p>}
       </form>
     </div>
   );

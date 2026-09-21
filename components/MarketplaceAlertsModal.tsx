@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { MultiSelect } from "./MultiSelect";
 import { alertManufacturers, alertModels } from "@/data/alerts";
 import type { marketplaceFormData } from "@/types/forms";
+import { postForm } from "@/lib/api";
 
 const input =
   "w-full rounded-card border border-mist bg-white px-4 py-2.5 font-sans text-sm text-ink placeholder:text-slate/60 outline-none transition focus:border-gold focus:outline-none";
@@ -17,6 +18,8 @@ export function MarketplaceAlertsModal({
   onClose: () => void;
 }) {
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [f, setF] = useState<marketplaceFormData>({
     fullName: "",
     email: "",
@@ -63,9 +66,18 @@ export function MarketplaceAlertsModal({
           </div>
         ) : (
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              setDone(true);
+              setError("");
+              setSubmitting(true);
+              try {
+                await postForm("/api/v1/marketplace/", f);
+                setDone(true);
+              } catch (submissionError) {
+                setError(submissionError instanceof Error ? submissionError.message : "Unable to subscribe to alerts.");
+              } finally {
+                setSubmitting(false);
+              }
             }}
           >
             <h3 className="display text-2xl text-ink">Subscribe to Marketplace Alerts</h3>
@@ -107,10 +119,11 @@ export function MarketplaceAlertsModal({
               <button type="button" onClick={close} className="rounded-card border border-mist px-6 py-2.5 font-sans text-sm font-semibold text-ink transition hover:bg-porcelain">
                 Cancel
               </button>
-              <button type="submit" className="rounded-card bg-gold px-6 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep">
-                Subscribe to Alerts
+              <button type="submit" disabled={submitting} className="rounded-card bg-gold px-6 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep">
+                {submitting ? "Submitting..." : "Subscribe to Alerts"}
               </button>
             </div>
+            {error && <p className="mt-3 text-sm text-red-700" role="alert">{error}</p>}
           </form>
         )}
       </div>
