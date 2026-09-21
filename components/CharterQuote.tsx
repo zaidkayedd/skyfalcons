@@ -7,9 +7,13 @@ import { DatePicker } from "@/components/DatePicker";
 import { AirportSelect } from "@/components/AirportSelect";
 import { tripTypes, charterCategories, charterQuote } from "@/data/charter";
 import type { RequestCharterQuoteForm } from "@/types/forms";
+import { postForm } from "@/lib/api";
 
 export function CharterQuote() {
   const [showAll, setShowAll] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<RequestCharterQuoteForm>({
     tripType: tripTypes[0],
     passengers: 0,
@@ -26,14 +30,27 @@ export function CharterQuote() {
   const set = (patch: Partial<RequestCharterQuoteForm>) =>
     setForm((f) => ({ ...f, ...patch }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!showAll) {
       setShowAll(true);
       return;
     }
-    // Handle final quote submission here
+    setError("");
+    setSubmitting(true);
+    try {
+      await postForm("/api/v1/charter/", form);
+      setSubmitted(true);
+    } catch (submissionError) {
+      setError(submissionError instanceof Error ? submissionError.message : "Unable to request a quote.");
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (submitted) {
+    return <div className="rounded-card border border-mist bg-white p-10 text-center shadow-card">Your charter quote request has been sent.</div>;
+  }
 
   return (
     <form onSubmit={handleSubmit} className="rounded-card border border-mist/70 bg-white p-7 shadow-card sm:p-9">
@@ -157,10 +174,12 @@ export function CharterQuote() {
           if (!showAll) setShowAll(true);
         }}
         className="mt-6 flex w-full items-center justify-center gap-2 rounded-card bg-gold px-5 py-3.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
+        disabled={submitting}
       >
-        {showAll ? "Request a quote" : "Additional Information"}
+        {submitting ? "Sending..." : showAll ? "Request a quote" : "Additional Information"}
         <ArrowRight className="h-4 w-4" />
       </button>
+      {error && <p className="mt-3 text-sm text-red-700" role="alert">{error}</p>}
     </form>
   );
 }
