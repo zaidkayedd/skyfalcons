@@ -25,6 +25,7 @@ export type Aircraft = {
   model: string;
   name: string;
   category: AircraftCategory;
+  serialNumber?: string;
   status: AircraftStatus;
   passengers: number;
   rangeNm: number;
