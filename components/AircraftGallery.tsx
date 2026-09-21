@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, Expand } from "lucide-react";
 
-
 export function AircraftGallery({
   images,
   name
@@ -30,14 +29,11 @@ export function AircraftGallery({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-
   }, [lightbox, count]);
 
   return (
     <div className="flex flex-col gap-4">
-
       <div className="rounded-card border border-mist/70 bg-white overflow-hidden">
- 
         <div className="group relative aspect-[16/10] overflow-hidden">
           {hasImages ? (
             <>
@@ -52,7 +48,7 @@ export function AircraftGallery({
                   alt={name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="object-contain p-4"
+                  className="object-cover"
                   priority
                 />
                 <span className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-ink opacity-0 shadow-card backdrop-blur transition group-hover:opacity-100">
@@ -60,7 +56,6 @@ export function AircraftGallery({
                 </span>
               </button>
 
-     
               {count > 1 && (
                 <button
                   type="button"
@@ -72,7 +67,6 @@ export function AircraftGallery({
                 </button>
               )}
 
-   
               {count > 1 && (
                 <button
                   type="button"
@@ -110,7 +104,7 @@ export function AircraftGallery({
                   alt={`${name} view ${i + 1}`}
                   fill
                   sizes="80px"
-                  className="object-contain p-1.5"
+                  className="object-cover"
                 />
               </button>
             ))}
@@ -118,7 +112,6 @@ export function AircraftGallery({
         )}
       </div>
 
-  
       {lightbox && hasImages && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-night/90 p-4">
           <button

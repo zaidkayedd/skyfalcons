@@ -37,26 +37,22 @@ export function AircraftCard({ item }: { item: Aircraft }) {
       </div>
 
       <div className="flex flex-1 flex-col p-6 sm:p-7">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="display text-2xl text-ink transition-colors group-hover:text-gold">
-              {item.name}
-            </h3>
-            
-            {/* Show serial number if present, otherwise show year and make */}
-            {item.serialNumber ? (
-              <p className="text-xs font-medium text-gold/90 mt-0.5">
-                S/N: {item.serialNumber}
-              </p>
-            ) : (
-              <p className="mt-1 text-sm text-slate">
-                {item.year} · {item.make}
-              </p>
-            )}
-          </div>
-          <p className="whitespace-nowrap text-right text-sm font-semibold text-gold">
-            {item.price}
-          </p>
+        <div>
+          {/* Added truncate to keep the title strictly on the first line */}
+          <h3 className="display text-2xl text-ink transition-colors group-hover:text-gold truncate">
+            {item.name}
+          </h3>
+          
+          {/* Show serial number if present, otherwise show year and make */}
+          {item.serialNumber ? (
+            <p className="text-xs font-medium text-gold/90 mt-0.5">
+              S/N: {item.serialNumber}
+            </p>
+          ) : (
+            <p className="mt-1 text-sm text-slate">
+              {item.year} · {item.make}
+            </p>
+          )}
         </div>
 
         <div className="mt-auto">
@@ -65,13 +61,18 @@ export function AircraftCard({ item }: { item: Aircraft }) {
             <Stat label="Range" value={`${item.rangeNm.toLocaleString()} nm`} />
           </div>
 
-          <div className="pt-6">
+          {/* Moved price down to align with More info */}
+          <div className="pt-6 flex items-center justify-between">
             <span className="group/link inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors group-hover:text-gold">
               More info
               <span className="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
                 →
               </span>
             </span>
+
+            <p className="text-sm font-semibold text-gold">
+              {item.price}
+            </p>
           </div>
         </div>
       </div>
