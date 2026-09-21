@@ -54,7 +54,7 @@ export function EmptyLegFlights({ hideHeading = false }: { hideHeading?: boolean
 
   return (
     <div>
-      {/* heading */}
+   
       {!hideHeading && (
         <div className="text-center">
           <h2 className="display text-3xl text-ink sm:text-4xl">

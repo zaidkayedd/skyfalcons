@@ -105,7 +105,7 @@ export function CharterQuote() {
         </Field>
       </div>
 
-      {/* Hidden / Expanding fields with smooth animation */}
+   
       <div
         className={`grid transition-all duration-500 ease-in-out ${
           showAll

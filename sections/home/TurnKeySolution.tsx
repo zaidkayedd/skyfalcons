@@ -61,7 +61,7 @@ export function TurnKeySolution() {
     return () => ro.disconnect();
   }, []);
 
-  // Close mobile box on scroll up or down
+
   useEffect(() => {
     const handleScroll = () => {
       if (mobileOpen !== null) {
@@ -241,7 +241,7 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-        {/* Mobile View */}
+
         <div 
           className="relative mt-20 lg:hidden h-[400px]"
           onClick={(e) => e.stopPropagation()} 

@@ -9,17 +9,17 @@ import { aircraft } from "@/data/aircraft";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 export function HistoricalTransactions() {
-  // Mobile states & refs (restored to original behavior)
+
   const mobileScrollRef = useRef<HTMLDivElement>(null);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
 
-  // Desktop states & refs (3 items per page carousel)
+
   const desktopScrollRef = useRef<HTMLDivElement>(null);
   const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
 
-  const visibleAircraft = aircraft.slice(0, 5); // e.g., 6 items = 2 pages of 3 on desktop
+  const visibleAircraft = aircraft.slice(0, 5); 
 
-  // --- MOBILE HANDLERS (Exact original logic) ---
+
   const handleMobileScroll = () => {
     if (!mobileScrollRef.current) return;
     const container = mobileScrollRef.current;
@@ -42,7 +42,7 @@ export function HistoricalTransactions() {
     }
   };
 
-  // --- DESKTOP HANDLERS (3 cards per page) ---
+
   const desktopItemsPerPage = 3;
   const totalDesktopPages = Math.ceil(visibleAircraft.length / desktopItemsPerPage);
 
@@ -95,7 +95,7 @@ export function HistoricalTransactions() {
             align="left"
           />
           
-          {/* Desktop Navigation Arrows */}
+       
           <div className="hidden lg:flex gap-2">
             <button
               onClick={scrollDesktopPrev}
@@ -118,7 +118,7 @@ export function HistoricalTransactions() {
         
         <div className="mt-12 -mx-4 sm:mx-0 lg:rounded-[26px] lg:border lg:border-mist lg:bg-white/70 lg:p-10 lg:shadow-[0_12px_36px_rgba(0,0,0,0.05)]">
           
-          {/* ================= MOBILE CAROUSEL (Original Code Restored) ================= */}
+      
           <div 
             ref={mobileScrollRef}
             onScroll={handleMobileScroll}
@@ -134,7 +134,7 @@ export function HistoricalTransactions() {
             ))}
           </div>
 
-          {/* ================= DESKTOP CAROUSEL (3 Cards per page) ================= */}
+         
           <div 
             ref={desktopScrollRef}
             onScroll={handleDesktopScroll}
@@ -151,7 +151,6 @@ export function HistoricalTransactions() {
             ))}
           </div>
 
-          {/* Mobile Pagination Dots */}
           <div className="flex justify-center items-center gap-2 mt-4 lg:hidden">
             {visibleAircraft.map((_, i) => (
               <button
@@ -165,7 +164,7 @@ export function HistoricalTransactions() {
             ))}
           </div>
 
-          {/* Desktop Pagination Dots */}
+     
           <div className="hidden lg:flex justify-center items-center gap-2 mt-6">
             {Array.from({ length: totalDesktopPages }).map((_, i) => (
               <button

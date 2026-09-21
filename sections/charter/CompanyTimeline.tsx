@@ -49,7 +49,7 @@ export function CompanyTimeline() {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Handle scroll position to update active dot
+
   const handleScroll = () => {
     if (carouselRef.current) {
       const scrollLeft = carouselRef.current.scrollLeft;
@@ -59,7 +59,7 @@ export function CompanyTimeline() {
     }
   };
 
-  // Scroll to specific slide when clicking a dot
+
   const scrollToSlide = (index: number) => {
     if (carouselRef.current) {
       const child = carouselRef.current.children[index] as HTMLElement;
@@ -76,7 +76,7 @@ export function CompanyTimeline() {
   return (
     <section className="py-20 sm:py-24 bg-white overflow-hidden">
       <Container>
-        {/* Title and Description at the top */}
+  
         <div className="max-w-2xl mx-auto text-center mb-16 sm:mb-20">
           <SectionHeading
             title={
@@ -91,10 +91,10 @@ export function CompanyTimeline() {
           </p>
         </div>
 
-        {/* Timeline Container */}
+    
         <div className="relative mx-auto max-w-6xl px-4 py-12">
           
-          {/* Horizontal Center Line with Faded Edges (Desktop only) */}
+          
           <div 
             className="hidden md:block absolute top-1/2 left-0 right-0 h-[2px] -translate-y-1/2 z-0 pointer-events-none"
             style={{
@@ -102,7 +102,7 @@ export function CompanyTimeline() {
             }}
           />
 
-          {/* Carousel on Mobile / Grid on Desktop */}
+        
           <div 
             ref={carouselRef}
             onScroll={handleScroll}
@@ -115,17 +115,17 @@ export function CompanyTimeline() {
                 <div key={index} className="h-full flex-shrink-0 w-full md:w-auto snap-center">
                   <div className="relative flex flex-col items-center md:items-stretch h-full">
                     
-                    {/* MOBILE VIEW: Centered Full-Width Slide */}
+                   
                     <div className="flex md:hidden flex-col items-center text-center px-6 py-4 w-full min-h-[140px] justify-center">
                       <span className="text-sm font-semibold text-gold mb-2">{item.step}</span>
                       <h4 className="text-lg font-semibold text-ink mb-2">{item.title}</h4>
                       <p className="text-sm text-slate leading-relaxed max-w-xs">{item.description}</p>
                     </div>
 
-                    {/* DESKTOP ALTERNATING VIEW */}
+                 
                     <div className="hidden md:flex flex-col h-full justify-between items-center text-center">
                       
-                      {/* TOP CONTENT BLOCK */}
+                   
                       <div className={`w-full pb-8 flex flex-col items-center justify-end min-h-[130px] ${!isTop ? "invisible pointer-events-none" : ""}`}>
                         <span className="text-sm font-semibold text-gold mb-1.5">{item.step}</span>
                         <h4 className="text-base lg:text-lg font-medium text-ink mb-1 leading-snug">
@@ -136,12 +136,11 @@ export function CompanyTimeline() {
                         </p>
                       </div>
 
-                      {/* CENTER TIMELINE NODE */}
+                   
                       <div className="relative flex items-center justify-center my-auto">
                         <div className="w-3.5 h-3.5 rounded-full bg-gold ring-4 ring-white shadow-sm transition-transform duration-300 hover:scale-125" />
                       </div>
 
-                      {/* BOTTOM CONTENT BLOCK */}
                       <div className={`w-full pt-8 flex flex-col items-center justify-start min-h-[130px] ${isTop ? "invisible pointer-events-none" : ""}`}>
                         <span className="text-sm font-semibold text-gold mb-1.5">{item.step}</span>
                         <h4 className="text-base lg:text-lg font-medium text-ink mb-1 leading-snug">
@@ -160,7 +159,6 @@ export function CompanyTimeline() {
             })}
           </div>
 
-          {/* Mobile Pagination Dots */}
           <div className="flex md:hidden justify-center items-center gap-2 mt-6">
             {steps.map((_, index) => (
               <button

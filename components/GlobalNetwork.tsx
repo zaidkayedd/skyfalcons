@@ -56,7 +56,7 @@ export function GlobalNetwork() {
                         isLastPartner 
                           ? "h-7" 
                           : isSeventhLogo 
-                          ? "h-2 sm:h-3 mt-4 sm:mt-7" // Adjusted smaller size for logo #7
+                          ? "h-2 sm:h-3 mt-4 sm:mt-7" 
                           : "h-10 sm:h-12"
                       }`}
                     />

@@ -38,12 +38,12 @@ export function AircraftCard({ item }: { item: Aircraft }) {
 
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div>
-          {/* Added truncate to keep the title strictly on the first line */}
+      
           <h3 className="display text-2xl text-ink transition-colors group-hover:text-gold truncate">
             {item.name}
           </h3>
           
-          {/* Show serial number if present, otherwise show year and make */}
+   
           {item.serialNumber ? (
             <p className="text-xs font-medium text-gold/90 mt-0.5">
               S/N: {item.serialNumber}
@@ -61,7 +61,7 @@ export function AircraftCard({ item }: { item: Aircraft }) {
             <Stat label="Range" value={`${item.rangeNm.toLocaleString()} nm`} />
           </div>
 
-          {/* Moved price down to align with More info */}
+      
           <div className="pt-6 flex items-center justify-between">
             <span className="group/link inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors group-hover:text-gold">
               More info
