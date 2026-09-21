@@ -86,6 +86,7 @@ const baseAircraft: Aircraft[] = [
     model: "Legacy 650",
     name: "2014 Embraer Legacy 650",
     category: "Heavy",
+      serialNumber: "14501194",
     status: "Acquired",
     passengers: 13,
     rangeNm: 4123,
@@ -178,6 +179,8 @@ const baseAircraft: Aircraft[] = [
     model: "Legacy 650",
     name: "2015 Embraer Legacy 650",
     category: "Heavy",
+      serialNumber: "14501198",
+
     status: "Acquired",
     passengers: 13,
     rangeNm: 4123,
@@ -243,176 +246,388 @@ const baseAircraft: Aircraft[] = [
       "Embraer Low Utilization Plan with CAMP Systems Computerized Aircraft Maintenance Tracking Program"
     ]
   },
-      {
-    id: "2004-dassault-falcon-900c",
-    aircraftId: "Aircraft-EXGM4N",
-    year: 2004,
-    make: "Dassault",
-    model: "Falcon 900C",
-    name: "2004 Falcon 900C",
+    {
+    id: "2005-bombardier-challenger-604",
+    aircraftId: "Aircraft-vYSA0h",
+    year: 2005,
+    make: "Bombardier",
+    model: "Challenger 604",
+    name: "2005 Challenger 604",
     category: "Heavy",
+      serialNumber: "5639",
     status: "Sold",
-    passengers: 12,
-    rangeNm: 4080,
-    knots: 466,
-    totalHours: 5278,
-    airframeCycles: 1860,
+    passengers: 9,
+    rangeNm: 4119,
+    knots: 459,
+    totalHours: 4133,
+    airframeCycles: 2052,
     price: "Price on request",
-    image: "/Aircrafts/Falcon2004.jpg",
+    image: "/Aircrafts/Challenger2005.jpg",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make / Model", value: "Honeywell Aerospace TFE731-5BR-1C" },
-          { label: "Eng. 1 Total Time", value: "5,278 hrs" },
-          { label: "Eng. 2 Total Time", value: "5,278 hrs" },
-          { label: "Eng. 1 Cycles", value: "1,860" },
-          { label: "Eng. 2 Cycles", value: "1,860" }
+          { label: "Make / Model", value: "General Electric Model: CF34-3B" },
+          { label: "Eng. 1 Total Time", value: "3,989 hrs" },
+          { label: "Eng. 2 Total Time", value: "3,989 hrs" },
+          { label: "Eng. 1 Cycles", value: "1,952" },
+          { label: "Eng. 2 Cycles", value: "1,952" }
         ]
       },
       {
         title: "APU",
         icon: "apu",
         rows: [
-          { label: "Make / Model", value: "Honeywell GTCP 36-150(F)" },
-          { label: "Total Time", value: "4,338 hrs" }
+          { label: "Make / Model", value: "Honeywell upgraded to Model: GTCP 36-150 (E)" },
+          { label: "Total Time", value: "3,260 hrs" }
         ]
       }
     ],
-    interior: [
-      "New complete designer interior in late 2020",
-      "13 passenger + 2 crew + 1 observer jump seat configuration",
-      "Forward crew lavatory and aft cabin VIP lavatory",
-      "Forward galley equipped with refrigerator, warming oven, hot cup, microwave oven, ice and storage drawers",
-      "Forward cabin: 4 single chairs in club arrangement with 2 side-ledge pullout tables",
-      "Mid-cabin: 4-place conference-dining group opposite a credenza",
-      "Mid-to-aft cabin divider",
-      "Aft cabin: 2 seats in club arrangement with side-ledge pullout table opposite a 3-place side-facing berthing divan",
-      "Airshow 400 Passenger Flight Display Information System",
-      "Dual DVD players",
-      "20-inch forward bulkhead-mounted monitor",
-      "15-inch aft bulkhead-mounted monitor",
-      "10-inch side-ledge plug-in monitors",
-      "GoGo ATG-5000 domestic USA high-speed data system with Wi-Fi",
-      "Satcom system",
-      "Maximum passengers: 12"
-    ],
-    exterior: [
-      "New in 2021",
-      "Allover Black with Off White, Metallic Saturn Brown & Khaki Accents"
-    ],
-    avionics: [
-      "Honeywell Primus 2000 Integrated Avionics Suite",
-      "Dual Honeywell AZ-810 Air Data Computers",
-      "Dual Collins ADF-462",
-      "Dual Honeywell SPZ-8000 Autopilot",
-      "Honeywell Cockpit Voice Recorder",
-      "Dual Collins VHF-422C (8.33 Spacing)",
-      "Honeywell Flight Data Recorder (SSFDR)",
-      "Dual Collins DME-442",
-      "Artex C406-1 ELT",
-      "Honeywell EGPWS",
-      "Dual Honeywell GNSSU GPS Units",
-      "Triple Honeywell NZ-2010 FMS (NZ 6.1.1)",
-      "Dual Collins HF-9000 High Frequency",
-      "Triple Honeywell Laseref IV Inertial Reference Systems",
-      "Dual Collins VIR-32 (FM Immunity)",
-      "Honeywell Primus 880 Weather Radar with Dual Controllers",
-      "Single Honeywell RT-300 Radio Altimeter",
-      "Coltech 714 SELCAL",
-      "TCAS 2: TCAS 4000 with Change 7.1",
-      "Dual Collins TDR-94D Mode S (ADS-B-Out V.2)",
-      "Dual Davtron Digital Clocks",
-      "Improved Microphone for CVR (SBF900-343)",
-      "ATC with Enhanced Surveillance (SBF900-354)",
-      "Installation Improved Pilot & Co-Pilot Seat (SBF900-429-REV02)"
-    ],
-    features: [
-      "FANS 1/A+ Compliant with CPDLC",
-      "FMS CDU, FMS 6.1.1 Upgrade",
-      "GPS/WAAS, ADS-B Out Version 2, TCAS II with Change 7.1 Mod",
-      "Real Time Aircraft Weight Calculation (SBF900-002)",
-      "Airbrake Actuator Installation Drainage Seal (SBF900-004)",
-      "Improved Side Engine Power Controls Cables (SBF900-0-05)",
-      "Reduced Vertical Separation Minimum (RVSM) Capability (SB-900-186-REV-3)",
-      "Digital Battery Temperature Indicator (SBF900-229)",
-      "Install Three-Frequency ELT with Circulator (SB-F900-230-REV-01)",
-      "Install Flight Data Recorder (FDR)",
-      "CTS Quick Access Recorder (QAR) (SBF900-247)",
-      "Install Dual Wing Navigation Inspection Lights (SBF900-257-REV-01)",
-      "Install Securaplane Battery (SBF9000-269-REV-04)",
-      "Improved Microphone for CVR (SBF900-343)",
-      "ATC with Enhanced Surveillance (SBF900-354)",
-      "Installation Improved Pilot & Co-Pilot Seat (SBF900-429-REV02)"
-    ],
-    maintenanceSummary: [
-      "CAMP Systems Computerized Aircraft Maintenance Tracking Maintenance Program",
-      "Last C-Check done by Duncan Aviation, Lincoln Nebraska, USA."
-    ],
-    maintenanceHistory: [
-      {
-        date: "July 2023",
-        event: "12 Month / 0800 H",
-        facility: "Next due: 21 June 2024",
-        hours: "Last Done TSN 5278; Next Due TSN 6078"
-      },
-      {
-        date: "June 2023",
-        event: "24 Month / 1600 H",
-        facility: "Next due: 21 June 2024",
-        hours: "Last Done TSN 5026; Next Due TSN 6626"
-      },
-      {
-        date: "June 2022",
-        event: "36 Month / 2400 H",
-        facility: "Next due: 21 June 2025",
-        hours: "Last Done TSN 5026; Next Due TSN 7426"
-      },
-      {
-        date: "June 2022",
-        event: "1B 1600 H",
-        facility: "Next due: N/A",
-        hours: "Last Done TSN 5026; Next Due TSN 6626"
-      },
-      {
-        date: "September 2011",
-        event: "2B 3200 H",
-        facility: "Next due: N/A",
-        hours: "Last Done TSN 2936; Next Due TSN 6126"
-      },
-      {
-        date: "April 2018",
-        event: "3B 4800 H",
-        facility: "Next due: N/A",
-        hours: "Last Done TSN 4738; Next Due TSN 9538"
-      },
-      {
-        date: "June 2022",
-        event: "1C 72 Month / 3750 Cycles",
-        facility: "Next due: 21 June 2028",
-        hours: "Last Done 5026 CSN; Next Due 1785 CSN"
-      },
-      {
-        date: "June 2016",
-        event: "2C 144 Month / 7500 Cycles",
-        facility: "Next due: 4 June 2028",
-        hours: "Last Done 1491; Next Due CSN"
-      },
-      {
-        date: "June 2022",
-        event: "3C 216 Month / 11250 Cycles",
-        facility: "Next due: 21 June 2040",
-        hours: "Last Done 1785 CSN; Next Due CSN"
-      },
-      {
-        date: "December 2015",
-        event: "Gear 144-Month 6000 Cycle OH",
-        facility: "Next due: 7 December 2027",
-        hours: "Last Done 1491 CSN; Next Due 7491 CSN"
-      }
-    ]
+    maintenanceSummary: [],
+    maintenanceHistory: [],
+    maintenance: [],
+    features: [],
+    avionics: [],
+    interior: [],
+    exterior: []
   },
+
+    {
+  id: "2001-boeing-bbj",
+  aircraftId: "Aircraft-33036",
+  year: 2001,
+  make: "Boeing",
+  model: "BBJ",
+  name: "2001 Boeing BBJ",
+  category: "Heavy",
+  status: "Sold",
+  serialNumber: "33036",
+  registration: "N7777Q",
+
+  passengers: 9,
+  rangeNm: 6000,
+  totalHours: 1942,
+  airframeHours: 1942,
+  airframeCycles: 518,
+
+  price: "Price on request",
+  image: "/Aircrafts/2001Boeing.png",
+
+  overview: [
+    {
+      title: "Engines",
+      icon: "engine",
+      rows: [
+        {
+          label: "Make / Model",
+          value: "CFM56-7B26/B1",
+        },
+        {
+          label: "Eng. 1 Total Time",
+          value: "1,194 hrs",
+        },
+        {
+          label: "Eng. 2 Total Time",
+          value: "1,146 hrs",
+        },
+        {
+          label: "Eng. 1 Cycles",
+          value: "353",
+        },
+        {
+          label: "Eng. 2 Cycles",
+          value: "338",
+        },
+      ],
+    },
+    {
+      title: "APU",
+      icon: "apu",
+      rows: [
+        {
+          label: "Make / Model",
+          value: "Honeywell 131-9B",
+        },
+        {
+          label: "Total Time",
+          value: "1,522 hrs",
+        },
+        {
+          label: "Serial",
+          value: "P6178",
+        },
+      ],
+    },
+  ],
+
+  interior: [
+    "Features 9 passengers configuration including the belted lavatory with 8-seat double club configuration",
+    "Forward refreshment center galley with ice storage and bottle storage",
+    "Cabin entertainment with GoGo Biz ATG-5000 domestic USA high-speed data and internet",
+    "Maximum passengers: 9",
+  ],
+
+  exterior: [
+    "Overall Matterhorn White, with Ming Blue Mica, Toreador Red and Starlight Silver Pearl accents.",
+  ],
+
+  avionics: [
+    "Pro Line FUSION Flight Deck with Synthetic Vision System",
+    "Dual Rockwell Collins FGC-3000 Flight Guidance",
+    "GoGo ATG-5000 Connectivity",
+    "Synthetic Vision System",
+    "Dual Collins NAV-4000/NAV-4500 Navs",
+    "Dual Collins FMS w/WAAS/LPV Approach",
+    "Dual Collins TDR-94 X/P's Mode-S/Flight ID/ADS-B",
+    "Collins TRA-4112 Multiscan Doppler Radar",
+    "Dual Rockwell Collins AHC-3000 AHRS",
+    "ACSS TAWS+ Displayed on PFD or MFD",
+    "Rockwell Collins DME-4000 Distance Measure",
+    "ESIS L3 GH-3900 Electronic Standby Instrument System",
+    "Rockwell Collins ALT-4000 Radio Altimeter",
+    "TCAS-4000 TCAS-II with Change 7.1 Mod",
+    "Rockwell Collins GPS-4000S Global Positioning Sensor",
+    "WX Weather System",
+    "Dual Rockwell Collins ADC-3000",
+    "AirText Moving Maps System",
+    "Whelen Parmetheus LED Lights",
+  ],
+
+  features: [
+    "Pro Line FUSION Flight Deck with Synthetic Vision System",
+    "9 Passenger Configuration with 8 Seat Double Club",
+    "Belted Lavatory",
+    "Forward Refreshment Center Galley with Ice and Bottle Storage",
+    "GoGo Biz ATG-5000 High Speed Data and Internet",
+    "AirText Moving Maps System",
+    "No Damage History",
+    "2 USA Based Operators Since New",
+    "CAMP Maintenance Tracking Program",
+    "Textron Pro-Parts Airframe Plan",
+    "Pratt & Whitney ESP Gold Lite Engine Plan",
+    "Propeller Overhaul Completed March 2023",
+    "Landing Gear Overhaul Completed March 2023",
+    "ADS-B Out Compliant",
+    "WAAS / LPV Approach Capable",
+    "TCAS-II with Change 7.1",
+    "ACSS TAWS+",
+    "Whelen Parmetheus LED Lights",
+  ],
+
+  maintenanceSummary: [
+    "No damage history.",
+    "2 USA based operators since new.",
+    "CAMP System maintenance tracking program.",
+    "Airframe Textron Pro-Parts Plan (2025 rate $252 per flight hour).",
+    "Phase inspections #1, #2 and #8 completed January 2026 at 1,739 hours.",
+    "Propeller 3,000 hour / 60 month overhaul completed March 2023, next due March 2028.",
+    "Landing gear overhaul and brake hoses completed March 2023.",
+  ],
+
+  maintenanceHistory: [
+    {
+      title: "800 Hours / 48 Months",
+      lastDone: "January 2026",
+      lastDoneTSN: "1739 H",
+      nextDue: "January 2030",
+      nextDueTSN: "2539 H",
+    },
+    {
+      title: "800 Hours / 48 Months",
+      lastDone: "January 2026",
+      lastDoneTSN: "1739 H",
+      nextDue: "January 2030",
+      nextDueTSN: "2539 H",
+    },
+    {
+      title: "800 Hours / 48 Months",
+      lastDone: "March 2023",
+      lastDoneTSN: "1342 H",
+      nextDue: "January 2028",
+      nextDueTSN: "1939 H",
+    },
+    {
+      title: "800 Hours / 48 Months",
+      lastDone: "June 2024",
+      lastDoneTSN: "1533 H",
+      nextDue: "January 2028",
+      nextDueTSN: "2139 H",
+    },
+    {
+      title: "12 Months",
+      lastDone: "January 2026",
+      lastDoneTSN: "1739 H",
+      nextDue: "January 2027",
+      nextDueTSN: "-",
+    },
+    {
+      title: "1200 Hours",
+      lastDone: "October 2022",
+      lastDoneTSN: "1191 H",
+      nextDue: "-",
+      nextDueTSN: "2400 H",
+    },
+    {
+      title: "1000 Landings",
+      lastDone: "July 2022",
+      lastDoneTSN: "984 Landings CSN",
+      nextDue: "-",
+      nextDueTSN: "2000 Landings CSN",
+    },
+    {
+      title: "2400 Hours / 30 Months",
+      lastDone: "April 2025",
+      lastDoneTSN: "1627 H",
+      nextDue: "October 2027",
+      nextDueTSN: "4027 H",
+    },
+    {
+      title: "3000 Landings / 36 Months",
+      lastDone: "March 2024",
+      lastDoneTSN: "1307 Landings CSN",
+      nextDue: "March 2027",
+      nextDueTSN: "4307 Landings CSN",
+    },
+    {
+      title: "60 Months",
+      lastDone: "March 2023",
+      lastDoneTSN: "1342 H",
+      nextDue: "March 2028",
+      nextDueTSN: "-",
+    },
+    {
+      title: "5000 Landings",
+      lastDone: "-",
+      lastDoneTSN: "-",
+      nextDue: "-",
+      nextDueTSN: "5000 Landings CSN",
+    },
+    {
+      title: "5000 Hours",
+      lastDone: "-",
+      lastDoneTSN: "-",
+      nextDue: "-",
+      nextDueTSN: "5000 H",
+    },
+    {
+      title: "8000 Cycles / 72 Months",
+      lastDone: "June 2024",
+      lastDoneTSN: "1338 Landings CSN",
+      nextDue: "June 2030",
+      nextDueTSN: "9338 Landings CSN",
+    },
+    {
+      title: "1200 Hours",
+      lastDone: "July 2023",
+      lastDoneTSN: "1421 H",
+      nextDue: "-",
+      nextDueTSN: "2621 H",
+    },
+    {
+      title: "2500 Landing Cycles",
+      lastDone: "-",
+      lastDoneTSN: "-",
+      nextDue: "-",
+      nextDueTSN: "2500 Landings CSN",
+    },
+    {
+      title: "2000 Hours / 48 Months",
+      lastDone: "March 2023",
+      lastDoneTSN: "1342 H",
+      nextDue: "March 2027",
+      nextDueTSN: "3342 H",
+    },
+    {
+      title: "60 Months Brake Hoses",
+      lastDone: "March 2023",
+      lastDoneTSN: "1342 H",
+      nextDue: "March 2027",
+      nextDueTSN: "-",
+    },
+    {
+      title: "Landing Gear Overhaul & Brake Hoses",
+      lastDone: "March 2023",
+      lastDoneTSN: "1338 Cycles CSN",
+      nextDue: "-",
+      nextDueTSN: "-",
+    },
+    {
+      title: "3000 Hours / 60 Months Propeller Overhaul",
+      lastDone: "March 2023",
+      lastDoneTSN: "1342 H",
+      nextDue: "March 2028",
+      nextDueTSN: "4342 H",
+    },
+  ],
+},
+
+{
+  id: "2018-beechcraft-king-air-350i",
+  aircraftId: "Aircraft-FL1147",
+  year: 2018,
+  make: "Beechcraft",
+  model: "King Air 350i",
+  name: "2018 Beechcraft King Air 350i",
+  status: "Sold",
+  serialNumber: "FL-1147",
+  registration: "N32FB",
+
+  passengers: 9,
+  rangeNm: 1806,
+  totalHours: 1742,
+  airframeHours: 1742,
+  airframeCycles: 1492,
+
+  price: "Price on request",
+  image: "/Aircrafts/2018beechcraft.jpeg",
+
+  overview: [
+    {
+      title: "Engines",
+      icon: "engine",
+      rows: [
+        {
+          label: "Make / Model",
+          value: "Pratt & Whitney Canada PT6A-60A",
+        },
+        {
+          label: "Eng. 1 Total Time",
+          value: "1,742 hrs",
+        },
+        {
+          label: "Eng. 2 Total Time",
+          value: "1,741 hrs",
+        },
+        {
+          label: "Eng. 1 Cycles",
+          value: "1,492",
+        },
+        {
+          label: "Eng. 2 Cycles",
+          value: "1,492",
+        },
+        {
+          label: "Power By The Hour Plan",
+          value:
+            "Pratt & Whitney ESP Gold Lite Plan — 2025 rate $192 per engine per hour",
+        },
+      ],
+    },
+  ],
+
+  interior: [],
+
+  exterior: [],
+
+  avionics: [],
+
+  features: [],
+
+  maintenanceSummary: [],
+
+  maintenanceHistory: [],
+},
   {
     id: "2010-gulfstream-g550",
     aircraftId: "Aircraft-sky1d",
@@ -615,50 +830,175 @@ const baseAircraft: Aircraft[] = [
       { date: "February 2023", event: "192 Month Inspection", facility: "Next due: 31 December 2038", hours: "3996 H" }
     ]
   },
-  {
-    id: "2005-bombardier-challenger-604",
-    aircraftId: "Aircraft-vYSA0h",
-    year: 2005,
-    make: "Bombardier",
-    model: "Challenger 604",
-    name: "2005 Challenger 604",
+      {
+    id: "2004-dassault-falcon-900c",
+    aircraftId: "Aircraft-EXGM4N",
+    year: 2004,
+    make: "Dassault",
+    model: "Falcon 900C",
+    name: "2004 Falcon 900C",
     category: "Heavy",
     status: "Sold",
-    passengers: 9,
-    rangeNm: 4119,
-    knots: 459,
-    totalHours: 4133,
-    airframeCycles: 2052,
+    passengers: 12,
+    rangeNm: 4080,
+    knots: 466,
+    totalHours: 5278,
+    airframeCycles: 1860,
     price: "Price on request",
-    image: "/Aircrafts/Challenger2005.jpg",
+    image: "/Aircrafts/Falcon2004.jpg",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make / Model", value: "General Electric Model: CF34-3B" },
-          { label: "Eng. 1 Total Time", value: "3,989 hrs" },
-          { label: "Eng. 2 Total Time", value: "3,989 hrs" },
-          { label: "Eng. 1 Cycles", value: "1,952" },
-          { label: "Eng. 2 Cycles", value: "1,952" }
+          { label: "Make / Model", value: "Honeywell Aerospace TFE731-5BR-1C" },
+          { label: "Eng. 1 Total Time", value: "5,278 hrs" },
+          { label: "Eng. 2 Total Time", value: "5,278 hrs" },
+          { label: "Eng. 1 Cycles", value: "1,860" },
+          { label: "Eng. 2 Cycles", value: "1,860" }
         ]
       },
       {
         title: "APU",
         icon: "apu",
         rows: [
-          { label: "Make / Model", value: "Honeywell upgraded to Model: GTCP 36-150 (E)" },
-          { label: "Total Time", value: "3,260 hrs" }
+          { label: "Make / Model", value: "Honeywell GTCP 36-150(F)" },
+          { label: "Total Time", value: "4,338 hrs" }
         ]
       }
     ],
-    maintenanceSummary: [],
-    maintenanceHistory: [],
-    maintenance: [],
-    features: [],
-    avionics: [],
-    interior: [],
-    exterior: []
+    interior: [
+      "New complete designer interior in late 2020",
+      "13 passenger + 2 crew + 1 observer jump seat configuration",
+      "Forward crew lavatory and aft cabin VIP lavatory",
+      "Forward galley equipped with refrigerator, warming oven, hot cup, microwave oven, ice and storage drawers",
+      "Forward cabin: 4 single chairs in club arrangement with 2 side-ledge pullout tables",
+      "Mid-cabin: 4-place conference-dining group opposite a credenza",
+      "Mid-to-aft cabin divider",
+      "Aft cabin: 2 seats in club arrangement with side-ledge pullout table opposite a 3-place side-facing berthing divan",
+      "Airshow 400 Passenger Flight Display Information System",
+      "Dual DVD players",
+      "20-inch forward bulkhead-mounted monitor",
+      "15-inch aft bulkhead-mounted monitor",
+      "10-inch side-ledge plug-in monitors",
+      "GoGo ATG-5000 domestic USA high-speed data system with Wi-Fi",
+      "Satcom system",
+      "Maximum passengers: 12"
+    ],
+    exterior: [
+      "New in 2021",
+      "Allover Black with Off White, Metallic Saturn Brown & Khaki Accents"
+    ],
+    avionics: [
+      "Honeywell Primus 2000 Integrated Avionics Suite",
+      "Dual Honeywell AZ-810 Air Data Computers",
+      "Dual Collins ADF-462",
+      "Dual Honeywell SPZ-8000 Autopilot",
+      "Honeywell Cockpit Voice Recorder",
+      "Dual Collins VHF-422C (8.33 Spacing)",
+      "Honeywell Flight Data Recorder (SSFDR)",
+      "Dual Collins DME-442",
+      "Artex C406-1 ELT",
+      "Honeywell EGPWS",
+      "Dual Honeywell GNSSU GPS Units",
+      "Triple Honeywell NZ-2010 FMS (NZ 6.1.1)",
+      "Dual Collins HF-9000 High Frequency",
+      "Triple Honeywell Laseref IV Inertial Reference Systems",
+      "Dual Collins VIR-32 (FM Immunity)",
+      "Honeywell Primus 880 Weather Radar with Dual Controllers",
+      "Single Honeywell RT-300 Radio Altimeter",
+      "Coltech 714 SELCAL",
+      "TCAS 2: TCAS 4000 with Change 7.1",
+      "Dual Collins TDR-94D Mode S (ADS-B-Out V.2)",
+      "Dual Davtron Digital Clocks",
+      "Improved Microphone for CVR (SBF900-343)",
+      "ATC with Enhanced Surveillance (SBF900-354)",
+      "Installation Improved Pilot & Co-Pilot Seat (SBF900-429-REV02)"
+    ],
+    features: [
+      "FANS 1/A+ Compliant with CPDLC",
+      "FMS CDU, FMS 6.1.1 Upgrade",
+      "GPS/WAAS, ADS-B Out Version 2, TCAS II with Change 7.1 Mod",
+      "Real Time Aircraft Weight Calculation (SBF900-002)",
+      "Airbrake Actuator Installation Drainage Seal (SBF900-004)",
+      "Improved Side Engine Power Controls Cables (SBF900-0-05)",
+      "Reduced Vertical Separation Minimum (RVSM) Capability (SB-900-186-REV-3)",
+      "Digital Battery Temperature Indicator (SBF900-229)",
+      "Install Three-Frequency ELT with Circulator (SB-F900-230-REV-01)",
+      "Install Flight Data Recorder (FDR)",
+      "CTS Quick Access Recorder (QAR) (SBF900-247)",
+      "Install Dual Wing Navigation Inspection Lights (SBF900-257-REV-01)",
+      "Install Securaplane Battery (SBF9000-269-REV-04)",
+      "Improved Microphone for CVR (SBF900-343)",
+      "ATC with Enhanced Surveillance (SBF900-354)",
+      "Installation Improved Pilot & Co-Pilot Seat (SBF900-429-REV02)"
+    ],
+    maintenanceSummary: [
+      "CAMP Systems Computerized Aircraft Maintenance Tracking Maintenance Program",
+      "Last C-Check done by Duncan Aviation, Lincoln Nebraska, USA."
+    ],
+    maintenanceHistory: [
+      {
+        date: "July 2023",
+        event: "12 Month / 0800 H",
+        facility: "Next due: 21 June 2024",
+        hours: "Last Done TSN 5278; Next Due TSN 6078"
+      },
+      {
+        date: "June 2023",
+        event: "24 Month / 1600 H",
+        facility: "Next due: 21 June 2024",
+        hours: "Last Done TSN 5026; Next Due TSN 6626"
+      },
+      {
+        date: "June 2022",
+        event: "36 Month / 2400 H",
+        facility: "Next due: 21 June 2025",
+        hours: "Last Done TSN 5026; Next Due TSN 7426"
+      },
+      {
+        date: "June 2022",
+        event: "1B 1600 H",
+        facility: "Next due: N/A",
+        hours: "Last Done TSN 5026; Next Due TSN 6626"
+      },
+      {
+        date: "September 2011",
+        event: "2B 3200 H",
+        facility: "Next due: N/A",
+        hours: "Last Done TSN 2936; Next Due TSN 6126"
+      },
+      {
+        date: "April 2018",
+        event: "3B 4800 H",
+        facility: "Next due: N/A",
+        hours: "Last Done TSN 4738; Next Due TSN 9538"
+      },
+      {
+        date: "June 2022",
+        event: "1C 72 Month / 3750 Cycles",
+        facility: "Next due: 21 June 2028",
+        hours: "Last Done 5026 CSN; Next Due 1785 CSN"
+      },
+      {
+        date: "June 2016",
+        event: "2C 144 Month / 7500 Cycles",
+        facility: "Next due: 4 June 2028",
+        hours: "Last Done 1491; Next Due CSN"
+      },
+      {
+        date: "June 2022",
+        event: "3C 216 Month / 11250 Cycles",
+        facility: "Next due: 21 June 2040",
+        hours: "Last Done 1785 CSN; Next Due CSN"
+      },
+      {
+        date: "December 2015",
+        event: "Gear 144-Month 6000 Cycle OH",
+        facility: "Next due: 7 December 2027",
+        hours: "Last Done 1491 CSN; Next Due 7491 CSN"
+      }
+    ]
   },
   {
     id: "2001-bombardier-challenger-604",
@@ -1063,6 +1403,7 @@ const baseAircraft: Aircraft[] = [
       "12-Month inspection 03/22/23 by Gulfstream"
     ]
   },
+
 
 ];
 

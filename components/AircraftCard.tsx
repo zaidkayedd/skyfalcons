@@ -2,14 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Aircraft } from "@/data/aircraft";
 
-
 export function AircraftCard({ item }: { item: Aircraft }) {
   return (
     <Link
       href={`/aircraft/${item.id}`}
       className="group relative flex flex-col h-full overflow-hidden rounded-card border border-mist bg-white shadow-card transition-all duration-500 ease-premium hover:-translate-y-1 hover:shadow-card-hover"
     >
-  
       <div className="relative aspect-[16/9] overflow-hidden bg-porcelain">
         {item.image ? (
           <Image
@@ -38,23 +36,29 @@ export function AircraftCard({ item }: { item: Aircraft }) {
         </span>
       </div>
 
-  
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="display text-2xl text-ink transition-colors group-hover:text-gold">
               {item.name}
             </h3>
-            <p className="mt-1 text-sm text-slate">
-              {item.year} · {item.make}
-            </p>
+            
+            {/* Show serial number if present, otherwise show year and make */}
+            {item.serialNumber ? (
+              <p className="text-xs font-medium text-gold/90 mt-0.5">
+                S/N: {item.serialNumber}
+              </p>
+            ) : (
+              <p className="mt-1 text-sm text-slate">
+                {item.year} · {item.make}
+              </p>
+            )}
           </div>
           <p className="whitespace-nowrap text-right text-sm font-semibold text-gold">
             {item.price}
           </p>
         </div>
 
-  
         <div className="mt-auto">
           <div className="mt-6 grid min-h-[84px] shrink-0 grid-cols-2 divide-x divide-mist rounded-card border border-mist">
             <Stat label="Passengers" value={String(item.passengers)} />

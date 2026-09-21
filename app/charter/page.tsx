@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { GlobalCTA } from "@/components/GlobalCTA";
 import { CharterExplorer } from "@/sections/charter/CharterExplorer";
-
+import { CompanyTimeline } from "@/sections/charter/CompanyTimeline";
 export const metadata: Metadata = {
   title: "Charter — SkyFalcons Aviation Brokerage",
   description:
@@ -19,6 +19,7 @@ export default function CharterPage() {
         subtitle="Request a tailored quote or book exclusive empty-leg flights — anywhere in the world, around the clock."
       />
       <CharterExplorer />
+      <CompanyTimeline/>
       <GlobalCTA
         heading="Stay Updated on "
         subheadingHighlight="Empty Leg Flights"
