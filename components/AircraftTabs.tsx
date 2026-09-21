@@ -34,10 +34,6 @@ export function AircraftTabs({ item }: { item: Aircraft }) {
           <>
             <MaintenanceSummary items={item.maintenanceSummary} />
             <MaintenanceHistory rows={item.maintenanceHistory} />
-            <ChecklistCard
-              title="Service Bulletins & Compliance"
-              items={item.maintenance}
-            />
           </>
         )}
         {tab === "Features" && <BulletCard title="Features" items={item.features} />}
@@ -138,26 +134,6 @@ function MaintenanceHistory({ rows }: { rows?: MaintRow[] }) {
   );
 }
 
-function ChecklistCard({ title, items }: { title?: string; items?: string[] }) {
-  if (!items || items.length === 0)
-    return <Empty label="Maintenance records available on request." />;
-  return (
-    <div>
-      {title && <h3 className="display mb-3 text-lg text-ink">{title}</h3>}
-      <div className="flex flex-col gap-3">
-        {items.map((i) => (
-          <div
-            key={i}
-            className="flex items-center gap-3 rounded-pill border border-mist/70 bg-white px-5 py-3.5 font-sans text-sm font-medium text-ink shadow-card"
-          >
-            <CheckCircle2 className="h-4 w-4 shrink-0 text-gold" />
-            {i}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function BulletCard({ title, items }: { title: string; items?: string[] }) {
   if (!items || items.length === 0)

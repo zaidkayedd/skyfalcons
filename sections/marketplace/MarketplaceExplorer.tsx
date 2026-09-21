@@ -18,7 +18,6 @@ const CATEGORY_MAP: Record<string, string> = {
 
 export function MarketplaceExplorer() {
   const [draft, setDraft] = useState<MarketFilters>(emptyFilters);
-  const [applied, setApplied] = useState<MarketFilters>(emptyFilters);
   const [sort, setSort] = useState<string>("Newest First");
   const [perPage, setPerPage] = useState<number>(perPageOptions[0]);
   const [view, setView] = useState<"grid" | "list">("grid");
@@ -26,21 +25,21 @@ export function MarketplaceExplorer() {
 
   const filtered = useMemo(() => {
     let list = aircraft.filter((a) => {
-      if (applied.manufacturer && a.make !== applied.manufacturer) return false;
-      if (applied.status && a.status !== applied.status) return false;
+      if (draft.manufacturer && a.make !== draft.manufacturer) return false;
+      if (draft.status && a.status !== draft.status) return false;
       if (
-        applied.search &&
+        draft.search &&
         !`${a.name} ${a.make} ${a.model}`
           .toLowerCase()
-          .includes(applied.search.toLowerCase())
+          .includes(draft.search.toLowerCase())
       )
         return false;
-      if (a.rangeNm < applied.minRange) return false;
-      if (a.passengers < applied.minPassengers) return false;
-      if (a.year < applied.minYear) return false;
-      if (a.totalHours < applied.minHours) return false;
-      if (applied.categories.length > 0) {
-        const mapped = applied.categories.map((c) => CATEGORY_MAP[c] ?? c);
+      if (a.rangeNm < draft.minRange) return false;
+      if (a.passengers < draft.minPassengers) return false;
+      if (a.year < draft.minYear) return false;
+      if (a.totalHours < draft.minHours) return false;
+      if (draft.categories.length > 0) {
+        const mapped = draft.categories.map((c) => CATEGORY_MAP[c] ?? c);
         if (!mapped.includes(a.category)) return false;
       }
       // price / wifi filters are no-ops until listings carry those fields
@@ -57,7 +56,7 @@ export function MarketplaceExplorer() {
       }
     });
     return list;
-  }, [applied, sort]);
+  }, [draft, sort]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
   const current = Math.min(page, pageCount);
@@ -70,16 +69,15 @@ export function MarketplaceExplorer() {
           <div>
             <MarketplaceFilters
               value={draft}
-              onChange={setDraft}
+              onChange={(next) => {
+                setDraft(next);
+                setPage(1);
+              }}
               onReset={() => {
                 setDraft(emptyFilters);
-                setApplied(emptyFilters);
                 setPage(1);
               }}
-              onSearch={() => {
-                setApplied(draft);
-                setPage(1);
-              }}
+              onSearch={() => setPage(1)}
             />
           </div>
 
@@ -127,10 +125,7 @@ export function MarketplaceExplorer() {
                   No aircraft match your filters
                 </p>
                 <button
-                  onClick={() => {
-                    setDraft(emptyFilters);
-                    setApplied(emptyFilters);
-                  }}
+                  onClick={() => setDraft(emptyFilters)}
                   className="mt-4 text-sm font-semibold text-gold underline-offset-4 hover:underline"
                 >
                   Reset filters

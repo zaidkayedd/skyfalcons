@@ -63,7 +63,7 @@ export function HistoricalTransactions() {
             {visibleAircraft.map((item) => (
               <div 
                 key={item.id} 
-                className="h-full min-w-[85%] sm:min-w-[65%] snap-center flex-shrink-0"
+                className="h-full w-full min-w-full snap-center flex-shrink-0"
               >
                 <AircraftCard item={item} />
               </div>
