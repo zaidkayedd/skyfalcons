@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 import { AirportSelect } from "./AirportSelect";
 import type { EmptyLegAlertsFormData } from "@/types/forms";
+import { postForm } from "@/lib/api";
 
 const input =
   "w-full rounded-card border border-mist bg-white px-4 py-2.5 font-sans text-sm text-ink placeholder:text-slate/60 outline-none transition focus:border-gold focus:outline-none";
@@ -16,12 +17,14 @@ export function EmptyLegAlertsModal({
   onClose: () => void;
 }) {
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [f, setF] = useState<EmptyLegAlertsFormData>({
     fullName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     homeAirport: "",
-    routes: []
+    preferredRoutes: []
   });
   const [routeDraft, setRouteDraft] = useState("");
   const set = (p: Partial<EmptyLegAlertsFormData>) => setF((s) => ({ ...s, ...p }));
@@ -32,8 +35,8 @@ export function EmptyLegAlertsModal({
     setTimeout(() => setDone(false), 200);
   };
   const addRoute = () => {
-    if (routeDraft && !f.routes.includes(routeDraft)) {
-      set({ routes: [...f.routes, routeDraft] });
+    if (routeDraft && !f.preferredRoutes.includes(routeDraft)) {
+      set({ preferredRoutes: [...f.preferredRoutes, routeDraft] });
       setRouteDraft("");
     }
   };
@@ -66,9 +69,18 @@ export function EmptyLegAlertsModal({
           </div>
         ) : (
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              setDone(true);
+              setError("");
+              setSubmitting(true);
+              try {
+                await postForm("/api/v1/empty-leg-alerts/", f);
+                setDone(true);
+              } catch (submissionError) {
+                setError(submissionError instanceof Error ? submissionError.message : "Unable to subscribe to alerts.");
+              } finally {
+                setSubmitting(false);
+              }
             }}
           >
             <h3 className="display text-2xl text-ink">Subscribe to Empty Leg Alerts</h3>
@@ -85,7 +97,7 @@ export function EmptyLegAlertsModal({
                 <input required type="email" value={f.email} onChange={(e) => set({ email: e.target.value })} placeholder="your.email@example.com" className={input} />
               </Label>
               <Label t="Phone Number" req>
-                <input required value={f.phone} onChange={(e) => set({ phone: e.target.value })} placeholder="+XXX (XXX) XXX XXX" className={input} />
+                <input required value={f.phoneNumber} onChange={(e) => set({ phoneNumber: e.target.value })} placeholder="+XXX (XXX) XXX XXX" className={input} />
               </Label>
               <Label t="Home Base Airport" req>
                 <AirportSelect value={f.homeAirport} onChange={(v) => set({ homeAirport: v })} placeholder="Select your home airport" />
@@ -109,14 +121,14 @@ export function EmptyLegAlertsModal({
               </button>
             </div>
 
-            {f.routes.length > 0 && (
+            {f.preferredRoutes.length > 0 && (
               <div className="mt-4">
                 <p className="font-sans text-sm font-semibold text-ink">Selected Routes:</p>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {f.routes.map((r) => (
+                  {f.preferredRoutes.map((r) => (
                     <span key={r} className="inline-flex items-center gap-1.5 rounded-pill bg-ink px-3 py-1 font-sans text-xs font-semibold text-white">
                       <ArrowRight className="h-3 w-3" /> {r}
-                      <button type="button" onClick={() => set({ routes: f.routes.routes ? f.routes.filter((x: string) => x !== r) : f.routes.filter((x) => x !== r) })} aria-label={`Remove ${r}`}>
+                      <button type="button" onClick={() => set({ preferredRoutes: f.preferredRoutes.filter((x) => x !== r) })} aria-label={`Remove ${r}`}>
                         <X className="h-3 w-3" />
                       </button>
                     </span>
@@ -129,10 +141,11 @@ export function EmptyLegAlertsModal({
               <button type="button" onClick={close} className="rounded-card border border-mist px-6 py-2.5 font-sans text-sm font-semibold text-ink transition hover:bg-porcelain">
                 Cancel
               </button>
-              <button type="submit" className="rounded-card bg-gold px-6 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep">
-                Subscribe to Alerts
+              <button type="submit" disabled={submitting} className="rounded-card bg-gold px-6 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep">
+                {submitting ? "Submitting..." : "Subscribe to Alerts"}
               </button>
             </div>
+            {error && <p className="mt-3 text-sm text-red-700" role="alert">{error}</p>}
           </form>
         )}
       </div>
