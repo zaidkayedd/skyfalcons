@@ -81,7 +81,7 @@ export function EmptyLegFlights({ hideHeading = false }: { hideHeading?: boolean
         </button>
       </div>
 
-      {/* search card */}
+
       <div className="mt-6 rounded-card border border-mist/70 bg-white p-6 shadow-card sm:p-8">
         <div className="mb-5 flex items-center gap-2">
           <SearchIcon className="h-5 w-5 text-gold" strokeWidth={2} />
@@ -117,7 +117,7 @@ export function EmptyLegFlights({ hideHeading = false }: { hideHeading?: boolean
         </div>
       </div>
 
-      {/* results table */}
+
       <div className="mt-6 overflow-hidden rounded-card border border-mist/70 bg-white shadow-card">
         <div className="table-scroll overflow-x-auto">
           <table className="w-full min-w-[760px] text-left">
@@ -180,7 +180,7 @@ export function EmptyLegFlights({ hideHeading = false }: { hideHeading?: boolean
         Showing {startIdx} to {endIdx} of {results.length} results
       </p>
 
-      {/* pagination */}
+
       {pageCount > 1 && (
         <div className="mt-4 flex items-center justify-center gap-2">
           <PageBtn disabled={current === 1} onClick={() => setPage(current - 1)}>
@@ -228,7 +228,7 @@ function ConfirmBookingModal({
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-night/70 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-xl overflow-hidden rounded-card bg-white shadow-modal">
-        {/* header band */}
+    
         <div className="relative flex items-center gap-3 border-b border-mist bg-porcelain px-7 py-5">
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/15 text-gold">
             <Plane className="h-5 w-5" strokeWidth={2} />
@@ -270,7 +270,7 @@ function ConfirmBookingModal({
           </div>
         ) : (
           <div className="px-7 py-6">
-            {/* route visual */}
+    
             <div className="flex items-center justify-between rounded-card border border-mist bg-porcelain/50 px-6 py-5">
               <div className="text-center">
                 <div className="display text-2xl text-ink">{flight.fromCode}</div>
@@ -287,7 +287,7 @@ function ConfirmBookingModal({
               </div>
             </div>
 
-            {/* details */}
+
             <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
               <Row k="Aircraft" v={flight.aircraft} />
               <Row k="Departure" v={`${flight.date} · ${flight.time}`} />

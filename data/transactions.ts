@@ -1,14 +1,9 @@
-/**
- * HOME — HISTORICAL TRANSACTIONS
- * [REPLACE] Exactly TWO boxes per the redesign spec, using the same card
- * dimensions as the Marketplace two-column cards. Replace with the real
- * historical transactions shown on the live home page.
- */
+
 
 export type Transaction = {
   id: string;
   aircraft: string;
-  role: string;      // e.g. "Buyer Representation"
+  role: string;    
   year: string;
   region: string;
   image: string;

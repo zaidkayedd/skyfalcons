@@ -1,14 +1,7 @@
-/**
- * GLOBAL NETWORK + STRATEGIC ALLIANCE
- * [REPLACE] Keep every real logo and location from the live site. The logo
- * files below point to /public/logos/*.svg — drop the real partner logos there
- * (or set remote URLs). Do not remove or replace partners.
- */
-
 export type Partner = {
   id: string;
   name: string;
-  logo: string; // /logos/<file> in public, or remote URL
+  logo: string; 
 };
 
 export type AlliancePoint = {
@@ -19,7 +12,6 @@ export type AlliancePoint = {
   lng: number;
 };
 
-// Placeholder logo tiles render the partner name until real SVGs are added.
 export const partners: Partner[] = [
   { id: "p1", name: "Aegle", logo: "/network/aegle-new.png" },
   { id: "p2", name: "Airbus", logo: "/network/airbus-new.png" },
@@ -31,7 +23,7 @@ export const partners: Partner[] = [
   { id: "p4", name: "Apex", logo: "/network/apex-new.png" },
   { id: "p5", name: "Arab Wings", logo: "/network/arabwings.png" },
   { id: "p6", name: "Ariyax", logo: "/network/ariyax-new.png" },
-  { id: "p7", name: "AvHub", logo: "/network/avhub-new.png" },
+  { id: "p7", name: "AvHub", logo: "/avhub_Logo_DB.png" },
   { id: "p8", name: "BAS", logo: "/network/bas-new.png" },
   { id: "p9", name: "Boeing", logo: "/network/boeing-new.png" },
   { id: "p10", name: "Bombardier", logo: "/network/bombardier-new.png" },
@@ -59,7 +51,7 @@ export const partners: Partner[] = [
   { id: "p28", name: "Global Jet Sales", logo: "/network/globalJetSales.png" },
 ];
 
-// [REPLACE] Real strategic-alliance locations from the live Contact map.
+
 export const alliancePoints: AlliancePoint[] = [
   {
     id: "a1",

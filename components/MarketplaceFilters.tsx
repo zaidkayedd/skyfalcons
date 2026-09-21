@@ -98,7 +98,7 @@ export function MarketplaceFilters({
           />
         </Field>
 
-        {/* Advanced Options */}
+ 
         <div className="rounded-card border border-mist">
           <button
             type="button"

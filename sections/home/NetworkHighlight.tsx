@@ -5,10 +5,7 @@ import { partners } from "@/data/network";
 import { ArrowRight } from "lucide-react";
 import { AnimatedNetworkGrid } from "@/components/AnimatedNetworkGrid";
 
-/**
- * NETWORK HIGHLIGHT (home, before the CTA) — headline, inline stats, 
- * separate clean sections with the map placed first, followed by partners.
- */
+
 const stats = [
   { value: `${partners.length}+`, label: "Global partners" },
   { value: "6", label: "Continents" },
@@ -34,7 +31,6 @@ export function NetworkHighlight() {
           />
         </div>
 
-        {/* inline stats — thin dividers, no boxes */}
         <div className="mx-auto mt-10 flex max-w-3xl items-stretch justify-center divide-x divide-mist text-center">
           {stats.map((s) => (
             <div key={s.label} className="flex-1 px-4">
@@ -46,7 +42,6 @@ export function NetworkHighlight() {
           ))}
         </div>
 
-        {/* Section 1: Explore Our Global Hubs (Now First) */}
         <div className="mt-20">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
             <div>
@@ -59,13 +54,13 @@ export function NetworkHighlight() {
             </Button>
           </div>
 
-          {/* Embedded Animated Map Component without outer container box */}
+
           <div className="w-full overflow-hidden py-4">
             <AnimatedNetworkGrid />
           </div>
         </div>
 
-        {/* Section 2: Meet Our Partners (Now Second, with two rows) */}
+    
         <div className="mt-24">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
             <div>
@@ -80,7 +75,7 @@ export function NetworkHighlight() {
               {rowOnePartners.map((p, i) => (
                 <div key={`${p.id}-${i}`} className="flex h-16 items-center justify-center sm:h-20">
                   {p.logo ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+                  
                     <img
                       src={p.logo}
                       alt={p.name}
@@ -96,7 +91,7 @@ export function NetworkHighlight() {
               {rowTwoPartners.map((p, i) => (
                 <div key={`${p.id}-faded-${i}`} className="flex h-16 items-center justify-center opacity-60 transition-opacity duration-300 hover:opacity-90 sm:h-20">
                   {p.logo ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+             
                     <img
                       src={p.logo}
                       alt={p.name}
@@ -112,7 +107,6 @@ export function NetworkHighlight() {
           </div>
         </div>
 
-        {/* Global CTA button */}
         <div className="mt-5 flex justify-center">
           <Button href="/contact" variant="primary">
             Partner With Us

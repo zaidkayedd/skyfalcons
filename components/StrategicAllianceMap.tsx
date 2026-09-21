@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import map from "@/data/worldmap.json";
 
-/**
- * STRATEGIC ALLIANCE MAP — faithful recreation of the live skyfalcons.com
- * "Strategic Alliance Landscape" section: a dotted world map (real country
- * geometry rasterized to a dot grid) with animated gold flight-path arcs
- * radiating from the Amman hub to partner cities, each with a label.
- * City list & coordinates: data/worldmap.json ([REPLACE] to match exactly).
- */
+
 
 type City = {
   name: string;
@@ -27,8 +21,7 @@ const dots = map.dots as [number, number][];
 const hub = cities.find((c) => c.hub)!;
 const spokes = cities.filter((c) => !c.hub);
 
-// Precompute all continent dots as ONE SVG path (tiny filled circles) so the
-// map renders a single DOM node instead of 3k+ <circle> elements.
+
 const R = 1.6;
 const DOTS_PATH = dots
   .map(
@@ -43,7 +36,7 @@ function arcPath(from: City, to: City) {
   const dx = to.x - from.x;
   const dy = to.y - from.y;
   const dist = Math.hypot(dx, dy);
-  // lift control point perpendicular to the chord for a gentle curve
+
   const lift = Math.min(dist * 0.28, 90);
   const nx = -dy / (dist || 1);
   const ny = dx / (dist || 1);
@@ -80,10 +73,10 @@ export function StrategicAllianceMap() {
         role="img"
         aria-label="Strategic alliance world map"
       >
-        {/* dotted continents — a single path node (3k+ dots) for performance */}
+    
         <path fill="currentColor" className="text-slate/30" d={DOTS_PATH} />
 
-        {/* arcs from hub — draw out (start→end) then retract (end→start), looping */}
+       
         <g fill="none" strokeLinecap="round" className="text-gold">
           {spokes.map((c, i) => {
             const d = arcPath(hub, c);
@@ -106,7 +99,7 @@ export function StrategicAllianceMap() {
           })}
         </g>
 
-        {/* city points + labels */}
+    
         <g>
           {cities.map((c) => (
             <CityMarker key={c.name} city={c} drawn={drawn} />
@@ -125,7 +118,7 @@ function CityMarker({ city, drawn }: { city: City; drawn: boolean }) {
   const dx = city.dx ?? 0;
   const dy = city.dy ?? 0;
 
-  // top-left of the label pill relative to the point
+
   let lx = city.x - w / 2 + dx;
   let ly = city.y + gap + dy;
   if (side === "above") ly = city.y - gap - h + dy;

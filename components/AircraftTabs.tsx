@@ -10,7 +10,7 @@ export function AircraftTabs({ item }: { item: Aircraft }) {
 
   return (
     <div className="mt-10">
-      {/* tab bar */}
+
       <div className="grid grid-cols-3 overflow-hidden rounded-card border border-mist bg-white sm:grid-cols-6">
         {specTabs.map((t) => (
           <button
@@ -27,7 +27,7 @@ export function AircraftTabs({ item }: { item: Aircraft }) {
         ))}
       </div>
 
-      {/* content */}
+
       <div className="mt-6 flex flex-col gap-6">
         {tab === "Overview" && <GroupCards groups={item.overview} />}
         {tab === "Maintenance" && (

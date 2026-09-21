@@ -1,9 +1,6 @@
 import { contact } from "@/data/site";
 
-/**
- * THREE CONTACT BOXES — moved UNDER the Send Us a Message form.
- * Horizontal row on desktop, stacked on mobile. Content/data unchanged.
- */
+
 const cards = [
   { label: "Email us", value: contact.email, href: `mailto:${contact.email}`, hint: "We reply within one business day" },
   { label: "Call us", value: contact.phone, href: `tel:${contact.phone.replace(/[^+\\d]/g, "")}`, hint: contact.hours },

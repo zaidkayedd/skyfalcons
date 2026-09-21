@@ -1,17 +1,3 @@
-/**
- * MARKETPLACE — AIRCRAFT DATA (real inventory)
- * Images are served from /public/Aircrafts.
- *
- * PER-AIRCRAFT IMAGES / CAROUSEL:
- *  - `image`   = the card thumbnail + first gallery image. Leave "" for none
- *                (a gold-falcon placeholder shows and there is NO carousel).
- *  - `gallery` = that aircraft's OWN photos. Add 2+ paths here to enable the
- *                detail-page carousel (arrows + thumbnails). With 1 image it
- *                just shows that image; with 0 it shows the placeholder.
- *                Galleries are never shared between aircraft.
- *  Example:  gallery: ["/Aircrafts/Legacy2014-1.jpeg", "/Aircrafts/Legacy2014-2.jpeg"]
- */
-
 export type AircraftStatus = "Available" | "Sale Pending" | "Sold" | "Acquired";
 
 export type AircraftCategory =
@@ -1080,15 +1066,14 @@ const baseAircraft: Aircraft[] = [
 
 ];
 
-/* No placeholder inventory — the array above is the real listing set. */
+
 const moreAircraft: Aircraft[] = [];
 
 function code(m: string) {
   return m.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 6);
 }
 
-/* Non-destructive: keeps any real data provided on the aircraft, only filling
- * in gaps (gallery, APU box, and any missing spec tabs) with generic content. */
+
 function withAircraftDetails(a: Aircraft): Aircraft {
   const c = code(a.model);
 

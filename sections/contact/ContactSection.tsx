@@ -5,16 +5,11 @@ import { ContactForm } from "@/components/ContactForm";
 import { ContactInfoCards } from "@/components/ContactInfoCards";
 import { StrategicAllianceMap } from "@/components/StrategicAllianceMap";
 
-/**
- * CONTACT PAGE BODY
- * - Send Us a Message form matches the Charter table width system (max-w-5xl).
- * - The three info boxes sit UNDER the form (row on desktop, stacked mobile).
- * - Strategic Alliance section is redesigned around the (unchanged) map.
- */
+
 export function ContactSection() {
   return (
     <>
-      {/* Send Us a Message */}
+
       <section className="py-14 sm:py-20">
         <Container className="max-w-5xl">
           <SectionHeading
@@ -33,14 +28,13 @@ export function ContactSection() {
             <ContactForm />
           </div>
 
-          {/* Three boxes UNDER the form */}
+   
           <div className="mt-6">
             <ContactInfoCards />
           </div>
         </Container>
       </section>
 
-      {/* Strategic Alliance Landscape — matches live site (light, centered) */}
       <section className="bg-porcelain py-20 sm:py-28">
         <Container>
           <SectionHeading

@@ -1,15 +1,10 @@
-/**
- * SITE-WIDE DATA
- * Brand strings, navigation, contact details and shared CTA copy.
- * Values confirmed from the live site metadata are marked [CONFIRMED].
- * Values marked [REPLACE] are placeholders — swap with the live site's exact text.
- */
+
 
 export const brand = {
-  name: "SkyFalcons",              // [CONFIRMED] SkyFalcons Aviation Brokerage
+  name: "SkyFalcons",             
   fullName: "SkyFalcons Aviation Brokerage",
-  tagline: "Aviation Brokerage, Perfected.", // [CONFIRMED] og:description
-  twitter: "@SkyFalcons_ltd",      // [CONFIRMED]
+  tagline: "Aviation Brokerage, Perfected.",
+  twitter: "@SkyFalcons_ltd",   
   description:
     "SkyFalcons offers premium aviation brokerage services including aircraft sales, acquisitions, global charter, and strategic consultation for discerning clients worldwide." // [CONFIRMED] meta description
 };
@@ -21,11 +16,11 @@ export const nav = [
   { label: "Contact", href: "/contact" }
 ];
 
-/** [REPLACE] — use the real contact details shown on skyfalcons.com/contact */
+
 export const contact = {
-  email: "info@skyfalcons.com",       // [CONFIRMED] live footer
-  phone: "+962 (795) 127 353",        // [CONFIRMED] live footer
-  address: "Amman, Jordan",           // [CONFIRMED] live footer
+  email: "info@skyfalcons.com",      
+  phone: "+962 (795) 127 353",        
+  address: "Amman, Jordan",          
   hours: "24/7 Charter Desk",
   socials: [
     { label: "LinkedIn", href: "#", icon: "linkedin" },
@@ -35,7 +30,7 @@ export const contact = {
   ]
 };
 
-/** Three service pillars — [CONFIRMED] from og:description. */
+
 export const pillars = [
   {
     title: "Sales & Acquisition",
@@ -51,11 +46,8 @@ export const pillars = [
   }
 ];
 
-/**
- * GLOBAL CTA — reused verbatim on every page via <GlobalCTA />.
- * Only the eyebrow/heading/body change per page if the original requires it;
- * everything else (layout, button, image) stays identical site-wide.
- */
+
+
 export const cta = {
   eyebrow: "Aviation Brokerage, Perfected",
   heading: "Stay Updated on",

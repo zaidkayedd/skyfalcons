@@ -23,9 +23,7 @@ const emptyContact: ContactFormData = {
   message: ""
 };
 
-/**
- * SEND US A MESSAGE — controlled form backed by ContactFormData.
- */
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState<ContactFormData>(emptyContact);
@@ -60,7 +58,7 @@ export function ContactForm() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          // form holds the full ContactFormData object
+       
           setSubmitted(true);
         }}
         className="mt-8 flex flex-col gap-6"

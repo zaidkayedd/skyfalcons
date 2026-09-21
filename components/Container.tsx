@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Site-wide width system. Every page and section aligns to this container. */
+
 export function Container({
   children,
   className

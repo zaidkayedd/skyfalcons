@@ -5,12 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { brand } from "@/data/site";
 
-/**
- * SKYFALCONS TYPOGRAPHY — real Blacker Sans Text, bundled via next/font/local
- * (hashed, preloaded, no 404s). Exposed as the CSS variable --font-blacker,
- * which app/globals.css maps onto --font-display / --font-sans / --font-mono.
- * (Klarna Text was not supplied; body uses Blacker Sans Text until it is.)
- */
+
 const blacker = localFont({
   src: [
     { path: "./fonts/Blacker-Sans-Text-Light.woff2", weight: "300", style: "normal" },

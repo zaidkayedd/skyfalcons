@@ -1,13 +1,3 @@
-/**
- * CHARTER — DATA
- * ---------------------------------------------------------------------------
- * Shapes mirror the live skyfalcons.com/charter page: the Request Charter
- * Quote form + the Empty Leg Flights table. [REPLACE] the flight rows with the
- * real inventory (keys stay the same). Empty-leg listings are typically
- * generated live, so treat these as representative seed data.
- * ---------------------------------------------------------------------------
- */
-
 export const tripTypes = ["One Way", "Round Trip", "Multi-Leg"] as const;
 export type TripType = (typeof tripTypes)[number];
 
@@ -42,13 +32,13 @@ export type EmptyLegFlight = {
   fromCity: string;
   toCode: string;
   toCity: string;
-  date: string; // e.g. "Mon, Aug 24, 2026"
-  time: string; // e.g. "03:00 AM"
+  date: string; 
+  time: string; 
   price: number;
   currency: "USD" | "CAD" | "EUR" | "GBP";
 };
 
-// Representative empty-leg inventory (first five match the live listing).
+
 export const emptyLegFlights: EmptyLegFlight[] = [
   { id: "el-1", aircraft: "Cessna Citation XLS", fromCode: "KELO", fromCity: "Ely", toCode: "KOMA", toCity: "Omaha", date: "Mon, Aug 24, 2026", time: "03:00 AM", price: 5000, currency: "USD" },
   { id: "el-2", aircraft: "Challenger 300", fromCode: "KFOK", fromCity: "Westhampton Beach", toCode: "CYYZ", toCity: "Toronto", date: "Mon, Aug 24, 2026", time: "03:00 AM", price: 12100, currency: "CAD" },

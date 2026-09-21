@@ -14,7 +14,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const lastScrollY = useRef(0);
 
-  // Home has a full-bleed hero, so the bar starts transparent there.
+
   const overHero = pathname === "/";
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export function Navbar() {
         !open && hiddenOnScroll
           ? "-translate-y-[calc(100%+1rem)]"
           : "translate-y-0",
-        // Changed from md: to lg: so iPads and tablets use mobile view:
+  
         "lg:top-4 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:max-w-6xl lg:w-[calc(100%-3rem)] lg:rounded-full",
         solid
           ? "bg-porcelain/90 backdrop-blur-md border-b lg:border border-mist shadow-lg shadow-black/5"
@@ -81,7 +81,7 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Desktop links (now lg:) */}
+     
         <ul className="hidden items-center gap-9 lg:flex">
           {nav.map((item) => {
             const active = pathname === item.href;
@@ -106,7 +106,6 @@ export function Navbar() {
           })}
         </ul>
 
-        {/* Mobile toggle (now lg:hidden) */}
         <button
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -139,7 +138,7 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile drawer (now lg:hidden) */}
+
       <div
         className={cn(
           "lg:hidden overflow-hidden bg-porcelain transition-[max-height] duration-500 ease-premium rounded-b-2xl",

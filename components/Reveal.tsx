@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-/** Scroll-triggered fade-up. Subtle, respects reduced-motion via CSS. */
+
 export function Reveal({
   children,
   delay = 0,

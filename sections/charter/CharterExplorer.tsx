@@ -3,11 +3,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { CharterQuote } from "@/components/CharterQuote";
 import { EmptyLegFlights } from "@/components/EmptyLegFlights";
 
-/**
- * CHARTER — split into two clearly separated sections:
- *  1. Request a Quote (on the page background)
- *  2. Empty Leg Flights (on a distinct porcelain band)
- */
+
 export function CharterExplorer() {
   return (
     <>

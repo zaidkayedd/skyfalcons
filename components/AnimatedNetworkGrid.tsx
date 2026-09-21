@@ -53,10 +53,9 @@ export function AnimatedNetworkGrid() {
         role="img"
         aria-label="Strategic alliance world map with glowing city nodes"
       >
-        {/* dotted continents */}
+
         <path fill="currentColor" className="text-slate/30" d={DOTS_PATH} />
 
-        {/* city markers & labels (no connecting lines) */}
  
       </svg>
     </div>

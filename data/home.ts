@@ -1,12 +1,7 @@
-/**
- * HOME — SECTION CONTENT
- * Hero, Who We Are, and Turn Key Solution.
- * Turn Key Solution content must be preserved as-is per the spec — [REPLACE]
- * its copy/points with the exact text on the live home page.
- */
+
 
 export const homeHero = {
-  // Hero headline (three lines; "Vision" is gold)
+ 
   line1: "Where",
   line2Gold: "Vision",
   line2Rest: "Extends",
@@ -59,9 +54,9 @@ export const turnKey = {
   heading: "Turn Key Solution",
   subtitle:
     "More than a marketplace — we're brokers with turnkey solutions, coordinating MROs, authorities, and post-closing workscope for seamless aircraft integration.",
-  // Central aircraft image (top-down), matching the live site.
+
   aircraft: "/aircraft.png",
-  // The six orbiting services. [REPLACE] descriptions with the live copy.
+
   services: [
     {
       label: "Aircraft Sales",

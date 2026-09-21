@@ -55,7 +55,7 @@ export default function AircraftDetailPage({
             </span>
           </div>
 
-          {/* Title + meta pills */}
+    
           <div className="max-w-3xl">
             <h1 className="display text-4xl text-ink sm:text-5xl lg:text-6xl">
               {item.name}
@@ -68,7 +68,7 @@ export default function AircraftDetailPage({
             </div>
           </div>
 
-          {/* Gallery + consolidated rail (specs + inquiry) */}
+        
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[1.6fr_1fr]">
             <AircraftGallery
               images={item.gallery ?? (item.image ? [item.image] : [])}
@@ -77,7 +77,7 @@ export default function AircraftDetailPage({
 
             <div className="self-start lg:sticky lg:top-24">
               <div className="overflow-hidden rounded-card border border-mist/70 bg-white shadow-card">
-                {/* Key specs — 2×2, hairline dividers */}
+         
                 <div className="grid grid-cols-2 gap-px bg-mist/70">
                   <SpecCell icon={<Users className="h-5 w-5" />} value={`${item.passengers}`} label="Passengers" />
                   <SpecCell icon={<Globe className="h-5 w-5" />} value={item.rangeNm.toLocaleString()} label="NM Range" />
@@ -85,7 +85,7 @@ export default function AircraftDetailPage({
                   <SpecCell icon={<Clock className="h-5 w-5" />} value={item.totalHours.toLocaleString()} label="Total Hours" />
                 </div>
 
-                {/* Inquiry */}
+               
                 <div className="border-t border-mist/70 p-6">
                   <h2 className="display text-xl text-ink">Inquiry</h2>
                   <p className="mb-4 mt-1 font-sans text-sm text-slate">
@@ -97,7 +97,7 @@ export default function AircraftDetailPage({
             </div>
           </div>
 
-          {/* Quick Facts — full-width definition grid */}
+     
           <div className="mt-10 rounded-card border border-mist/70 bg-white p-6 shadow-card sm:p-8">
             <h2 className="display mb-6 text-2xl text-ink">Quick Facts</h2>
             <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-4">
@@ -111,7 +111,7 @@ export default function AircraftDetailPage({
             </dl>
           </div>
 
-          {/* tabs (full width) */}
+        
           <AircraftTabs item={item} />
         </Container>
       </section>

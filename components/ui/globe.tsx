@@ -87,7 +87,6 @@ export function Globe({
       if (canvasRef.current) canvasRef.current.style.opacity = "0";
     };
 
-    // Only run the WebGL globe while it's actually on screen.
     const io = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
@@ -103,7 +102,7 @@ export function Globe({
       io.disconnect();
       destroy();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   return (

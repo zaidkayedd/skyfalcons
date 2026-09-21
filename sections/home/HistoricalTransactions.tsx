@@ -9,9 +9,7 @@ import { Button } from "@/components/Button";
 import { aircraft } from "@/data/aircraft";
 import { ArrowRight } from "lucide-react";
 
-/**
- * HISTORICAL TRANSACTIONS — carousel on mobile (no animation), bordered container panel with Reveal on desktop.
- */
+
 export function HistoricalTransactions() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -54,7 +52,7 @@ export function HistoricalTransactions() {
         
         <div className="mt-12 -mx-4 sm:mx-0 lg:rounded-[26px] lg:border lg:border-mist lg:bg-white/70 lg:p-10 lg:shadow-[0_12px_36px_rgba(0,0,0,0.05)]">
           
-          {/* MOBILE VIEW: Carousel without animation wrapper */}
+  
           <div 
             ref={scrollContainerRef}
             onScroll={handleScroll}
@@ -70,7 +68,7 @@ export function HistoricalTransactions() {
             ))}
           </div>
 
-          {/* DESKTOP VIEW: Grid layout retaining Reveal animations */}
+       
           <div className="hidden lg:grid lg:grid-cols-3 gap-6">
             {visibleAircraft.map((item, index) => (
               <Reveal 
@@ -83,7 +81,7 @@ export function HistoricalTransactions() {
             ))}
           </div>
 
-          {/* Interactive Gold Dot Indicators for mobile carousel */}
+       
           <div className="flex justify-center items-center gap-2 mt-4 lg:hidden">
             {visibleAircraft.map((_, i) => (
               <button

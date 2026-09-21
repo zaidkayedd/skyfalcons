@@ -5,10 +5,7 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { homeHero } from "@/data/home";
 
-/**
- * HOME HERO — full-bleed autoplaying video with a large three-line headline
- * and a centered service line at the bottom.
- */
+
 export function HomeHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -43,9 +40,9 @@ export function HomeHero() {
         <source src={homeHero.videoSrc} type="video/mp4" />
       </video>
 
-      {/* lighter overlays — keep just enough contrast for the copy */}
+    
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night/65 via-night/15 to-night/15" />
-      {/* white layer — washes the video toward white */}
+
       <div className="absolute inset-0 -z-10 bg-white/40" />
 
       <Container className="pt-24">
@@ -64,7 +61,7 @@ export function HomeHero() {
         </div>
       </Container>
 
-      {/* Service line */}
+  
    <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <div className="h-10 w-6 rounded-pill border border-white/40 p-1">
           <div className="mx-auto h-2 w-1 animate-bounce rounded-pill bg-white/70" />

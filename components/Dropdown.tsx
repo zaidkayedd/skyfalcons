@@ -5,10 +5,7 @@ import { ChevronDown, Check } from "lucide-react";
 
 export type Option = { value: string; label: string };
 
-/**
- * Custom dropdown used site-wide (no native <select>). The chevron rotates
- * when open; the menu is fully brand-styled and keyboard/click-outside aware.
- */
+
 export function Dropdown({
   value,
   onChange,

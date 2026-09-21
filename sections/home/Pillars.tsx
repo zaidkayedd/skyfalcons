@@ -2,7 +2,7 @@ import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { pillars } from "@/data/site";
 
-/** Three service pillars — confirmed brand content. */
+
 export function Pillars() {
   return (
     <section className="border-b border-mist bg-white py-20 sm:py-24">

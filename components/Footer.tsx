@@ -32,7 +32,7 @@ export function Footer() {
     <footer className="bg-[#1f1f1f] text-white/70">
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-[7fr_1fr_1fr] lg:gap-2 lg:grid-cols-[7fr_2fr_1fr_1.2fr] lg:[&>div:nth-child(n+2)]:translate-x-32">
-          {/* Brand */}
+      
           <div>
             <Link href="/" className="inline-flex items-center">
               <Image
@@ -49,7 +49,7 @@ export function Footer() {
               discerning clients worldwide.
             </p>
             <div className="mt-6 flex items-center gap-3">
-              {/* LinkedIn */}
+            
               <a
                 href="https://www.linkedin.com/company/skyfalcons/"
                 target="_blank"
@@ -76,7 +76,6 @@ export function Footer() {
                 </svg>
               </a>
 
-              {/* Instagram */}
               <a
                 href="https://www.instagram.com/skyfalcons_ltd?stkn=MWk0NHVidnZscnhybw=="
                 target="_blank"
@@ -87,7 +86,7 @@ export function Footer() {
                 <Instagram className="h-4 w-4" />
               </a>
 
-              {/* Facebook */}
+  
               <a
                 href="https://www.facebook.com/SkyFalcons.ltd/"
                 target="_blank"
@@ -100,7 +99,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Services */}
+    
           <div className="hidden md:block">
             <FooterCol title="Services">
               {services.map((s) => (
@@ -116,7 +115,6 @@ export function Footer() {
             </FooterCol>
           </div>
 
-          {/* Contact */}
           <div className="hidden md:block">
             <h3 className="font-sans text-sm font-semibold uppercase tracking-wide text-white">
               Contact

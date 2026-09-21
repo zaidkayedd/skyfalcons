@@ -28,9 +28,7 @@ const sameDay = (a: Date, b: Date) =>
   a.getMonth() === b.getMonth() &&
   a.getDate() === b.getDate();
 
-/**
- * Custom, brand-styled date picker (no native input, no deps).
- */
+
 export function DatePicker({
   value,
   onChange,

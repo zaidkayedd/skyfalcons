@@ -7,9 +7,7 @@ import { DatePicker } from "@/components/DatePicker";
 import { tripTypes, charterCategories, charterQuote } from "@/data/charter";
 import type { RequestCharterQuoteForm } from "@/types/forms";
 
-/**
- * Request Charter Quote card — controlled form backed by RequestCharterQuoteForm.
- */
+
 export function CharterQuote() {
   const [form, setForm] = useState<RequestCharterQuoteForm>({
     tripType: tripTypes[0],
@@ -29,7 +27,7 @@ export function CharterQuote() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // form holds the full RequestCharterQuoteForm object
+
   };
 
   return (
@@ -74,7 +72,7 @@ export function CharterQuote() {
         </Field>
       </div>
 
-      {/* Additional information — Always Visible */}
+ 
       <div className="mt-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Departure Airport">

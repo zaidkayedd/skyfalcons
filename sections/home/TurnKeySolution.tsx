@@ -94,7 +94,6 @@ export function TurnKeySolution() {
           subtitle={turnKey.subtitle}
         />
 
-        {/* Desktop Ring Layout */}
         <div
           ref={boxRef}
           className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[670px] translate-x-3 sm:translate-x-0 lg:block"
@@ -227,7 +226,7 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-        {/* ===== Mobile — FIXED-HEIGHT accordion (others shrink; section never grows) ===== */}
+
         <div className="relative mt-16 lg:hidden h-[400px]">
           <div className="pointer-events-none absolute -right-[16.25rem] top-[55%] h-[680px] w-[480px] max-w-none -translate-y-1/2">
             <Image
@@ -298,7 +297,7 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-        {/* Desktop modal fallback */}
+   
         {modal !== null && (
           <div className="fixed inset-0 z-[60] hidden items-center justify-center p-4 lg:flex">
             <button

@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, Expand } from "lucide-react";
 
-/**
- * Aircraft detail gallery — a large main image with a thumbnail slider beneath.
- * Clicking a thumbnail swaps the main image; clicking the main image (or a
- * thumbnail) opens a full-screen lightbox with prev/next navigation.
- */
+
 export function AircraftGallery({
   images,
   name
@@ -34,14 +30,14 @@ export function AircraftGallery({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [lightbox, count]);
 
   return (
     <div className="flex flex-col gap-4">
-      {/* main image + arrows + thumbnails container */}
+
       <div className="rounded-card border border-mist/70 bg-white overflow-hidden">
-        {/* main image with arrow navigation */}
+ 
         <div className="group relative aspect-[16/10] overflow-hidden">
           {hasImages ? (
             <>
@@ -64,7 +60,7 @@ export function AircraftGallery({
                 </span>
               </button>
 
-              {/* Left arrow */}
+     
               {count > 1 && (
                 <button
                   type="button"
@@ -76,7 +72,7 @@ export function AircraftGallery({
                 </button>
               )}
 
-              {/* Right arrow */}
+   
               {count > 1 && (
                 <button
                   type="button"
@@ -90,13 +86,11 @@ export function AircraftGallery({
             </>
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-porcelain">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logos/goldIcon.png" alt={name} className="w-1/3 opacity-90" />
             </div>
           )}
         </div>
 
-        {/* thumbnail slider - inside the container */}
         {count > 1 && (
           <div className="border-t border-mist/70 px-4 py-3 flex gap-2 overflow-x-auto">
             {images.map((src, i) => (
@@ -124,7 +118,7 @@ export function AircraftGallery({
         )}
       </div>
 
-      {/* lightbox */}
+  
       {lightbox && hasImages && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-night/90 p-4">
           <button

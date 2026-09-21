@@ -1,12 +1,6 @@
 import { Container } from "@/components/Container";
 import { AnimatedNetworkGrid } from "@/components/AnimatedNetworkGrid";
-/**
- * PAGE HERO — a restrained, editorial hero for a discerning audience.
- * Centered typography with a refined kicker rule, a large Blacker headline
- * (a single word in gold), a measured subtitle, understated house credentials,
- * and a very faint brand emblem. Generous whitespace, no gimmicks.
- * Shared across Marketplace, Charter and Contact; only the copy differs.
- */
+
 export function PageHero({
   eyebrow,
   title,
@@ -22,13 +16,12 @@ export function PageHero({
 }) {
   return (
     <section className="relative overflow-hidden border-b border-mist bg-porcelain pt-40 pb-24 text-center sm:pt-48 sm:pb-32">
-      {/* very faint brand emblem */}
+
       <div className="pointer-events-none absolute left-[45%] md:left-[35%] top-[50%] md:top-[65%] w-[920px] max-w-[115%] md:max-w-[80%] -translate-x-1/2 -translate-y-1/2 opacity-[0.7]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        {/* <img src="/logos/goldIcon.png" alt="" className="h-auto w-full" /> */}
+  
         <AnimatedNetworkGrid/>
       </div>
-      {/* whisper of warmth */}
+  
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(190,152,90,0.05),transparent_60%)]" />
 
       <Container className="relative">
@@ -59,7 +52,7 @@ export function PageHero({
               </p>
             )}
 
-            {/* understated house credentials */}
+       
             <div className="mt-11 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 font-sans text-[11px] uppercase tracking-[0.28em] text-slate/70 lg:justify-start">
               <span>Founded 2019</span>
               <span className="hidden h-3 w-px bg-gold sm:block" />

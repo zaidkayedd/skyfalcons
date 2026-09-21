@@ -9,16 +9,12 @@ const ICONS: Record<string, LucideIcon> = {
   network: Network
 };
 
-/**
- * WHO WE ARE — editorial layout: centered intro, a Founded-2019 / lead split,
- * a large pull-quote, and three differentiator pillars (AvHub · Marketplace ·
- * Partner Network) with a closing outcome line.
- */
+
 export function WhoWeAre() {
   return (
     <section className="py-20 sm:py-28">
       <Container>
-        {/* Intro */}
+
         <Reveal className="mx-auto max-w-3xl text-center">
           <span className="font-sans text-xs font-semibold uppercase tracking-eyebrow text-gold">
             {whoWeAre.eyebrow}
@@ -30,7 +26,7 @@ export function WhoWeAre() {
           <p className="mt-6 text-lg leading-relaxed text-slate">{whoWeAre.lead}</p>
         </Reveal>
 
-        {/* Founded / body split */}
+
         <Reveal
           delay={80}
           className="mt-14 grid items-center gap-8 rounded-[24px] border border-mist bg-white/70 p-8 sm:p-10 lg:grid-cols-[auto_1fr] lg:gap-14"
@@ -48,7 +44,7 @@ export function WhoWeAre() {
           </p>
         </Reveal>
 
-        {/* Pull quote */}
+   
         <Reveal delay={120} className="mx-auto mt-16 max-w-4xl text-center">
           <Quote className="mx-auto h-8 w-8 text-gold/70" aria-hidden />
           <blockquote className="display mt-5 text-2xl leading-snug text-ink sm:text-[2rem]">
@@ -56,7 +52,7 @@ export function WhoWeAre() {
           </blockquote>
         </Reveal>
 
-        {/* Pillars */}
+
         <div className="mt-16 grid gap-6 md:grid-cols-3 md:gap-0">
           {whoWeAre.pillars.map((p, i) => {
             const isImage = p.icon.startsWith("/");

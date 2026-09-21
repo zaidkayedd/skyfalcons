@@ -5,11 +5,7 @@ import { Phone, Download, Calendar, X, Check } from "lucide-react";
 
 type ModalKind = "viewing" | "spec" | null;
 
-/**
- * Inquiry rail actions for the aircraft detail page.
- * "Contact Sales" links to /contact; "Download Spec Sheet" and
- * "Schedule Viewing" open pre-filled request modals.
- */
+
 export function InquiryActions({
   aircraftLabel
 }: {

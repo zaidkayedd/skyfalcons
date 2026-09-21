@@ -42,7 +42,7 @@ export function MarketplaceExplorer() {
         const mapped = draft.categories.map((c) => CATEGORY_MAP[c] ?? c);
         if (!mapped.includes(a.category)) return false;
       }
-      // price / wifi filters are no-ops until listings carry those fields
+
       return true;
     });
     list = [...list].sort((a, b) => {

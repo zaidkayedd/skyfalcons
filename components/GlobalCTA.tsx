@@ -6,14 +6,21 @@ import { ArrowRight } from "lucide-react";
 import { cta } from "@/data/site";
 import { splitDisplayText } from "@/lib/utils";
 
+interface GlobalCTAProps {
+  heading?: string;
+  subheadingHighlight?: string;
+  body?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+
 export function GlobalCTA({
   heading = cta.heading,
+  subheadingHighlight = "Marketplace Listing",
   body = cta.body,
-}: {
-  heading?: string;
-  body?: string;
-  image?: string;
-}) {
+  buttonLabel = cta.primary.label,
+  buttonHref = cta.primary.href,
+}: GlobalCTAProps) {
   return (
     <section className="py-20 sm:py-24">
       <Container>
@@ -28,15 +35,11 @@ export function GlobalCTA({
             bg-[#F8F8F6]
             shadow-[0_12px_36px_rgba(0,0,0,0.07)]
             pb-[1rem]
-            s,:pb-[2rem]
+            sm:pb-[2rem]
             pt-[20rem]
             sm:pt-[2rem]
-           
           "
         >
-          {/* ============================
-              GLOBE (Modernized positioning)
-          ============================ */}
           <div
             className="
               pointer-events-none
@@ -65,9 +68,6 @@ export function GlobalCTA({
             <Globe />
           </div>
 
-          {/* ============================
-              CONTENT
-          ============================ */}
           <div
             className="
               relative
@@ -83,7 +83,7 @@ export function GlobalCTA({
               lg:py-12
             "
           >
-            <div className="max-w-[570px]">
+            <div className="max-w-[650px]">
               <h2
                 className="
                   display
@@ -96,7 +96,7 @@ export function GlobalCTA({
               >
                 {splitDisplayText(heading)}{" "}
                 <span className="text-gold block sm:inline">
-                  Marketplace Listing
+                  {subheadingHighlight}
                 </span>
               </h2>
 
@@ -117,7 +117,7 @@ export function GlobalCTA({
 
               <div className="mt-6 sm:mt-5">
                 <Button
-                  href={cta.primary.href}
+                  href={buttonHref}
                   variant="gold"
                   className="
                     w-full
@@ -134,7 +134,7 @@ export function GlobalCTA({
                     hover:shadow-[0_7px_16px_rgba(190,152,90,0.24)]
                   "
                 >
-                  {cta.primary.label}
+                  {buttonLabel}
 
                   <ArrowRight
                     className="h-4 w-4"
@@ -145,9 +145,6 @@ export function GlobalCTA({
             </div>
           </div>
 
-          {/* ============================
-              DEPTH EFFECT
-          ============================ */}
           <div
             className="
               pointer-events-none
