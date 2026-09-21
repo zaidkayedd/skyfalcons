@@ -7,8 +7,8 @@ import { Globe } from "./ui/globe";
 import { ArrowRight } from "lucide-react";
 import { cta } from "@/data/site";
 import { splitDisplayText } from "@/lib/utils";
-import { MarketplaceAlertsModal } from "./MarketplaceAlertsModal (1)";
-import { EmptyLegAlertsModal } from "./EmptyLegAlertsModal (1)";
+import { MarketplaceAlertsModal } from "./MarketplaceAlertsModal";
+import { EmptyLegAlertsModal } from "./EmptyLegAlertsModal";
 
 interface GlobalCTAProps {
   heading?: string;
