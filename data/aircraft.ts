@@ -13,6 +13,7 @@ export type MaintRow = {
   event: string;
   facility: string;
   hours: string;
+  title?: string;
 };
 export type SpecGroup = { title: string; icon: SpecIcon; rows: SpecRow[] };
 export type SpecIcon = "engine" | "apu" | "gauge" | "shield" | "sparkles" | "plane";
@@ -26,6 +27,7 @@ export type Aircraft = {
   name: string;
   category: AircraftCategory;
   serialNumber?: string;
+  title?: string;
   status: AircraftStatus;
   passengers: number;
   rangeNm: number;
