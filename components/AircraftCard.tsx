@@ -22,7 +22,7 @@ export function AircraftCard({ item }: { item: Aircraft }) {
             alt={item.name}
             fill
             sizes="(max-width: 1280px) 100vw, 50vw"
-            className="object-contain p-6 transition-transform duration-700 ease-premium group-hover:scale-105"
+            className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
@@ -35,10 +35,10 @@ export function AircraftCard({ item }: { item: Aircraft }) {
             />
           </div>
         )}
-        <span className="absolute left-4 top-4 rounded-pill bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink backdrop-blur">
+        <span className="absolute left-4 top-4 z-10 rounded-pill bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink backdrop-blur">
           {item.status}
         </span>
-        <span className="absolute right-4 top-4 rounded-pill bg-ink/80 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">
+        <span className="absolute right-4 top-4 z-10 rounded-pill bg-ink/80 px-3 py-1 text-[11px] font-medium text-white backdrop-blur">
           {item.category}
         </span>
       </div>
