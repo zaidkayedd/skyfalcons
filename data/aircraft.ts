@@ -9,16 +9,15 @@ export type AircraftCategory =
 
 export type SpecRow = { label: string; value: string };
 export type MaintRow = {
-    title?: string;
+  title?: string;
   lastDone?: string;
   lastDoneTSN?: string;
   nextDue?: string;
   nextDueTSN?: string;
-  date: string;
-  event: string;
-  facility: string;
-  hours: string;
-
+  date?: string;
+  event?: string;
+  facility?: string;
+  hours?: string;
 };
 export type SpecGroup = { title: string; icon: SpecIcon; rows: SpecRow[] };
 export type SpecIcon =
