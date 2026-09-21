@@ -4,7 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { brand } from "@/data/site";
-
+import { ClientLayout } from "@/components/ClientLayout";
 
 const blacker = localFont({
   src: [
@@ -46,9 +46,11 @@ export default function RootLayout({
     <html lang="en" className={blacker.variable}>
       <head />
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <ClientLayout>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </ClientLayout>
       </body>
     </html>
   );
