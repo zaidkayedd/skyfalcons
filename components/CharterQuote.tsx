@@ -8,8 +8,8 @@ import { AirportSelect } from "@/components/AirportSelect";
 import { tripTypes, charterCategories, charterQuote } from "@/data/charter";
 import type { RequestCharterQuoteForm } from "@/types/forms";
 
-
 export function CharterQuote() {
+  const [showAll, setShowAll] = useState(false);
   const [form, setForm] = useState<RequestCharterQuoteForm>({
     tripType: tripTypes[0],
     passengers: 0,
@@ -28,7 +28,11 @@ export function CharterQuote() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
+    if (!showAll) {
+      setShowAll(true);
+      return;
+    }
+    // Handle final quote submission here
   };
 
   return (
@@ -46,6 +50,7 @@ export function CharterQuote() {
       </div>
       <div className="my-4 h-px w-full bg-mist/70" />
 
+      {/* Always visible: First 3 inputs */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         <Field label="Trip Type" required>
           <Dropdown
@@ -73,8 +78,12 @@ export function CharterQuote() {
         </Field>
       </div>
 
- 
-      <div className="mt-6">
+      {/* Hidden / Expanding fields with smooth animation */}
+      <div
+        className={`grid overflow-hidden transition-all duration-500 ease-in-out ${
+          showAll ? "max-h-[1200px] opacity-150 mt-6" : "max-h-0 opacity-0 mt-0"
+        }`}
+      >
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Departure Airport">
             <AirportSelect
@@ -143,10 +152,13 @@ export function CharterQuote() {
       </div>
 
       <button
-        type="submit"
+        type={showAll ? "submit" : "button"}
+        onClick={() => {
+          if (!showAll) setShowAll(true);
+        }}
         className="mt-6 flex w-full items-center justify-center gap-2 rounded-card bg-gold px-5 py-3.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
       >
-        Request Quote
+        {showAll ? "Request a quote" : "Additional Information"}
         <ArrowRight className="h-4 w-4" />
       </button>
     </form>

@@ -226,8 +226,8 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-
-        <div className="relative mt-16 lg:hidden h-[400px]">
+        {/* Mobile View: Original pill width, wider expanded box, and moved down */}
+        <div className="relative mt-20 lg:hidden h-[400px]">
           <div className="pointer-events-none absolute -right-[16.25rem] top-[55%] h-[680px] w-[480px] max-w-none -translate-y-1/2">
             <Image
               src={turnKey.aircraft}
@@ -238,7 +238,8 @@ export function TurnKeySolution() {
             />
           </div>
 
-          <div className="relative z-10 flex w-[72%] max-w-md flex-col gap-2">
+          {/* Pills wrapper returned to original w-[72%] max-w-md, with translate-y for downward shift */}
+          <div className="relative z-10 flex w-[72%] max-w-md flex-col gap-2 translate-y-6">
             {services.map((s, i) => {
               const Icon = ICONS[s.icon] ?? ShoppingCart;
               const open = mobileOpen === i;
@@ -275,7 +276,7 @@ export function TurnKeySolution() {
 
                   {open && (
                     <div
-                      className="mt-2 rounded-card border border-mist/70 bg-white p-5 text-left shadow-modal"
+                      className="mt-2 w-[130%] sm:w-[140%] max-w-lg rounded-card border border-mist/70 bg-white p-5 text-left shadow-modal"
                       style={{ animation: `tk-expand 360ms ${EASE} both` }}
                     >
                       <p className="font-sans text-sm leading-relaxed text-slate">
@@ -297,7 +298,6 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-   
         {modal !== null && (
           <div className="fixed inset-0 z-[60] hidden items-center justify-center p-4 lg:flex">
             <button
