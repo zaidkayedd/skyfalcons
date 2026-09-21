@@ -55,7 +55,6 @@ export default function AircraftDetailPage({
             </span>
           </div>
 
-    
           <div className="max-w-3xl">
             <h1 className="display text-4xl text-ink sm:text-5xl lg:text-6xl">
               {item.name}
@@ -68,7 +67,6 @@ export default function AircraftDetailPage({
             </div>
           </div>
 
-        
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[1.6fr_1fr]">
             <AircraftGallery
               images={item.gallery ?? (item.image ? [item.image] : [])}
@@ -77,7 +75,6 @@ export default function AircraftDetailPage({
 
             <div className="self-start lg:sticky lg:top-24">
               <div className="overflow-hidden rounded-card border border-mist/70 bg-white shadow-card">
-         
                 <div className="grid grid-cols-2 gap-px bg-mist/70">
                   <SpecCell icon={<Users className="h-5 w-5" />} value={`${item.passengers}`} label="Passengers" />
                   <SpecCell icon={<Globe className="h-5 w-5" />} value={item.rangeNm.toLocaleString()} label="NM Range" />
@@ -85,7 +82,6 @@ export default function AircraftDetailPage({
                   <SpecCell icon={<Clock className="h-5 w-5" />} value={item.totalHours.toLocaleString()} label="Total Hours" />
                 </div>
 
-               
                 <div className="border-t border-mist/70 p-6">
                   <h2 className="display text-xl text-ink">Inquiry</h2>
                   <p className="mb-4 mt-1 font-sans text-sm text-slate">
@@ -97,25 +93,25 @@ export default function AircraftDetailPage({
             </div>
           </div>
 
-      
+          {/* Quick Facts Section */}
           <div className="mt-10 rounded-card border border-mist/70 bg-white p-6 shadow-card sm:p-8">
             <h2 className="display mb-6 text-2xl text-ink">Quick Facts</h2>
-            <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-8">
-              <FactItem k="Make" v={item.make} />
-              <FactItem k="Model" v={item.model} />
-                   {item.serialNumber && (
-                <FactItem k="Serial Number" v={item.serialNumber} />
-              )}
-              <FactItem k="Year" v={`${item.year}`} />
-              <FactItem k="Status" v={item.status} />
-              <FactItem k="Category" v={item.category} />
-              <FactItem k="Airframe Hours" v={item.totalHours.toLocaleString()} />
-              <FactItem k="Airframe Cycles" v={item.airframeCycles.toLocaleString()} />
-         
-            </dl>
+            <div className="overflow-x-auto pb-2">
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 lg:grid-cols-8">
+                <FactItem k="Make" v={item.make} />
+                <FactItem k="Model" v={item.model} />
+                {item.serialNumber && (
+                  <FactItem k="Serial Number" v={item.serialNumber} />
+                )}
+                <FactItem k="Year" v={`${item.year}`} />
+                <FactItem k="Status" v={item.status} />
+                <FactItem k="Category" v={item.category} />
+                <FactItem k="Airframe Hours" v={item.totalHours.toLocaleString()} />
+                <FactItem k="Airframe Cycles" v={item.airframeCycles.toLocaleString()} />
+              </dl>
+            </div>
           </div>
 
-        
           <AircraftTabs item={item} />
         </Container>
       </section>
@@ -153,7 +149,7 @@ function SpecCell({
 
 function FactItem({ k, v }: { k: string; v: string }) {
   return (
-    <div>
+    <div className="whitespace-nowrap">
       <dt className="font-sans text-[11px] uppercase tracking-wide text-slate">{k}</dt>
       <dd className="mt-1 font-sans text-sm font-semibold text-ink">{v}</dd>
     </div>
