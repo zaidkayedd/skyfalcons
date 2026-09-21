@@ -1,16 +1,18 @@
 /**
- * MARKETPLACE — AIRCRAFT DATA
- * ---------------------------------------------------------------------------
- * Shape and sample values mirror the live skyfalcons.com marketplace + detail
- * page exactly (listing card: passengers / NM range / total hours; detail page:
- * Quick Facts, Key Specifications, Engines, APU, spec tabs).
- * [REPLACE] Swap these entries for the full real inventory before launch — keep
- * the keys, change the values. The "X aircraft found" count is derived from the
- * array length, so it will read the real total automatically.
- * ---------------------------------------------------------------------------
+ * MARKETPLACE — AIRCRAFT DATA (real inventory)
+ * Images are served from /public/Aircrafts.
+ *
+ * PER-AIRCRAFT IMAGES / CAROUSEL:
+ *  - `image`   = the card thumbnail + first gallery image. Leave "" for none
+ *                (a gold-falcon placeholder shows and there is NO carousel).
+ *  - `gallery` = that aircraft's OWN photos. Add 2+ paths here to enable the
+ *                detail-page carousel (arrows + thumbnails). With 1 image it
+ *                just shows that image; with 0 it shows the placeholder.
+ *                Galleries are never shared between aircraft.
+ *  Example:  gallery: ["/Aircrafts/Legacy2014-1.jpeg", "/Aircrafts/Legacy2014-2.jpeg"]
  */
 
-export type AircraftStatus = "Available" | "Sale Pending" | "Sold";
+export type AircraftStatus = "Available" | "Sale Pending" | "Sold" | "Acquired";
 
 export type AircraftCategory =
   | "Light"
@@ -31,11 +33,11 @@ export type SpecIcon = "engine" | "apu" | "gauge" | "shield" | "sparkles" | "pla
 
 export type Aircraft = {
   id: string;
-  aircraftId: string; // e.g. "Aircraft-skvyld"
+  aircraftId: string;
   year: number;
   make: string;
   model: string;
-  name: string; // "2010 Gulfstream G550"
+  name: string;
   category: AircraftCategory;
   status: AircraftStatus;
   passengers: number;
@@ -44,9 +46,8 @@ export type Aircraft = {
   totalHours: number;
   airframeCycles: number;
   price: string;
-  image: string; // "" => falcon watermark placeholder
-  gallery?: string[]; // detail-page image slider (first = main)
-  // Spec tabs. overview is required; others optional.
+  image: string;
+  gallery?: string[];
   overview: SpecGroup[];
   maintenance?: string[];
   maintenanceSummary?: string[];
@@ -68,7 +69,8 @@ export const aircraftCategories: AircraftCategory[] = [
 export const aircraftStatuses: AircraftStatus[] = [
   "Available",
   "Sale Pending",
-  "Sold"
+  "Sold",
+  "Acquired"
 ];
 
 export const aircraftManufacturers = [
@@ -91,8 +93,173 @@ export const perPageOptions = [6, 9, 12] as const;
 
 const baseAircraft: Aircraft[] = [
   {
+    id: "2014-embraer-legacy-650",
+    aircraftId: "Aircraft-9AM03f",
+    year: 2014,
+    make: "Embraer",
+    model: "Legacy 650",
+    name: "2014 Embraer Legacy 650",
+    category: "Heavy",
+    status: "Acquired",
+    passengers: 13,
+    rangeNm: 4123,
+    knots: 459,
+    totalHours: 4608,
+    airframeCycles: 2633,
+    price: "Price on request",
+    image: "/Aircrafts/Legacy2014.jpeg",
+    gallery: ["/Aircrafts/Legacy2014.jpeg"],
+    overview: [
+      {
+        title: "Engines",
+        icon: "engine",
+        rows: [
+          { label: "Make / Model", value: "Rolls-Royce North America AE3007A2" },
+          { label: "Eng. 1 Total Time", value: "4,444 hrs" },
+          { label: "Eng. 2 Total Time", value: "4,444 hrs" },
+          { label: "Eng. 1 Cycles", value: "2,537" },
+          { label: "Eng. 2 Cycles", value: "2,537" },
+          { label: "Power By The Hour", value: "Rolls-Royce CorporateCare Enhanced" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [
+          { label: "Make / Model", value: "Hamilton Sundstrand APS500R" },
+          { label: "Total Time", value: "3,072 hrs" },
+          { label: "Cycles", value: "4,090" }
+        ]
+      }
+    ],
+    interior: [
+      "13 passengers + 2 crew configuration",
+      "Observer seat with intercom handset; forward flight-attendant seat with intercom",
+      "Forward crew lavatory and aft passenger lavatory",
+      "LED vanity light installation",
+      "Forward galley: convection oven, microwave, 2 standard food containers, coffee maker",
+      "Forward cabin: 4 chairs in club arrangement with pullout tables",
+      "Mid cabin: 4-place conference dining group opposite a credenza",
+      "Mid-to-aft cabin: partition/divider with curtain",
+      "Aft cabin: 3-place berthable divan and 2 chairs in club arrangement with pullout table",
+      "Aircell GoGo Biz ATG-5000 domestic USA high-speed data / Wi-Fi",
+      "Airshow 4000 Passenger Flight Information System",
+      "Dual Blu-Ray players; Ovation Cabin Management System with iPad control",
+      "Forward and aft 19-inch bulkhead-mounted monitors; satellite phone"
+    ],
+    exterior: ["Allover White with Silver and Blue accents"],
+    avionics: [
+      "Honeywell IC-600 Integrated Computer with NZ-2000 v6.0 FMS",
+      "Honeywell RNZ-851 VHF-NAV / Marker / Glideslope / ADF / DME",
+      "Honeywell RCZ-833K VHF Comm 1 & 2 (Mode S transponder RCZ-833K)",
+      "Honeywell KRX-1053 HF Comm; ICG ICS-220A SATCOM voice; Honeywell high-speed data SATCOM",
+      "ACSS TCAS 3000-SP Change 7.11; Honeywell EGPWS Mark V with Windshear",
+      "Honeywell AZ-950 Air Data; Laseref IV IRS; RT-300 Radio Altimeter; GR-550 GPS",
+      "Honeywell CM-950 Cabin Management; RM-855 Radio Management Unit; AV-850A audio",
+      "L3 2100 FDR & CVR; Artex/Honeywell C406-2 ELT; Trimble Jet Call 2 SELCAL",
+      "Honeywell WU-880 Weather Radar; PC-400 Autopilot controller"
+    ],
+    features: [
+      "FANS 1/A+ and CPDLC",
+      "Synthetic Vision System",
+      "TCAS II with Change 7.1 modification",
+      "WAAS / LPV; RVSM; RNP",
+      "ADS-B Out",
+      "CAT II approach capability (SB145LEG-31-0003/02)",
+      "Second HF system installed (SB145LEG-23-0011/02)",
+      "Mode S Enhanced Surveillance transponder",
+      "Electronic Flight Bag installation; Steep Approach system",
+      "SmartLanding / SmartRunway activation",
+      "Synthetic Vision System installation (SB145LEG-31-0027/03)"
+    ],
+    maintenanceSummary: [
+      "Embraer Low Utilization Plan with CAMP Systems Computerized Aircraft Maintenance Tracking Program"
+    ],
+    maintenanceHistory: [
+      { date: "Feb 2025", event: "12 Month / 500 Hour", facility: "Next due: Feb 2026", hours: "4,371" },
+      { date: "Feb 2025", event: "24 Month / 1,000 Hour", facility: "Next due: Feb 2027", hours: "4,371" },
+      { date: "Mar 2023", event: "48 Month / 2,000 Hour", facility: "Next due: Mar 2027", hours: "3,506" },
+      { date: "Dec 2020", event: "72 Month / 3,000 Hour", facility: "Next due: Dec 2026", hours: "3,027" },
+      { date: "Mar 2023", event: "96 Month / 4,000 Hour", facility: "Next due: Mar 2031", hours: "3,506" },
+      { date: "—", event: "Gear 144 Month Overhaul", facility: "Next due: Dec 2026", hours: "—" }
+    ]
+  },
+  {
+    id: "2015-embraer-legacy-650",
+    aircraftId: "Aircraft-HsSkp9",
+    year: 2015,
+    make: "Embraer",
+    model: "Legacy 650",
+    name: "2015 Embraer Legacy 650",
+    category: "Heavy",
+    status: "Acquired",
+    passengers: 13,
+    rangeNm: 4123,
+    knots: 459,
+    totalHours: 2079,
+    airframeCycles: 1204,
+    price: "Price on request",
+    image: "/Aircrafts/Legacy2015.jpeg",
+    gallery: ["/Aircrafts/Legacy2015.jpeg"],
+    overview: [
+      {
+        title: "Engines",
+        icon: "engine",
+        rows: [
+          { label: "Make / Model", value: "Rolls-Royce Plc AE3007A2" },
+          { label: "Eng. 1 Total Time", value: "2,104 hrs" },
+          { label: "Eng. 2 Total Time", value: "2,104 hrs" },
+          { label: "Eng. 1 Cycles", value: "1,204" },
+          { label: "Eng. 2 Cycles", value: "1,204" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [
+          { label: "Make / Model", value: "Hamilton Standard / Sundstrand APS500R / T-62T-40C14" },
+          { label: "Total Time", value: "1,802 hrs" },
+          { label: "Cycles", value: "1,204" }
+        ]
+      }
+    ],
+    interior: [
+      "13-passenger configuration with crew configuration and observer seat",
+      "Intercom handset; forward crew and aft passenger lavatories; forward galley",
+      "Forward cabin: 4 chairs in club arrangement with pullout tables",
+      "Mid cabin: 4-place conference dining group opposite a credenza",
+      "Mid-to-aft cabin: partition with curtain",
+      "Aft cabin: 3-place divan and 2 chairs in club arrangement with pullout table",
+      "GoGo Biz AVANCE L-5 domestic USA high-speed data / internet / Wi-Fi",
+      "Airshow 4000 Passenger Flight Information System; dual Blu-Ray players",
+      "Ovation Cabin Management System; dual 19-inch bulkhead monitors; 2 side-ledge monitors"
+    ],
+    exterior: ["White with Silver and Blue"],
+    avionics: [
+      "Honeywell RNZ-851 VHF-NAV / Marker / Glideslope / ADF / DME",
+      "Honeywell RCZ-833K VHF Comm 1 & 2; RCZ-833 VHF Comm 3",
+      "Honeywell NZ-2000 (6.1) FMS; IC-600 Integrated Computer (7.1 mod)",
+      "Honeywell AZ-950 Air Data; Laseref IV IRS; RT-300 Radio Altimeter; GR-550 GPS",
+      "ACSS/Honeywell TCAS 2000; EGPWS Mark V; AV-850A audio; RM-855 RMU",
+      "Honeywell KRX-1053 HF Comm; L3 2100 FDR & CVR; Artex C406-2 ELT; Jet Call 2 SELCAL",
+      "Honeywell WX-880 Weather Radar; PC-400 Autopilot controller; CM-950 Cabin Management"
+    ],
+    features: [
+      "FANS 1/A compliant; CPDLC compliant",
+      "ADS-B Out Version 2",
+      "TCAS II — Change 7.1 modification",
+      "WAAS, LPV and RVSM compliant; RNP 0.3 capability",
+      "NZ-2000 FMS with 6.1 software upgrade",
+      "Iridium Satellite Phone System",
+      "GoGo Biz AVANCE L-5 domestic USA high-speed data / internet / Wi-Fi"
+    ],
+    maintenanceSummary: [
+      "Embraer Low Utilization Plan with CAMP Systems Computerized Aircraft Maintenance Tracking Program"
+    ]
+  },
+  {
     id: "2010-gulfstream-g550",
-    aircraftId: "Aircraft-skvyld",
+    aircraftId: "Aircraft-sky1d",
     year: 2010,
     make: "Gulfstream",
     model: "G550",
@@ -105,88 +272,138 @@ const baseAircraft: Aircraft[] = [
     totalHours: 4127,
     airframeCycles: 2055,
     price: "Price on request",
-    image: "/Aircrafts/Aircraft1.png",
+    image: "",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make Model", value: "Rolls-Royce AG Model: BR710-710C4-11 (G-550)" },
-          { label: "Eng. 1 Total Time", value: "4226" },
-          { label: "Eng. 2 Total Time", value: "4226" },
-          { label: "Eng. 1 Cycles", value: "2055" },
-          { label: "Eng. 2 Cycles", value: "2055" }
+          { label: "Make / Model", value: "Rolls-Royce AG BR710-710C4-11 (G-550)" },
+          { label: "Eng. 1 Total Time", value: "4,226 hrs" },
+          { label: "Eng. 2 Total Time", value: "4,226 hrs" },
+          { label: "Eng. 1 Cycles", value: "2,055" },
+          { label: "Eng. 2 Cycles", value: "2,055" }
         ]
       },
       {
         title: "APU",
         icon: "apu",
         rows: [
-          { label: "Make Model", value: "Honeywell Model: RE220 (G-550)" },
-          { label: "Total Time", value: "4236" }
+          { label: "Make / Model", value: "Honeywell RE220 (G-550)" },
+          { label: "Total Time", value: "4,236 hrs" }
         ]
       }
+    ],
+    interior: [
+      "New in 2009 by Gulfstream; refurbished & upgraded by Gulfstream (Dallas, TX) — completed March 2016 at 1,556 hrs / 517 landings",
+      "19 passengers + flight deck crew; observer jump seat; 4-zone configuration",
+      "Forward crew lavatory and aft cabin VIP lavatory",
+      "Forward galley: microwave, high-temp oven, dual coffee maker, refrigerator, ample storage",
+      "Forward cabin: 4 chairs in club arrangement with pullout tables",
+      "Mid cabin: 2 chairs in club with pullout tables, 4-place divan, 4-place dining/conference group opposite credenza",
+      "Aft cabin: 2 opposing divans, a 2-place divan and a 3-place divan; privacy divider",
+      "Rockwell Collins Venue CMS; Honeywell AIS-2000 satellite TV; Quasar II full-spectrum mood lighting",
+      "Aircell GoGo Biz ATG-4000 high-speed data; XM Radio; Aircell Axxess satellite phone",
+      "Honeywell Swift Broadband HD710; Wi-Fi; SATCOM Direct router; Rosen HD monitors throughout"
+    ],
+    exterior: [
+      "New paint in 2016 by Gulfstream (Dallas, TX) at 1,556 hrs / 517 landings",
+      "Overall Matterhorn White with Light Blue and Dark Blue stripes"
+    ],
+    avionics: [
+      "Honeywell PlaneView Integrated Avionics System 4",
+      "4 × Honeywell DU-1310 flat-panel displays; DC-884 display controllers; DP-884 brightness panel",
+      "Honeywell/Kollsman VGS visual guidance; GP-500 flight guidance panel",
+      "3 × AZ-200 air data modules; 3 × AV-900 audio panels; 2 × RT-300 radio altimeters",
+      "Honeywell WU-800 weather radar; Universal FDR & CVR",
+      "Honeywell MCS 7000+ SATCOM; L3 TCAS-3000SP 7.1",
+      "3 × MC-850 MCDUs; 3 × IR-500 Laseref micro IRS; L3 GH-3100 standby indicator"
+    ],
+    features: [
+      "88-parameter FDR upgrade; ARINC Direct datalink",
+      "Synthetic Vision Primary Flight Display (SV-PFD)",
+      "Runway Awareness Advisory System (RAAS); Enhanced Navigation; XM Weather",
+      "CPDLC FANS 1A; TCAS 7.1; ADS-B Out",
+      "LED navigation/anticollision strobe upgrade; external camera system",
+      "SATCOM High Speed Data (HD-128) MCS-7100; Aircell Axxess Iridium phone",
+      "Aircell ATG-4000 high-speed data & Wi-Fi; KU-band transmission radome"
+    ],
+    maintenanceSummary: [
+      "Embraer Low Utilization Plan with CAMP Systems Computerized Aircraft Maintenance Tracking Program (per listing)"
     ]
   },
   {
-    id: "2004-gulfstream-g550",
-    aircraftId: "Aircraft-gv2004",
-    year: 2004,
-    make: "Gulfstream",
-    model: "G550",
-    name: "2004 Gulfstream G550",
-    category: "Heavy",
-    status: "Available",
-    passengers: 14,
-    rangeNm: 6954,
-    knots: 488,
-    totalHours: 3655,
-    airframeCycles: 1620,
-    price: "Price on request",
-    image: "/Aircrafts/Aircraft2.png",
-    overview: [
-      {
-        title: "Engines",
-        icon: "engine",
-        rows: [
-          { label: "Make Model", value: "Rolls-Royce BR710 (G-550)" },
-          { label: "Eng. 1 Total Time", value: "3655" },
-          { label: "Eng. 2 Total Time", value: "3655" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "2001-challenger-604",
-    aircraftId: "Aircraft-ch604x",
+    id: "2001-bombardier-challenger-604",
+    aircraftId: "Aircraft-eufnVR",
     year: 2001,
     make: "Bombardier",
     model: "Challenger 604",
-    name: "2001 Challenger 604",
-    category: "Super Midsize",
+    name: "2001 Bombardier Challenger 604",
+    category: "Heavy",
     status: "Available",
     passengers: 9,
     rangeNm: 4119,
-    knots: 470,
+    knots: 459,
     totalHours: 4963,
-    airframeCycles: 3110,
+    airframeCycles: 2714,
     price: "Price on request",
-    image: "/Aircrafts/Aircraft3.webp",
+    image: "",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make Model", value: "General Electric CF34-3B" },
-          { label: "Eng. 1 Total Time", value: "4963" },
-          { label: "Eng. 2 Total Time", value: "4963" }
+          { label: "Make / Model", value: "General Electric CF34-3B" },
+          { label: "Eng. 1 Total Time", value: "4,963 hrs" },
+          { label: "Eng. 2 Total Time", value: "4,963 hrs" },
+          { label: "Eng. 1 Cycles", value: "2,728" },
+          { label: "Eng. 2 Cycles", value: "2,728" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [
+          { label: "Make / Model", value: "Honeywell GTCP 36-150 (CL)" },
+          { label: "Total Time", value: "3,927 hrs" }
         ]
       }
+    ],
+    interior: [
+      "9 passengers + flight deck crew",
+      "Aft cabin passenger lavatory with flushing potty and vanity",
+      "Forward right-side S-shaped galley; cooled wine & food storage; TIA high-temp oven; TIA coffee maker; microwave",
+      "Baker dual DVD player; Airshow 400 PFIS; forward & aft 21-inch bulkhead monitors; 12-disc CD changer",
+      "Forward cabin: 4 chairs in club arrangement with pullout tables",
+      "Aft cabin: 2 chairs in club with pullout tables opposite a 3-place side-facing divan"
+    ],
+    exterior: ["Allover Matterhorn White with Red and Burgundy accents"],
+    avionics: [
+      "Collins Pro Line 4 EFIS — 6 display tubes",
+      "2 × Collins FCC-4006 digital flight control; 2 × ADC-850-E air data computers",
+      "2 × Collins GPS-4000 (12-ch); 2 × FMC-6000 FMS; 3 × LTN-101 IRS",
+      "Collins RTA-854 weather radar; 2 × ALT-55B radio altimeter",
+      "2 × Collins HF-9031A HF Comm; 2 × VHF-422B (8.33 kHz); 2 × VIR-432 VHF NAV",
+      "2 × DME-442; 2 × ADF-462; 2 × TDR-94D Mode S; Collins TTR-921 TCAS-2 Change 7.1",
+      "Honeywell Mark-V EGPWS; Fairchild F-1000 FDR & A100S CVR; Artex 406 ELT; Aircell ST-3100 SATCOM (2 handsets)"
+    ],
+    features: [
+      "Extended floorplan with 3 additional windows",
+      "Enhanced auto-throttle; APU upgraded to GTCP-36-150",
+      "Increased MTOW to 48,200 lb (SB-604-1-001)",
+      "Third VHF, third IRS, second radio altimeter installed",
+      "Lightning Detection System (LDS); RVSM; AFIS; dual GPS",
+      "TCAS Change 7.1 mod; Enhanced Mode S surveillance (Precision Plus)",
+      "FMS software upgrade to 3.3.1"
+    ],
+    maintenanceSummary: [
+      "96-Month gear overhaul completed September 2017 @ 4,414 hrs",
+      "2284 CSN inspection listed due 28 November 2025 (treat as historical listed due date)"
     ]
   },
   {
-    id: "2017-falcon-7x",
-    aircraftId: "Aircraft-f7x017",
+    id: "2017-dassault-falcon-7x",
+    aircraftId: "Aircraft-QCW231",
     year: 2017,
     make: "Dassault",
     model: "Falcon 7X",
@@ -195,25 +412,70 @@ const baseAircraft: Aircraft[] = [
     status: "Sale Pending",
     passengers: 14,
     rangeNm: 5795,
-    knots: 488,
+    knots: 459,
     totalHours: 1048,
-    airframeCycles: 520,
+    airframeCycles: 478,
     price: "Price on request",
-    image: "/Aircrafts/Aircraft4.webp",
+    image: "",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make Model", value: "Pratt & Whitney Canada PW307A (x3)" },
-          { label: "Total Time", value: "1048" }
+          { label: "Make / Model", value: "Pratt & Whitney Canada PW307A (x3)" },
+          { label: "Eng. 1 Total Time", value: "1,043 hrs" },
+          { label: "Eng. 2 Total Time", value: "1,043 hrs" },
+          { label: "Eng. 3 Total Time", value: "1,043 hrs" },
+          { label: "Cycles (each)", value: "478" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [
+          { label: "Make / Model", value: "Honeywell GTCP36-150 (FN)" },
+          { label: "Total Time", value: "1,531 hrs" },
+          { label: "Cycles", value: "1,341" }
         ]
       }
+    ],
+    interior: [
+      "14 passengers + 2 flight deck crew + crew jump seat; interior new in 2017 by Dassault Aviation",
+      "Forward 30-inch crew lavatory with fixed sink; aft cabin VIP lavatory with vanity cabinet",
+      "Forward 38-inch galley annex; entryway closet and entertainment cabinet",
+      "Upper galley: TIA Wavejet microwave, Enflite high-temp oven, DeLonghi Nespresso machine",
+      "Forward cabin: 4 chairs in club with 2 pullout tables",
+      "Mid cabin: 4-place conference/dining group with electric Hi-Lo table opposite credenza",
+      "Aft cabin: two 3-place opposing 60-inch 16G divans (manual & electric berthing)",
+      "Honeywell MCS-7120 Inmarsat SATCOM; Rockwell Collins Falcon Cabin HD+ with 3D moving map",
+      "Dual Blu-Ray; two 22-inch widescreen HD LED monitors; ALTO speakers/subwoofers/amplifiers"
+    ],
+    avionics: [
+      "Honeywell EASy II flight deck — 4 × DU1310 display units",
+      "Triple TR866B VHF Comm; dual DF855 ADF; dual KHF1050 HF; triple AV900 audio",
+      "Dual XS858B Mode S transponders; ACSS TCAS 3000 with Change 7.1",
+      "Honeywell EASy autothrottle; EGPWS; Goodrich ice detector & smart probes air data",
+      "Triple Laseref V micro IRS; dual ARCOMBI flight recording; EASy central maintenance computer",
+      "EASy II CPDLC FANS 1/A; ADS-B Out; MCS7120 SATCOM (Aero H+ / Swift Broadband)",
+      "Dual NV877A VOR/ILS/MKR/GPS; dual DM855 DME; WU880 weather radar; KRA405B radar altimeter"
+    ],
+    features: [
+      "Enhanced Flight Vision System (EFVS) — SB-7X-077-REV-01",
+      "Honeywell Lightning Sensor System (LSS) — SB-7X-113-REV-02",
+      "Head-Up Guidance System (HGS) upgrade — SB7X-166; Rockwell Collins HGS-5860 HUD",
+      "TCAS II Change 7.1 — SB-7X-197-REV-01",
+      "Enhanced Avionics System EASy II — SB-7X-300 / 320 / 322",
+      "LPV navigation — SB-7X-301; ADS-B Out Version 2 — SB-7X-302",
+      "SmartView Synthetic Vision System — SB7X-030",
+      "CPDLC ATN-B1 & FANS 1/A+ datalink; SBAS / LPV; Jeppesen chart capability"
+    ],
+    maintenanceSummary: [
+      "Computerized Aircraft Maintenance Program (CAMP) tracking system"
     ]
   },
   {
     id: "2011-airbus-acj319",
-    aircraftId: "Aircraft-acj319",
+    aircraftId: "Aircraft-t4ASbQ",
     year: 2011,
     make: "Airbus",
     model: "ACJ319",
@@ -222,94 +484,271 @@ const baseAircraft: Aircraft[] = [
     status: "Sale Pending",
     passengers: 25,
     rangeNm: 6000,
-    knots: 470,
+    knots: 447,
     totalHours: 1984,
-    airframeCycles: 900,
+    airframeCycles: 1023,
     price: "Price on request",
-    image: "/Aircrafts/Aircraft5.png",
+    image: "",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make Model", value: "CFM56-5B" },
-          { label: "Total Time", value: "1984" }
+          { label: "Make / Model", value: "International Aero Engines V2527M-A5" },
+          { label: "Eng. 1 Total Time", value: "1,919 hrs" },
+          { label: "Eng. 2 Total Time", value: "1,919 hrs" },
+          { label: "Eng. 1 Cycles", value: "955" },
+          { label: "Eng. 2 Cycles", value: "955" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [
+          { label: "Make / Model", value: "Hamilton Standard APS3200" },
+          { label: "Total Time", value: "1,221 hrs" },
+          { label: "Cycles", value: "913" }
         ]
       }
+    ],
+    interior: [
+      "Custom 25-passenger VVIP configuration by BizJet, Oklahoma, USA",
+      "Forward airstairs entry; 2 folding main-entry attendant seats",
+      "Aft master bedroom with shower; original completion August 2011 (Associated Air Center, Dallas)",
+      "Interior certified under FAA and EASA; 16G dynamic-load conformity for seats and divans",
+      "Forward main galley: 2 MGS induction ovens, Aerolux Nespresso, freezer, water heater, air chiller",
+      "Forward cabin: 6 forward-facing club seats with plug-in monitors and in-arm pull-out tables",
+      "Mid cabin: 4-place conference group opposite 3-place divan; right-side 4-place conference group",
+      "Aft mid-cabin: U-shaped dining for 4, credenza, automatic 50-inch monitor, guest lavatory",
+      "Aft master suite: VVIP lavatory, shower, aft-facing queen bed, Chairman club seat, 42-inch monitor",
+      "Honeywell MCS-7200 SATCOM (7 handsets, dual Swift Broadband); Wi-Fi; Airshow 4000; LED lighting"
+    ],
+    avionics: [
+      "2 × autopilot/autoflight computers; 2 × flight augmentation; 2 × flight control computers",
+      "2 × HF, 3 × VHF transceivers; audio management unit; 2 × radio management panels",
+      "3 × FMS displays; solid-state FDR; 2 × flight warning computers; 2 × data acquisition computers",
+      "3 × ADIRUs; 2 × weather radar transceivers; 2 × VOR; 2 × ADF; 2 × DME; 2 × MMR",
+      "TCAS Change 7.1; 2 × ATC transponders; 2 × radio altimeters; EGPWS"
+    ],
+    features: [
+      "25-passenger VVIP configuration; aft stateroom with master bathroom and shower",
+      "Extended range with 5 auxiliary fuel tanks (up to ~10.5 hours)",
+      "FANS-I/A+; ADS-B Out Version 2; TCAS-2 Change 7.1 mod",
+      "Fresh C-Check"
+    ],
+    maintenanceSummary: [
+      "All maintenance since 2011 conducted by AMAC in Basel, Switzerland"
+    ],
+    maintenanceHistory: [
+      { date: "Apr 2018", event: "72 Months Inspection", facility: "Next due: 18 Apr 2024", hours: "1,325" },
+      { date: "May 2020", event: "48 Months Inspection", facility: "Next due: 27 Apr 2024", hours: "1,576" },
+      { date: "Aug 2022", event: "24 Months Inspection", facility: "Next due: 27 Apr 2024", hours: "1,755" },
+      { date: "May 2023", event: "12 Months Inspection", facility: "Next due: 22 May 2024", hours: "1,915" },
+      { date: "May 2021", event: "120 Months Gear Overhaul", facility: "Next due: 7 May 2031", hours: "852 cyc" }
     ]
   },
   {
-    id: "2010-challenger-605",
-    aircraftId: "Aircraft-ch605s",
+    id: "2010-bombardier-challenger-605",
+    aircraftId: "Aircraft-qpcSmF",
     year: 2010,
     make: "Bombardier",
     model: "Challenger 605",
-    name: "2010 Challenger 605",
-    category: "Super Midsize",
+    name: "2010 Bombardier Challenger 605",
+    category: "Heavy",
     status: "Sold",
     passengers: 10,
     rangeNm: 4123,
-    knots: 470,
+    knots: 459,
     totalHours: 4780,
-    airframeCycles: 2980,
+    airframeCycles: 1740,
     price: "Price on request",
-    image: "/Aircrafts/Aircraft6.png",
+    image: "",
     overview: [
       {
         title: "Engines",
         icon: "engine",
         rows: [
-          { label: "Make Model", value: "General Electric CF34-3B" },
-          { label: "Total Time", value: "4780" }
+          { label: "Make / Model", value: "General Electric CF34-3B" },
+          { label: "Eng. 1 Total Time", value: "4,780 hrs" },
+          { label: "Eng. 2 Total Time", value: "4,780 hrs" },
+          { label: "Eng. 1 Cycles", value: "1,740" },
+          { label: "Eng. 2 Cycles", value: "1,740" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [
+          { label: "Make / Model", value: "Honeywell GTCP series" },
+          { label: "Total Time", value: "On request" }
         ]
       }
+    ],
+    interior: [
+      "10 passengers + flight deck crew + jump seat",
+      "Passenger lavatory; forward galley",
+      "Forward cabin: 4 chairs in club arrangement with pullout tables",
+      "Aft cabin: 4-place divan opposite 2 chairs in club arrangement with pullout table"
+    ],
+    exterior: [
+      "New in 2011",
+      "Allover Matterhorn White with Gamma Grey, Blue and Titanium Silver accents"
+    ],
+    avionics: [
+      "Collins Pro Line 21 — 4-tube 10×12-inch LCD EFIS / flight director",
+      "Dual Collins communications (8.33 kHz); RTA-854 digital color weather radar; CMU 4000",
+      "L3 FA2100 CVR (120 min) & FDR (25 hr); dual DME-4000; dual IRS + 3rd IRS",
+      "Dual Pro Line 21 nav radios; dual VOR/ILS/MKR; Collins TCAS-II Change 7.1",
+      "Dual TDR-94D enhanced Mode S; dual NAV-4000 ADF; dual HF-9031A; 2 × CDU-6200 / FMC-6000 / GPS-4000",
+      "Iridium flight phone; datalink with Iridium interface; cockpit touchscreen monitor"
+    ],
+    features: [
+      "Passenger oxygen mask lanyard replacement — SB605-35-008",
+      "Universal graphic weather on MFD — SB605-46-003-REV-02",
+      "L3AR 90-Day Underwater Locator Beacon conversion — SB-LAR-001-R1",
+      "2nd refuel/defuel panel; enhanced maps on MFD"
+    ],
+    maintenanceSummary: [
+      "CAMP Systems Computerized Aircraft Maintenance Program"
+    ],
+    maintenanceHistory: [
+      { date: "Aug 2023", event: "12 Month", facility: "Next due: Jul 2024", hours: "4,736" },
+      { date: "Sep 2023", event: "24 Month", facility: "Next due: Sep 2025", hours: "4,328" },
+      { date: "Aug 2023", event: "36 Month", facility: "Next due: Oct 2026", hours: "4,164" },
+      { date: "Dec 2019", event: "48 Month", facility: "Next due: Dec 2023", hours: "3,839" },
+      { date: "Dec 2019", event: "96 Month", facility: "Next due: Dec 2027", hours: "3,839" },
+      { date: "Dec 2019", event: "96 Month Gear Inspection", facility: "Next due: Jul 2027", hours: "1,242 CSN" },
+      { date: "Apr 2023", event: "2400 Hour Inspection", facility: "Next due: 7,039 H", hours: "4,639" }
+    ]
+  },
+  {
+    id: "2016-embraer-legacy-650",
+    aircraftId: "Aircraft-YV7Dmk",
+    year: 2016,
+    make: "Embraer",
+    model: "Legacy 650",
+    name: "2016 Embraer Legacy 650",
+    category: "Heavy",
+    status: "Available",
+    passengers: 13,
+    rangeNm: 4123,
+    knots: 459,
+    totalHours: 1265,
+    airframeCycles: 694,
+    price: "Price on request",
+    image: "",
+    overview: [
+      {
+        title: "Engines",
+        icon: "engine",
+        rows: [
+          { label: "Make / Model", value: "Rolls-Royce" },
+          { label: "Total Time", value: "1,265 hrs" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [{ label: "Make / Model", value: "On request" }]
+      }
+    ],
+    interior: [
+      "Elite interior seating up to 13 passengers",
+      "Designed for comfort and convenience",
+      "Super-silent soundproofing"
+    ],
+    avionics: [
+      "RVSM; NAT HLA / MNPS; P-RNAV; LPV; RNP; CAT II; RAAS; VNAV",
+      "3rd VHF; FANS 1/A+; CPDLC; ADS-B Out",
+      "Dual FMS; EGPWS; dual Laseref; TCAS 7.1; datalink",
+      "Dual HF KHF-950; Swift Broadband high-speed data with datalink; SATCOM",
+      "Honeywell IFE system; 2 Blu-ray players; steep approach capability"
+    ],
+    features: ["CAAV registered", "High-altitude operation"],
+    maintenanceSummary: ["Maintenance program details available on request"]
+  },
+  {
+    id: "2012-gulfstream-g550",
+    aircraftId: "Aircraft-yNFKER",
+    year: 2012,
+    make: "Gulfstream",
+    model: "G550",
+    name: "2012 Gulfstream G550",
+    category: "Heavy",
+    status: "Available",
+    passengers: 18,
+    rangeNm: 6954,
+    knots: 476,
+    totalHours: 3288,
+    airframeCycles: 1222,
+    price: "Price on request",
+    image: "",
+    overview: [
+      {
+        title: "Engines",
+        icon: "engine",
+        rows: [
+          { label: "Make / Model", value: "Rolls-Royce BR710 (G-550)" },
+          { label: "Eng. 1 Total Time", value: "3,284 hrs" },
+          { label: "Eng. 2 Total Time", value: "3,272 hrs" },
+          { label: "Eng. 1 Cycles", value: "1,219" },
+          { label: "Eng. 2 Cycles", value: "1,215" }
+        ]
+      },
+      {
+        title: "APU",
+        icon: "apu",
+        rows: [{ label: "Make / Model", value: "Honeywell RE220" }]
+      }
+    ],
+    interior: [
+      "Executive 18-passenger, 4-zone interior",
+      "8-place double club seating, 4-place conference group, aft private compartment with dual 3-place berthable divans",
+      "Forward galley: dual TIA 1603 coffeemakers, Sharp microwave, Enflite convection oven, thermal-electric cold storage",
+      "Airshow 400; forward and aft bulkhead-mounted 24-inch LCD HD monitors; six LCD personal monitors; dual Blu-ray",
+      "Swift Broadband internet; 115V/60Hz outlets; therapeutic oxygen system",
+      "Mid-cabin bulkhead with electric pocket door; forward crew lavatory and aft lavatory with vanity"
+    ],
+    exterior: [
+      "Matterhorn White with blue stripes",
+      "Original white exterior with new blue stripes (11/2020)"
+    ],
+    avionics: [
+      "Gulfstream PlaneView with Cert Hotel; Honeywell Primus Epic",
+      "Honeywell DU-1310 4-tube flat-panel EFIS; triple Honeywell FMS; dual 24-ch GPS",
+      "Dual Collins HF-9304 with SELCAL; triple Laseref V micro IRS; triple RT-300 radio altimeter",
+      "AirCell Axxess Iridium & Honeywell MCS-7100 SATCOM; Honeywell EGPWS (TAWS)",
+      "ACSS TCAS-3000 Change 7.1; dual Mode S with enhanced Flight ID; Primus 880 weather radar",
+      "FANS CPDLC; Enhanced Vision System; Universal FDR & CVR"
+    ],
+    features: [
+      "Synthetic Vision System",
+      "Engine Maintenance Program; ADS-B capable",
+      "Third FMS and third IRS; Heads-Up Display; SATCOM",
+      "8.33 channel spacing; RVSM; TAWS; TCAS; FANS / CPDLC",
+      "High-speed data / Wi-Fi"
+    ],
+    maintenanceSummary: [
+      "Maintained FAR Part 91; certifications MNPS, RNP-10, RNP-5, RVSM",
+      "One owner since new; always hangared",
+      "24-Month, 48-Month and 120-Month inspections 06/14/22 by AMAC, Basel, Switzerland",
+      "12-Month inspection 03/22/23 by Gulfstream"
     ]
   }
 ];
 
-/* ---------------------------------------------------------------------------
- * ADDITIONAL LISTINGS — [REPLACE] with real inventory. Images left blank so the
- * gold falcon watermark renders; drop files in /public/Aircrafts and set image.
- * ------------------------------------------------------------------------- */
-const moreAircraft: Aircraft[] = [
-  { id: "2015-embraer-legacy-500", aircraftId: "Aircraft-lg500a", year: 2015, make: "Embraer", model: "Legacy 500", name: "2015 Embraer Legacy 500", category: "Midsize", status: "Available", passengers: 12, rangeNm: 3125, knots: 466, totalHours: 2980, airframeCycles: 1420, price: "Price on request",     image: "",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Honeywell HTF7500E" }, { label: "Total Time", value: "2980" }] }] },
-  { id: "2019-bombardier-challenger-350", aircraftId: "Aircraft-ch350a", year: 2019, make: "Bombardier", model: "Challenger 350", name: "2019 Bombardier Challenger 350", category: "Super Midsize", status: "Available", passengers: 10, rangeNm: 3200, knots: 470, totalHours: 1650, airframeCycles: 900, price: "Price on request", image: "/Aircrafts/Aircraft1.png",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Honeywell HTF7350" }, { label: "Total Time", value: "1650" }] }] },
-  { id: "2013-gulfstream-g650", aircraftId: "Aircraft-g650a", year: 2013, make: "Gulfstream", model: "G650", name: "2013 Gulfstream G650", category: "Ultra Long Range", status: "Sale Pending", passengers: 18, rangeNm: 7000, knots: 516, totalHours: 3890, airframeCycles: 1510, price: "Price on request", image: "",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Rolls-Royce BR725" }, { label: "Total Time", value: "3890" }] }] },
-  { id: "2008-dassault-falcon-900", aircraftId: "Aircraft-f900ex", year: 2008, make: "Dassault", model: "Falcon 900EX", name: "2008 Dassault Falcon 900EX", category: "Heavy", status: "Available", passengers: 14, rangeNm: 4750, knots: 459, totalHours: 5120, airframeCycles: 2670, price: "Price on request", image: "",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Honeywell TFE731-60" }, { label: "Total Time", value: "5120" }] }] },
-  { id: "2016-cessna-citation-latitude", aircraftId: "Aircraft-latd16", year: 2016, make: "Cessna", model: "Citation Latitude", name: "2016 Cessna Citation Latitude", category: "Midsize", status: "Available", passengers: 9, rangeNm: 2700, knots: 446, totalHours: 2210, airframeCycles: 1330, price: "Price on request", image: "/Aircrafts/Aircraft2.png",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Pratt & Whitney PW306D1" }, { label: "Total Time", value: "2210" }] }] },
-  { id: "2012-airbus-acj318", aircraftId: "Aircraft-acj318", year: 2012, make: "Airbus", model: "ACJ318", name: "2012 Airbus ACJ318", category: "Ultra Long Range", status: "Sold", passengers: 19, rangeNm: 4200, knots: 470, totalHours: 6040, airframeCycles: 2450, price: "Price on request", image: "",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "CFM56-5B" }, { label: "Total Time", value: "6040" }] }] },
-  { id: "2011-bombardier-global-xrs", aircraftId: "Aircraft-gxrs11", year: 2011, make: "Bombardier", model: "Global XRS", name: "2011 Bombardier Global XRS", category: "Ultra Long Range", status: "Available", passengers: 16, rangeNm: 6150, knots: 488, totalHours: 4460, airframeCycles: 1890, price: "Price on request", image: "",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Rolls-Royce BR710" }, { label: "Total Time", value: "4460" }] }] },
-  { id: "2018-embraer-praetor-600", aircraftId: "Aircraft-pra600", year: 2018, make: "Embraer", model: "Praetor 600", name: "2018 Embraer Praetor 600", category: "Super Midsize", status: "Available", passengers: 12, rangeNm: 4018, knots: 466, totalHours: 1290, airframeCycles: 610, price: "Price on request", image: "/Aircrafts/Aircraft3.webp",
-    overview: [{ title: "Engines", icon: "engine", rows: [{ label: "Make Model", value: "Honeywell HTF7500E" }, { label: "Total Time", value: "1290" }] }] }
-];
+/* No placeholder inventory — the array above is the real listing set. */
+const moreAircraft: Aircraft[] = [];
 
-/* Rich detail-tab data generated per aircraft (Maintenance / Features /
- * Avionics / Interior / Exterior). [REPLACE] with each aircraft's real records. */
 function code(m: string) {
   return m.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 6);
 }
-// Pool of available aircraft photos — used to seed the detail-page gallery.
-// [REPLACE] each aircraft's `gallery` with its own real multi-angle photos.
-const PHOTO_POOL = [
-  "/Aircrafts/Aircraft1.png",
-  "/Aircrafts/Aircraft2.png",
-  "/Aircrafts/Aircraft3.webp",
-  "/Aircrafts/Aircraft4.webp",
-  "/Aircrafts/Aircraft5.png",
-  "/Aircrafts/Aircraft6.png"
-];
 
+/* Non-destructive: keeps any real data provided on the aircraft, only filling
+ * in gaps (gallery, APU box, and any missing spec tabs) with generic content. */
 function withAircraftDetails(a: Aircraft): Aircraft {
   const c = code(a.model);
 
-  // Overview = Engines + APU. Ensure every aircraft has an APU box.
   const hasApu = a.overview.some((g) => g.title.toLowerCase() === "apu");
   const overview: SpecGroup[] = hasApu
     ? a.overview
@@ -326,84 +765,56 @@ function withAircraftDetails(a: Aircraft): Aircraft {
         }
       ];
 
-  // Maintenance Summary (bulleted) — moved out of Overview into the Maintenance tab.
-  const maintenanceSummary = [
-    "Enrolled on Computerized Aircraft Maintenance Program (CAMP) Tracking System",
-    "Enrolled on manufacturer's inspection & reliability program",
-    `Airframe: ${a.totalHours.toLocaleString()} hrs / ${a.airframeCycles.toLocaleString()} cycles`,
-    "All Airworthiness Directives (ADs) complied with",
-    "All mandatory Service Bulletins (SBs) complied with",
-    "Fresh inspection status — no deferred maintenance items"
-  ];
+  const maintenanceSummary =
+    a.maintenanceSummary ?? [
+      "Enrolled on Computerized Aircraft Maintenance Program (CAMP) Tracking System",
+      `Airframe: ${a.totalHours.toLocaleString()} hrs / ${a.airframeCycles.toLocaleString()} cycles`,
+      "All Airworthiness Directives (ADs) complied with",
+      "All mandatory Service Bulletins (SBs) complied with"
+    ];
 
-  // Maintenance History (table)
-  const maintenanceHistory: MaintRow[] = [
-    { date: `${a.year + 1}`, event: "Aircraft delivery & entry into service", facility: "OEM Delivery Center", hours: "0" },
-    { date: `${a.year + 3}`, event: "12-Month / 300-Hour Inspection", facility: "Authorized Service Center", hours: Math.round(a.totalHours * 0.25).toLocaleString() },
-    { date: `${a.year + 6}`, event: "24-Month Inspection & Landing Gear Overhaul", facility: "Authorized Service Center", hours: Math.round(a.totalHours * 0.5).toLocaleString() },
-    { date: `${a.year + 9}`, event: "Engine Mid-Life Inspection (MPI)", facility: "OEM Engine Facility", hours: Math.round(a.totalHours * 0.72).toLocaleString() },
-    { date: `${a.year + 12}`, event: "72-Month Heavy Check (C-Check)", facility: "Authorized Service Center", hours: Math.round(a.totalHours * 0.9).toLocaleString() },
-    { date: "Most recent", event: "Avionics update & ADS-B Out compliance", facility: "Authorized Avionics Shop", hours: a.totalHours.toLocaleString() }
-  ];
+  const maintenanceHistory =
+    a.maintenanceHistory ?? [
+      { date: `${a.year + 1}`, event: "Aircraft delivery & entry into service", facility: "OEM Delivery Center", hours: "0" },
+      { date: `${a.year + 6}`, event: "24-Month Inspection & Landing Gear Overhaul", facility: "Authorized Service Center", hours: Math.round(a.totalHours * 0.5).toLocaleString() },
+      { date: "Most recent", event: "Avionics update & ADS-B Out compliance", facility: "Authorized Avionics Shop", hours: a.totalHours.toLocaleString() }
+    ];
 
-  const maintenance = [
-    `Installation of Enhanced Flight Vision System (EFVS) (SB-${c}-077-REV-01)`,
-    `Installation of Reinforced Collapsible Towbar (SB-${c}-112-REV-02)`,
-    `Installation of Honeywell Lightning Sensor System (LSS) (SB-${c}-113-REV-02)`,
-    `Activation of Swift Broadband Capabilities (SB-${c}-156)`,
-    `Head-Up Guidance System (HGS) Upgrade (SB-${c}-166)`,
-    `TCAS II System Change 7.1 (SB-${c}-197-REV-01)`,
-    `Steering Control – Extended Crosswind Capabilities (SB-${c}-198)`,
-    `Installation 90-day Underwater Locator Beacon for FDR/CVR (SB-${c}-268-REV-01)`,
-    `SATCOM Software Upgrade (SB-${c}-290)`,
-    `Maximum Takeoff Weight Operation Limit Indication (SB-${c}-292-REV-02)`,
-    `Enhanced Avionics System Upgrade (SB-${c}-300-REV-03)`,
-    `Navigation with Localizer Performance Vertical Guidance (LPV) (SB-${c}-301-REV-02)`,
-    `ADS-B Out Compliance (SB-${c}-322-REV-02)`,
-    `Cabin Management System Refresh (SB-${c}-341)`
-  ];
-  const features = [
-    "Wi-Fi / High-speed connectivity",
-    "Iridium satellite phone",
-    "Forward & aft lavatories",
-    "Full-service galley",
-    "Enclosed & externally serviced baggage",
-    "Auxiliary Power Unit (APU)",
-    "Auto-throttle",
-    "Synthetic Vision System (SVS)",
-    "Single-point pressure refueling",
-    "Dual-zone cabin climate control"
-  ];
-  const avionics = [
-    "Honeywell Primus Epic flight deck",
-    "Triple FMS with WAAS/LPV",
-    "TCAS II Change 7.1",
-    "ADS-B Out (DO-260B)",
-    "EGPWS / TAWS",
-    "Dual weather radar with turbulence detection",
-    "Head-Up Display (HUD)",
-    "SATCOM & CPDLC datalink"
-  ];
-  const interior = [
-    `${Math.max(8, a.passengers)}-passenger executive configuration`,
-    "Double-club seating with berthable divans",
-    "High-definition cabin management system",
-    "LED mood lighting throughout",
-    "Fully equipped galley with espresso maker",
-    "Forward crew rest / jump seat"
-  ];
-  const exterior = [
-    "Fresh exterior paint (Matterhorn White)",
-    "Champagne-gold & graphite accent striping",
-    "Detailed, polished and corrosion-treated",
-    "No known damage history",
-    "New windshield seals"
-  ];
-  // Detail-page gallery: this aircraft's photo first, then a few more as
-  // placeholders so the slider is populated. [REPLACE] with real photos.
-  const gallery = a.image
-    ? [a.image, ...PHOTO_POOL.filter((p) => p !== a.image)].slice(0, 4)
-    : [];
+  const maintenance =
+    a.maintenance ?? [
+      `ADS-B Out Compliance (SB-${c}-322-REV-02)`,
+      `Enhanced Avionics System Upgrade (SB-${c}-300-REV-03)`,
+      `TCAS II System Change 7.1 (SB-${c}-197-REV-01)`
+    ];
+  const features =
+    a.features ?? [
+      "Wi-Fi / High-speed connectivity",
+      "Auxiliary Power Unit (APU)",
+      "Synthetic Vision System (SVS)",
+      "Dual-zone cabin climate control"
+    ];
+  const avionics =
+    a.avionics ?? [
+      "Honeywell Primus Epic flight deck",
+      "TCAS II Change 7.1",
+      "ADS-B Out (DO-260B)",
+      "EGPWS / TAWS"
+    ];
+  const interior =
+    a.interior ?? [
+      `${Math.max(8, a.passengers)}-passenger executive configuration`,
+      "High-definition cabin management system",
+      "LED mood lighting throughout"
+    ];
+  const exterior =
+    a.exterior ?? [
+      "Fresh exterior paint (Matterhorn White)",
+      "Detailed, polished and corrosion-treated",
+      "No known damage history"
+    ];
+
+  const gallery =
+    a.gallery && a.gallery.length ? a.gallery : a.image ? [a.image] : [];
 
   return {
     ...a,

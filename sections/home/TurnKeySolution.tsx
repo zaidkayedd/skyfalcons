@@ -227,8 +227,8 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-        {/* ===== Mobile layout — Stacked Accordion List + Jet Background ===== */}
-        <div className="relative mt-16 lg:hidden">
+        {/* ===== Mobile — FIXED-HEIGHT accordion (others shrink; section never grows) ===== */}
+        <div className="relative mt-16 lg:hidden h-[400px]">
           <div className="pointer-events-none absolute -right-[16.25rem] top-[55%] h-[680px] w-[480px] max-w-none -translate-y-1/2">
             <Image
               src={turnKey.aircraft}
@@ -239,60 +239,59 @@ export function TurnKeySolution() {
             />
           </div>
 
-          <div className="relative z-10 flex w-[70%] max-w-md flex-col gap-3">
+          <div className="relative z-10 flex w-[72%] max-w-md flex-col gap-2">
             {services.map((s, i) => {
               const Icon = ICONS[s.icon] ?? ShoppingCart;
-              const isThisOpen = mobileOpen === i;
-
+              const open = mobileOpen === i;
+              const compact = mobileOpen !== null && !open;
+              const pad = compact ? "py-1.5" : "py-3";
               return (
                 <div key={s.label} className="flex flex-col">
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setMobileOpen(isThisOpen ? null : i);
+                      setMobileOpen(open ? null : i);
                     }}
-                    className={`flex items-center gap-3 rounded-pill border px-5 py-3 text-left transition-all duration-300 ${
-                      isThisOpen 
-                        ? "border-gold bg-gold text-white shadow-md scale-[1.02]" 
-                        : "border-mist bg-white text-graphite hover:border-gold/60 shadow-card"
+                    className={`flex w-full items-center gap-3 overflow-hidden rounded-pill border px-5 transition-all duration-300 ${pad} ${
+                      open
+                        ? "border-gold bg-gold text-white shadow-md"
+                        : "border-mist bg-white text-graphite shadow-card hover:border-gold/60"
                     }`}
                   >
-                    <Icon className={`h-4 w-4 shrink-0 transition-colors duration-300 ${isThisOpen ? "text-white" : "text-gold"}`} strokeWidth={2} />
-                    <span className={`font-sans text-sm font-medium transition-all duration-300 ${isThisOpen ? "text-white font-semibold" : "text-graphite"}`}>
+                    <Icon
+                      className={`shrink-0 transition-all duration-300 ${
+                        compact ? "h-3.5 w-3.5" : "h-4 w-4"
+                      } ${open ? "text-white" : "text-gold"}`}
+                      strokeWidth={2}
+                    />
+                    <span
+                      className={`min-w-0 truncate font-sans font-medium transition-all duration-300 ${
+                        compact ? "text-xs" : "text-sm"
+                      } ${open ? "font-semibold text-white" : "text-graphite"}`}
+                    >
                       {s.label}
                     </span>
                   </button>
 
-                  {/* Smooth Accordion Box Dropdown */}
-                  <div 
-                    className="grid transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{
-                      gridTemplateRows: isThisOpen ? "1fr" : "0fr",
-                      opacity: isThisOpen ? 1 : 0,
-                    }}
-                  >
-                    <div className="overflow-hidden">
-                      <div 
-                        className="mt-2 mb-2 rounded-card border border-mist/70 bg-white p-5 text-left shadow-modal"
-                        style={{
-                          animation: isThisOpen ? `tk-expand 400ms ${EASE} both` : "none"
-                        }}
+                  {open && (
+                    <div
+                      className="mt-2 rounded-card border border-mist/70 bg-white p-5 text-left shadow-modal"
+                      style={{ animation: `tk-expand 360ms ${EASE} both` }}
+                    >
+                      <p className="font-sans text-sm leading-relaxed text-slate">
+                        {s.description}
+                      </p>
+                      <div className="my-4 h-px w-full bg-mist" />
+                      <Link
+                        href="/contact"
+                        className="flex w-full items-center justify-between gap-2 rounded-card bg-gold px-4 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
                       >
-                        <p className="font-sans text-sm leading-relaxed text-slate">
-                          {s.description}
-                        </p>
-                        <div className="my-4 h-px w-full bg-mist" />
-                        <Link
-                          href="/contact"
-                          className="flex w-full items-center justify-between gap-2 rounded-card bg-gold px-4 py-2.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
-                        >
-                          {CTA[s.icon] ?? "Learn More"}
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </div>
+                        {CTA[s.icon] ?? "Learn More"}
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
@@ -301,7 +300,7 @@ export function TurnKeySolution() {
 
         {/* Desktop modal fallback */}
         {modal !== null && (
-          <div className="fixed inset-0 z-[60] hidden lg:flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[60] hidden items-center justify-center p-4 lg:flex">
             <button
               type="button"
               aria-label="Close"
@@ -320,14 +319,13 @@ export function TurnKeySolution() {
               >
                 <X className="h-4 w-4" />
               </button>
-         
               <h3 className="display mt-5 text-3xl text-ink">
                 {services[modal].label}
               </h3>
               <p className="mx-auto mt-4 max-w-sm font-sans text-sm leading-relaxed text-slate">
                 {services[modal].description}
               </p>
-               <div className="mx-auto my-5 h-px w-full bg-mist" />
+              <div className="mx-auto my-5 h-px w-full bg-mist" />
               <Link
                 href="/contact"
                 className="flex w-full items-center justify-between gap-2 rounded-card bg-gold px-5 py-3 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
