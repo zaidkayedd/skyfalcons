@@ -1741,3 +1741,12 @@ export type SpecTab = (typeof specTabs)[number];
 
 export const aircraftMakes = Array.from(new Set(aircraft.map((a) => a.make))).sort();
 export const aircraftModels = Array.from(new Set(aircraft.map((a) => a.model))).sort();
+
+// Models available per manufacturer (a.make), from the current inventory.
+export const aircraftModelsByManufacturer: Record<string, string[]> = (() => {
+  const m: Record<string, Set<string>> = {};
+  for (const a of aircraft) (m[a.make] ??= new Set<string>()).add(a.model);
+  const out: Record<string, string[]> = {};
+  for (const k in m) out[k] = Array.from(m[k]).sort();
+  return out;
+})();

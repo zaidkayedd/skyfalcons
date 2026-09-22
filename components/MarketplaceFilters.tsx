@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Filter, RotateCcw, ChevronDown, Search as SearchIcon } from "lucide-react";
+import {
+  Filter,
+  RotateCcw,
+  ChevronDown,
+  Search as SearchIcon,
+} from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
 import {
   aircraftManufacturers,
   aircraftStatuses,
   aircraftMakes,
-  aircraftModels
+  aircraftModels,
+  aircraftModelsByManufacturer,
 } from "@/data/aircraft";
 
 export const advancedCategories = [
@@ -16,7 +22,7 @@ export const advancedCategories = [
   "Super-Mid",
   "Heavy",
   "Turboprop",
-  "Helicopter"
+  "Helicopter",
 ] as const;
 
 export type MarketFilters = {
@@ -46,14 +52,14 @@ export const emptyFilters: MarketFilters = {
   minHours: 0,
   minPriceM: 0,
   categories: [],
-  wifi: false
+  wifi: false,
 };
 
 export function MarketplaceFilters({
   value,
   onChange,
   onReset,
-  onSearch
+  onSearch,
 }: {
   value: MarketFilters;
   onChange: (next: MarketFilters) => void;
@@ -61,12 +67,21 @@ export function MarketplaceFilters({
   onSearch: () => void;
 }) {
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const set = (patch: Partial<MarketFilters>) => onChange({ ...value, ...patch });
+  const set = (patch: Partial<MarketFilters>) =>
+    onChange({ ...value, ...patch });
+  const makeOptions = value.manufacturer
+    ? aircraftMakes.filter((mk) => mk === value.manufacturer)
+    : aircraftMakes;
+  const modelKey = value.make || value.manufacturer;
+  const modelOptions = modelKey
+    ? (aircraftModelsByManufacturer[modelKey] ?? [])
+    : aircraftModels;
+
   const toggleCat = (c: string) =>
     set({
       categories: value.categories.includes(c)
         ? value.categories.filter((x) => x !== c)
-        : [...value.categories, c]
+        : [...value.categories, c],
     });
 
   return (
@@ -80,7 +95,7 @@ export function MarketplaceFilters({
         <Field label="Manufacturer">
           <Dropdown
             value={value.manufacturer}
-            onChange={(v) => set({ manufacturer: v })}
+            onChange={(v) => set({ manufacturer: v, make: "", model: "" })}
             placeholder="Select manufacturer"
             options={aircraftManufacturers}
           />
@@ -89,9 +104,9 @@ export function MarketplaceFilters({
         <Field label="Make">
           <Dropdown
             value={value.make}
-            onChange={(v) => set({ make: v })}
+            onChange={(v) => set({ make: v, model: "" })}
             placeholder="Select make"
-            options={aircraftMakes}
+            options={makeOptions}
           />
         </Field>
 
@@ -100,7 +115,7 @@ export function MarketplaceFilters({
             value={value.model}
             onChange={(v) => set({ model: v })}
             placeholder="Select model"
-            options={aircraftModels}
+            options={modelOptions}
           />
         </Field>
 
@@ -125,7 +140,6 @@ export function MarketplaceFilters({
           />
         </Field>
 
- 
         <div className="rounded-card border border-mist">
           <button
             type="button"
@@ -194,7 +208,9 @@ export function MarketplaceFilters({
               />
 
               <div>
-                <p className="mb-3 font-sans text-sm font-semibold text-ink">Category</p>
+                <p className="mb-3 font-sans text-sm font-semibold text-ink">
+                  Category
+                </p>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                   {advancedCategories.map((c) => (
                     <Checkbox
@@ -246,7 +262,7 @@ function RangeSlider({
   value,
   onChange,
   minLabel,
-  maxLabel
+  maxLabel,
 }: {
   label: string;
   min: number;
@@ -261,9 +277,13 @@ function RangeSlider({
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <span className="font-sans text-sm font-semibold text-ink">{label}</span>
+        <span className="font-sans text-sm font-semibold text-ink">
+          {label}
+        </span>
         {value !== min && (
-          <span className="font-sans text-xs font-semibold text-gold">{value.toLocaleString()}</span>
+          <span className="font-sans text-xs font-semibold text-gold">
+            {value.toLocaleString()}
+          </span>
         )}
       </div>
       <input
@@ -275,7 +295,7 @@ function RangeSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="range-gold"
         style={{
-          background: `linear-gradient(#BE985A,#BE985A) 0/${pct}% 100% no-repeat, #E6E6E6`
+          background: `linear-gradient(#BE985A,#BE985A) 0/${pct}% 100% no-repeat, #E6E6E6`,
         }}
       />
       <div className="mt-1.5 flex items-center justify-between font-sans text-xs text-slate">
@@ -289,7 +309,7 @@ function RangeSlider({
 function Checkbox({
   label,
   checked,
-  onChange
+  onChange,
 }: {
   label: string;
   checked: boolean;
@@ -299,22 +319,41 @@ function Checkbox({
     <label className="flex cursor-pointer items-center gap-2.5 font-sans text-sm text-graphite">
       <span
         className={`flex h-4 w-4 items-center justify-center rounded-[4px] border transition ${
-          checked ? "border-gold bg-gold text-white" : "border-slate/50 bg-white"
+          checked
+            ? "border-gold bg-gold text-white"
+            : "border-slate/50 bg-white"
         }`}
       >
         {checked && (
           <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none">
-            <path d="M2.5 6.2 4.8 8.5 9.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M2.5 6.2 4.8 8.5 9.5 3.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </span>
-      <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="sr-only"
+      />
       {label}
     </label>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="flex flex-col gap-2">
       <span className="font-sans text-sm font-semibold text-ink">{label}</span>
