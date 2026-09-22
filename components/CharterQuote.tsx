@@ -14,7 +14,7 @@ export function CharterQuote() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  
+
   const [currentLegFrom, setCurrentLegFrom] = useState("");
   const [currentLegTo, setCurrentLegTo] = useState("");
   const [currentLegDate, setCurrentLegDate] = useState("");
@@ -31,7 +31,7 @@ export function CharterQuote() {
     fullName: "",
     email: "",
     phoneNumber: "",
-    notes: ""
+    notes: "",
   });
 
   const set = (patch: Partial<RequestCharterQuoteForm>) =>
@@ -48,8 +48,7 @@ export function CharterQuote() {
       if (!lastLeg.date) return today;
       const [y, m, d] = lastLeg.date.split("-").map(Number);
       const dt = new Date(y, m - 1, d);
-      dt.setDate(dt.getDate() + 1); // Day after previous leg
-      return dt;
+      return dt; // same day as previous leg is allowed
     }
     return today;
   })();
@@ -59,8 +58,8 @@ export function CharterQuote() {
       set({
         legs: [
           ...form.legs,
-          { from: currentLegFrom, to: currentLegTo, date: currentLegDate }
-        ]
+          { from: currentLegFrom, to: currentLegTo, date: currentLegDate },
+        ],
       });
       setCurrentLegFrom(currentLegTo);
       setCurrentLegTo("");
@@ -104,7 +103,7 @@ export function CharterQuote() {
       setError(
         submissionError instanceof Error
           ? submissionError.message
-          : "Unable to request a quote."
+          : "Unable to request a quote.",
       );
     } finally {
       setSubmitting(false);
@@ -129,7 +128,9 @@ export function CharterQuote() {
         <h2 className="display text-2xl text-ink">{charterQuote.title}</h2>
       </div>
       <div className="my-4 h-px w-full bg-mist/70" />
-      <p className="text-sm leading-relaxed text-slate">{charterQuote.subtitle}</p>
+      <p className="text-sm leading-relaxed text-slate">
+        {charterQuote.subtitle}
+      </p>
 
       <div className="mt-6 flex items-center gap-2">
         <CalendarDays className="h-5 w-5 text-gold" strokeWidth={2} />
@@ -191,7 +192,9 @@ export function CharterQuote() {
       {isMulti && (
         <div className="mt-5 rounded-card border border-mist/70 bg-porcelain/20 p-5">
           <h4 className="font-sans text-sm font-semibold text-ink mb-3">
-            {form.legs.length === 0 ? "Add Leg 1" : `Add Leg ${form.legs.length + 1}`}
+            {form.legs.length === 0
+              ? "Add Leg 1"
+              : `Add Leg ${form.legs.length + 1}`}
           </h4>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <Field label="From" required>
@@ -232,7 +235,9 @@ export function CharterQuote() {
 
           {form.legs.length > 0 && (
             <div className="mt-4">
-              <p className="font-sans text-sm font-semibold text-ink">Configured Legs:</p>
+              <p className="font-sans text-sm font-semibold text-ink">
+                Configured Legs:
+              </p>
               <div className="mt-2 flex flex-col gap-2">
                 {form.legs.map((leg, i) => (
                   <div
@@ -281,7 +286,7 @@ export function CharterQuote() {
                     departureDate: v,
                     ...(form.returnDate && form.returnDate <= v
                       ? { returnDate: "" }
-                      : {})
+                      : {}),
                   })
                 }
                 placeholder="Select date"
@@ -343,7 +348,11 @@ export function CharterQuote() {
         className="mt-6 flex w-full items-center justify-center gap-2 rounded-card bg-gold px-5 py-3.5 font-sans text-sm font-semibold text-white transition hover:bg-gold-deep"
         disabled={submitting}
       >
-        {submitting ? "Sending..." : showAll ? "Request a quote" : "Additional Information"}
+        {submitting
+          ? "Sending..."
+          : showAll
+            ? "Request a quote"
+            : "Additional Information"}
         <ArrowRight className="h-4 w-4" />
       </button>
       {error && (
@@ -361,7 +370,7 @@ const inputCls =
 function Field({
   label,
   required,
-  children
+  children,
 }: {
   label: string;
   required?: boolean;

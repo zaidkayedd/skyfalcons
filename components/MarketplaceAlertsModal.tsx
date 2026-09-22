@@ -189,6 +189,19 @@ export function MarketplaceAlertsModal({
               inline
             />
 
+            <h4 className="display mt-6 text-lg text-ink">Preferred Make</h4>
+            <p className="mb-2 mt-1 text-xs text-slate">
+              Select the aircraft make(s) you're interested in.
+            </p>
+            <MultiSelect
+              value={f.preferredMakes}
+              onChange={(v) => set({ preferredMakes: v })}
+              options={availableMakes}
+              placeholder="Select makes"
+              noun="makes selected"
+              inline
+            />
+
             <h4 className="display mt-6 text-lg text-ink">
               Preferred Models <span className="text-gold">*</span>
             </h4>
@@ -201,19 +214,6 @@ export function MarketplaceAlertsModal({
               options={availableModels}
               placeholder="Select models"
               noun="models selected"
-              inline
-            />
-
-            <h4 className="display mt-6 text-lg text-ink">Preferred Make</h4>
-            <p className="mb-2 mt-1 text-xs text-slate">
-              Select the aircraft make(s) you're interested in.
-            </p>
-            <MultiSelect
-              value={f.preferredMakes}
-              onChange={(v) => set({ preferredMakes: v })}
-              options={availableMakes}
-              placeholder="Select makes"
-              noun="makes selected"
               inline
             />
 
