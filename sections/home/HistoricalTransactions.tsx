@@ -17,7 +17,7 @@ export function HistoricalTransactions() {
   const desktopScrollRef = useRef<HTMLDivElement>(null);
   const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
 
-  const visibleAircraft = aircraft.slice(0, 5); 
+  const visibleAircraft = aircraft.slice(0, 4); 
 
 
   const handleMobileScroll = () => {
@@ -43,7 +43,7 @@ export function HistoricalTransactions() {
   };
 
 
-  const desktopItemsPerPage = 3;
+  const desktopItemsPerPage = 2;
   const totalDesktopPages = Math.ceil(visibleAircraft.length / desktopItemsPerPage);
 
   const handleDesktopScroll = () => {
@@ -53,7 +53,7 @@ export function HistoricalTransactions() {
     const card = container.querySelector("[data-desktop-card]") as HTMLElement;
     if (!card) return;
 
-    const cardWidth = card.offsetWidth + 24; // gap-6 = 24px
+    const cardWidth = card.offsetWidth + 24; 
     const newIndex = Math.round(scrollLeft / (cardWidth * desktopItemsPerPage));
     setDesktopActiveIndex(Math.min(Math.max(newIndex, 0), totalDesktopPages - 1));
   };
