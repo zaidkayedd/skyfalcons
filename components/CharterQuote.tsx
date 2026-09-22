@@ -15,7 +15,6 @@ export function CharterQuote() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   
-
   const [currentLegFrom, setCurrentLegFrom] = useState("");
   const [currentLegTo, setCurrentLegTo] = useState("");
   const [currentLegDate, setCurrentLegDate] = useState("");
@@ -40,7 +39,6 @@ export function CharterQuote() {
 
   const isMulti = form.tripType === "Multi-Leg";
 
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -50,7 +48,7 @@ export function CharterQuote() {
       if (!lastLeg.date) return today;
       const [y, m, d] = lastLeg.date.split("-").map(Number);
       const dt = new Date(y, m - 1, d);
-      dt.setDate(dt.getDate() + 1); 
+      dt.setDate(dt.getDate() + 1); // Day after previous leg
       return dt;
     }
     return today;
@@ -64,7 +62,6 @@ export function CharterQuote() {
           { from: currentLegFrom, to: currentLegTo, date: currentLegDate }
         ]
       });
-    
       setCurrentLegFrom(currentLegTo);
       setCurrentLegTo("");
       setCurrentLegDate("");
