@@ -14,6 +14,12 @@ export function CharterQuote() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  
+
+  const [currentLegFrom, setCurrentLegFrom] = useState("");
+  const [currentLegTo, setCurrentLegTo] = useState("");
+  const [currentLegDate, setCurrentLegDate] = useState("");
+
   const [form, setForm] = useState<RequestCharterQuoteForm>({
     tripType: tripTypes[0],
     passengers: 0,
@@ -28,28 +34,56 @@ export function CharterQuote() {
     phoneNumber: "",
     notes: ""
   });
+
   const set = (patch: Partial<RequestCharterQuoteForm>) =>
     setForm((f) => ({ ...f, ...patch }));
 
   const isMulti = form.tripType === "Multi-Leg";
 
-  const addLeg = () => {
-    if (form.departureAirport && form.destinationAirport) {
-      set({
-        legs: [
-          ...form.legs,
-          { from: form.departureAirport, to: form.destinationAirport }
-        ],
-        departureAirport: "",
-        destinationAirport: ""
-      });
-    }
-  };
-  const removeLeg = (i: number) =>
-    set({ legs: form.legs.filter((_, idx) => idx !== i) });
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const currentLegMinDate = (() => {
+    if (form.legs.length > 0) {
+      const lastLeg = form.legs[form.legs.length - 1];
+      if (!lastLeg.date) return today;
+      const [y, m, d] = lastLeg.date.split("-").map(Number);
+      const dt = new Date(y, m - 1, d);
+      dt.setDate(dt.getDate() + 1); 
+      return dt;
+    }
+    return today;
+  })();
+
+  const addLeg = () => {
+    if (currentLegFrom && currentLegTo && currentLegDate) {
+      set({
+        legs: [
+          ...form.legs,
+          { from: currentLegFrom, to: currentLegTo, date: currentLegDate }
+        ]
+      });
+    
+      setCurrentLegFrom(currentLegTo);
+      setCurrentLegTo("");
+      setCurrentLegDate("");
+    }
+  };
+
+  const removeLeg = (i: number) => {
+    const updatedLegs = form.legs.filter((_, idx) => idx !== i);
+    set({ legs: updatedLegs });
+    if (updatedLegs.length > 0) {
+      const lastLeg = updatedLegs[updatedLegs.length - 1];
+      if (currentLegDate && currentLegDate < lastLeg.date) {
+        setCurrentLegDate("");
+      }
+    } else {
+      setCurrentLegFrom("");
+    }
+  };
+
   const returnMin = (() => {
     if (!form.departureDate) return today;
     const [y, m, d] = form.departureDate.split("-").map(Number);
@@ -106,12 +140,16 @@ export function CharterQuote() {
       </div>
       <div className="my-4 h-px w-full bg-mist/70" />
 
-
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         <Field label="Trip Type" required>
           <Dropdown
             value={form.tripType}
-            onChange={(v) => set({ tripType: v })}
+            onChange={(v) => {
+              set({ tripType: v, legs: [] });
+              setCurrentLegFrom("");
+              setCurrentLegTo("");
+              setCurrentLegDate("");
+            }}
             options={[...tripTypes]}
           />
         </Field>
@@ -134,50 +172,84 @@ export function CharterQuote() {
         </Field>
       </div>
 
-     
-      <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <Field label={isMulti ? "From" : "Departure Airport"} required={isMulti}>
-          <AirportSelect
-            value={form.departureAirport}
-            onChange={(v) => set({ departureAirport: v })}
-            placeholder="Search departure airport..."
-          />
-        </Field>
-        <Field label={isMulti ? "To" : "Destination Airport"} required={isMulti}>
-          <AirportSelect
-            value={form.destinationAirport}
-            onChange={(v) => set({ destinationAirport: v })}
-            placeholder="Search destination airport..."
-          />
-        </Field>
-      </div>
+      {!isMulti && (
+        <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <Field label="Departure Airport" required>
+            <AirportSelect
+              value={form.departureAirport}
+              onChange={(v) => set({ departureAirport: v })}
+              placeholder="Search departure airport..."
+            />
+          </Field>
+          <Field label="Destination Airport" required>
+            <AirportSelect
+              value={form.destinationAirport}
+              onChange={(v) => set({ destinationAirport: v })}
+              placeholder="Search destination airport..."
+            />
+          </Field>
+        </div>
+      )}
 
       {isMulti && (
-        <div className="mt-4">
-          <button
-            type="button"
-            onClick={addLeg}
-            disabled={!form.departureAirport || !form.destinationAirport}
-            className="inline-flex items-center gap-2 rounded-card border border-mist px-5 py-2.5 font-sans text-sm font-semibold text-ink transition hover:border-gold disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            <Plus className="h-4 w-4" />
-            Add Leg
-          </button>
+        <div className="mt-5 rounded-card border border-mist/70 bg-porcelain/20 p-5">
+          <h4 className="font-sans text-sm font-semibold text-ink mb-3">
+            {form.legs.length === 0 ? "Add Leg 1" : `Add Leg ${form.legs.length + 1}`}
+          </h4>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <Field label="From" required>
+              <AirportSelect
+                value={currentLegFrom}
+                onChange={setCurrentLegFrom}
+                placeholder="From..."
+              />
+            </Field>
+            <Field label="To" required>
+              <AirportSelect
+                value={currentLegTo}
+                onChange={setCurrentLegTo}
+                placeholder="To..."
+              />
+            </Field>
+            <Field label="Departure Date" required>
+              <DatePicker
+                value={currentLegDate}
+                onChange={setCurrentLegDate}
+                placeholder="Select date"
+                min={currentLegMinDate}
+              />
+            </Field>
+          </div>
+
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={addLeg}
+              disabled={!currentLegFrom || !currentLegTo || !currentLegDate}
+              className="inline-flex items-center gap-2 rounded-card border border-mist px-5 py-2.5 font-sans text-sm font-semibold text-ink transition hover:border-gold disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <Plus className="h-4 w-4" />
+              Add Leg to Itinerary
+            </button>
+          </div>
 
           {form.legs.length > 0 && (
-            <div className="mt-3">
-              <p className="font-sans text-sm font-semibold text-ink">Trip Legs:</p>
+            <div className="mt-4">
+              <p className="font-sans text-sm font-semibold text-ink">Configured Legs:</p>
               <div className="mt-2 flex flex-col gap-2">
                 {form.legs.map((leg, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between rounded-card border border-mist bg-porcelain/40 px-4 py-2"
+                    className="flex items-center justify-between rounded-card border border-mist bg-white px-4 py-2.5 shadow-sm"
                   >
-                    <span className="flex items-center gap-2 font-sans text-sm text-ink">
-                      <span className="text-slate">{i + 1}.</span>
+                    <span className="flex items-center gap-3 font-sans text-sm text-ink">
+                      <span className="text-slate font-medium">{i + 1}.</span>
                       <span className="font-semibold">{leg.from}</span>
                       <ArrowRight className="h-3.5 w-3.5 text-gold" />
                       <span className="font-semibold">{leg.to}</span>
+                      <span className="text-xs text-slate bg-porcelain px-2 py-1 rounded">
+                        {leg.date}
+                      </span>
                     </span>
                     <button
                       type="button"
@@ -195,7 +267,6 @@ export function CharterQuote() {
         </div>
       )}
 
-
       <div
         className={`grid transition-all duration-500 ease-in-out ${
           showAll
@@ -204,21 +275,23 @@ export function CharterQuote() {
         }`}
       >
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <Field label="Departure Date">
-            <DatePicker
-              value={form.departureDate}
-              onChange={(v) =>
-                set({
-                  departureDate: v,
-                  ...(form.returnDate && form.returnDate <= v
-                    ? { returnDate: "" }
-                    : {})
-                })
-              }
-              placeholder="Select date"
-              min={today}
-            />
-          </Field>
+          {!isMulti && (
+            <Field label="Departure Date">
+              <DatePicker
+                value={form.departureDate}
+                onChange={(v) =>
+                  set({
+                    departureDate: v,
+                    ...(form.returnDate && form.returnDate <= v
+                      ? { returnDate: "" }
+                      : {})
+                  })
+                }
+                placeholder="Select date"
+                min={today}
+              />
+            </Field>
+          )}
           {form.tripType === "Round Trip" && (
             <Field label="Return Date">
               <DatePicker

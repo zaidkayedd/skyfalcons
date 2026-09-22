@@ -16,7 +16,7 @@ export interface RequestCharterQuoteForm {
   aircraftCategory: string;
   departureAirport: string;
   destinationAirport: string;
-  legs: { from: string; to: string }[];
+  legs: { from: string; to: string; date: string }[];
   departureDate: string;
   returnDate: string;
   fullName: string;
