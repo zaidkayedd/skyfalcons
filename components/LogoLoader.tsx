@@ -10,7 +10,7 @@ export function LogoLoader({ isLoading }: LogoLoaderProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1f1f1f] backdrop-blur-sm transition-opacity">
       <div className="flex flex-col items-center gap-4">
-        <div className="relative h-20 w-20">
+        <div className="relative h-30 w-30">
           <Image
             src="/loader.gif"
             alt="Loading..."

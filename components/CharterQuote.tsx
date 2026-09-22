@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Globe, CalendarDays, ArrowRight } from "lucide-react";
+import { Globe, CalendarDays, ArrowRight, Plus, X } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
 import { DatePicker } from "@/components/DatePicker";
 import { AirportSelect } from "@/components/AirportSelect";
@@ -20,6 +20,7 @@ export function CharterQuote() {
     aircraftCategory: charterCategories[0],
     departureAirport: "",
     destinationAirport: "",
+    legs: [],
     departureDate: "",
     returnDate: "",
     fullName: "",
@@ -29,6 +30,23 @@ export function CharterQuote() {
   });
   const set = (patch: Partial<RequestCharterQuoteForm>) =>
     setForm((f) => ({ ...f, ...patch }));
+
+  const isMulti = form.tripType === "Multi-Leg";
+
+  const addLeg = () => {
+    if (form.departureAirport && form.destinationAirport) {
+      set({
+        legs: [
+          ...form.legs,
+          { from: form.departureAirport, to: form.destinationAirport }
+        ],
+        departureAirport: "",
+        destinationAirport: ""
+      });
+    }
+  };
+  const removeLeg = (i: number) =>
+    set({ legs: form.legs.filter((_, idx) => idx !== i) });
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -52,18 +70,29 @@ export function CharterQuote() {
       await postForm("/api/v1/charter/", form);
       setSubmitted(true);
     } catch (submissionError) {
-      setError(submissionError instanceof Error ? submissionError.message : "Unable to request a quote.");
+      setError(
+        submissionError instanceof Error
+          ? submissionError.message
+          : "Unable to request a quote."
+      );
     } finally {
       setSubmitting(false);
     }
   };
 
   if (submitted) {
-    return <div className="rounded-card border border-mist bg-white p-10 text-center shadow-card">Your charter quote request has been sent.</div>;
+    return (
+      <div className="rounded-card border border-mist bg-white p-10 text-center shadow-card">
+        Your charter quote request has been sent.
+      </div>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-card border border-mist/70 bg-white p-7 shadow-card sm:p-9">
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-card border border-mist/70 bg-white p-7 shadow-card sm:p-9"
+    >
       <div className="flex items-center gap-2">
         <Globe className="h-5 w-5 text-gold" strokeWidth={2} />
         <h2 className="display text-2xl text-ink">{charterQuote.title}</h2>
@@ -77,7 +106,7 @@ export function CharterQuote() {
       </div>
       <div className="my-4 h-px w-full bg-mist/70" />
 
-      {/* Always visible: First 3 inputs */}
+
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         <Field label="Trip Type" required>
           <Dropdown
@@ -93,7 +122,7 @@ export function CharterQuote() {
             value={form.passengers || ""}
             onChange={(e) => set({ passengers: Number(e.target.value) || 0 })}
             placeholder="Number of passengers"
-            className="w-full rounded-card border border-mist bg-white px-4 py-2.5 font-sans text-sm text-ink placeholder:text-slate/60 outline-none focus:outline-none focus:rounded-card focus:ring-0"
+            className={inputCls}
           />
         </Field>
         <Field label="Aircraft Category">
@@ -105,7 +134,68 @@ export function CharterQuote() {
         </Field>
       </div>
 
-   
+     
+      <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <Field label={isMulti ? "From" : "Departure Airport"} required={isMulti}>
+          <AirportSelect
+            value={form.departureAirport}
+            onChange={(v) => set({ departureAirport: v })}
+            placeholder="Search departure airport..."
+          />
+        </Field>
+        <Field label={isMulti ? "To" : "Destination Airport"} required={isMulti}>
+          <AirportSelect
+            value={form.destinationAirport}
+            onChange={(v) => set({ destinationAirport: v })}
+            placeholder="Search destination airport..."
+          />
+        </Field>
+      </div>
+
+      {isMulti && (
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={addLeg}
+            disabled={!form.departureAirport || !form.destinationAirport}
+            className="inline-flex items-center gap-2 rounded-card border border-mist px-5 py-2.5 font-sans text-sm font-semibold text-ink transition hover:border-gold disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <Plus className="h-4 w-4" />
+            Add Leg
+          </button>
+
+          {form.legs.length > 0 && (
+            <div className="mt-3">
+              <p className="font-sans text-sm font-semibold text-ink">Trip Legs:</p>
+              <div className="mt-2 flex flex-col gap-2">
+                {form.legs.map((leg, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between rounded-card border border-mist bg-porcelain/40 px-4 py-2"
+                  >
+                    <span className="flex items-center gap-2 font-sans text-sm text-ink">
+                      <span className="text-slate">{i + 1}.</span>
+                      <span className="font-semibold">{leg.from}</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-gold" />
+                      <span className="font-semibold">{leg.to}</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => removeLeg(i)}
+                      aria-label={`Remove leg ${i + 1}`}
+                      className="text-slate transition hover:text-ink"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+
       <div
         className={`grid transition-all duration-500 ease-in-out ${
           showAll
@@ -114,20 +204,6 @@ export function CharterQuote() {
         }`}
       >
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <Field label="Departure Airport">
-            <AirportSelect
-              value={form.departureAirport}
-              onChange={(v) => set({ departureAirport: v })}
-              placeholder="Search departure airport..."
-            />
-          </Field>
-          <Field label="Destination Airport">
-            <AirportSelect
-              value={form.destinationAirport}
-              onChange={(v) => set({ destinationAirport: v })}
-              placeholder="Search destination airport..."
-            />
-          </Field>
           <Field label="Departure Date">
             <DatePicker
               value={form.departureDate}
@@ -200,7 +276,11 @@ export function CharterQuote() {
         {submitting ? "Sending..." : showAll ? "Request a quote" : "Additional Information"}
         <ArrowRight className="h-4 w-4" />
       </button>
-      {error && <p className="mt-3 text-sm text-red-700" role="alert">{error}</p>}
+      {error && (
+        <p className="mt-3 text-sm text-red-700" role="alert">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

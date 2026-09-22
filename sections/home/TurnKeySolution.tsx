@@ -39,7 +39,7 @@ const CTA: Record<string, string> = {
 const services = turnKey.services;
 
 const BASE = [0, 60, 120, 180, 240, 300];
-const RADIUS = 0.41;
+const RADIUS = 0.43; // Slightly increased radius for desktop spread
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const SPIN_MS = 760;
 
@@ -60,7 +60,6 @@ export function TurnKeySolution() {
     setSize(el.clientWidth);
     return () => ro.disconnect();
   }, []);
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,16 +108,17 @@ export function TurnKeySolution() {
           subtitle={turnKey.subtitle}
         />
 
+        {/* Increased max-w for desktop view to make the whole circle/interactive area larger */}
         <div
           ref={boxRef}
-          className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[670px] translate-x-3 sm:translate-x-0 lg:block"
+          className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[800px] translate-x-3 sm:translate-x-0 lg:block"
         >
           <div className="absolute inset-[2%] rounded-full bg-[radial-gradient(circle_at_center,rgba(190,152,90,0.10),rgba(190,152,90,0)_66%)]" />
-          <div className="absolute inset-[12%] rounded-full border border-mist/40 shadow-[0_10px_30px_-18px_rgba(26,26,26,0.18)]" />
+          <div className="absolute inset-[10%] rounded-full border border-mist/40 shadow-[0_10px_30px_-18px_rgba(26,26,26,0.18)]" />
 
           <div className="absolute inset-0 flex items-center justify-center">
             <div
-              className="relative h-[70%] w-[70%]"
+              className="relative h-[74%] w-[74%]"
               style={{
                 transition: `filter 600ms ${EASE}, transform 600ms ${EASE}, opacity 600ms ${EASE}`,
                 filter: isModal ? "blur(7px)" : isActive ? "blur(3px)" : "none",
@@ -130,7 +130,7 @@ export function TurnKeySolution() {
                 src={turnKey.aircraft}
                 alt="Business jet, top-down view"
                 fill
-                sizes="400px"
+                sizes="500px"
                 className="object-contain drop-shadow-[0_30px_55px_rgba(6,15,28,0.16)]"
                 priority
               />
@@ -138,16 +138,16 @@ export function TurnKeySolution() {
           </div>
 
           <div
-            className="pointer-events-none absolute left-1/2 top-[13%] z-[25] w-px -translate-x-1/2 bg-gradient-to-b from-gold/70 to-gold/0"
+            className="pointer-events-none absolute left-1/2 top-[12%] z-[25] w-px -translate-x-1/2 bg-gradient-to-b from-gold/70 to-gold/0"
             style={{
-              height: "7%",
+              height: "8%",
               opacity: isActive && !isModal ? 1 : 0,
               transition: `opacity 400ms ${EASE} ${isActive ? "260ms" : "0ms"}`
             }}
           />
 
           <div
-            className="absolute left-1/2 top-[20%] z-30 w-[78%] max-w-sm rounded-card border border-mist/70 bg-white/95 p-7 text-center shadow-modal backdrop-blur-sm"
+            className="absolute left-1/2 top-[18%] z-30 w-[82%] max-w-md rounded-card border border-mist/70 bg-white/95 p-8 text-center shadow-modal backdrop-blur-sm"
             onClick={(event) => event.stopPropagation()}
             style={{
               transform: `translateX(-50%) translateY(${isActive ? "0px" : "12px"}) scale(${isActive ? 1 : 0.98})`,
@@ -158,7 +158,7 @@ export function TurnKeySolution() {
           >
             <div key={shown} style={{ animation: `tk-content 380ms ${EASE}` }}>
               <h3 className="display text-2xl text-ink">{services[shown].label}</h3>
-              <p className="mx-auto mt-3 max-w-xs font-sans text-sm leading-relaxed text-slate">
+              <p className="mx-auto mt-3 max-w-sm font-sans text-sm leading-relaxed text-slate">
                 {services[shown].description}
               </p>
               <div className="mx-auto my-5 h-px w-full bg-mist" />
@@ -204,20 +204,20 @@ export function TurnKeySolution() {
                     }}
                   >
                     <span
-                      className="flex items-center gap-2 rounded-pill border"
+                      className="flex items-center gap-2.5 rounded-pill border"
                       style={{
                         transition: `background-color 520ms ${EASE}, color 520ms ${EASE}, border-color 520ms ${EASE}, padding 560ms ${EASE}, box-shadow 520ms ${EASE}`,
                         backgroundColor: activeThis ? "#BE985A" : "#ffffff",
                         borderColor: activeThis ? "transparent" : "rgba(230,230,230,0.6)",
                         color: activeThis ? "#ffffff" : "#323232",
-                        padding: activeThis ? "12px 24px" : "10px 20px",
+                        padding: activeThis ? "15px 28px" : "13px 24px", // Increased padding/size for desktop buttons
                         boxShadow: activeThis
                           ? "0 18px 40px -12px rgba(190,152,90,0.55)"
                           : "0 8px 20px -12px rgba(0,0,0,0.18)"
                       }}
                     >
                       <Icon
-                        className="h-4 w-4"
+                        className="h-5 w-5" // Larger icon size on desktop
                         strokeWidth={2}
                         style={{
                           color: activeThis ? "#ffffff" : "#BE985A",
@@ -226,7 +226,7 @@ export function TurnKeySolution() {
                       />
                       <span
                         style={{
-                          fontSize: activeThis ? 14 : 13,
+                          fontSize: activeThis ? 16 : 15, // Larger font size for desktop buttons
                           fontWeight: activeThis ? 600 : 500,
                           transition: `font-size 520ms ${EASE}`
                         }}
@@ -241,7 +241,7 @@ export function TurnKeySolution() {
           </div>
         </div>
 
-
+        {/* Mobile View remains unchanged */}
         <div 
           className="relative mt-20 lg:hidden h-[400px]"
           onClick={(e) => e.stopPropagation()} 

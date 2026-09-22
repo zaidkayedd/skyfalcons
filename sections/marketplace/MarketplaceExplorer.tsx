@@ -26,6 +26,8 @@ export function MarketplaceExplorer() {
   const filtered = useMemo(() => {
     let list = aircraft.filter((a) => {
       if (draft.manufacturer && a.make !== draft.manufacturer) return false;
+      if (draft.make && a.make !== draft.make) return false;
+      if (draft.model && a.model !== draft.model) return false;
       if (draft.status && a.status !== draft.status) return false;
       if (
         draft.search &&

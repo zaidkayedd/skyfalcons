@@ -36,13 +36,16 @@ export function AirportSelect({
 
   const s = q.toLowerCase();
   const filtered = airports
-    .filter(
-      (a) =>
-        !s ||
+    .filter((a) => {
+      if (!s) return true;
+      return (
         a.code.toLowerCase().includes(s) ||
         a.name.toLowerCase().includes(s) ||
-        a.city.toLowerCase().includes(s)
-    )
+        (a.iata?.toLowerCase().includes(s) ?? false) ||
+        (a.city?.toLowerCase().includes(s) ?? false) ||
+        (a.country?.toLowerCase().includes(s) ?? false)
+      );
+    })
     .slice(0, 60);
 
   return (
@@ -62,7 +65,11 @@ export function AirportSelect({
       </button>
 
       {open && (
-        <div className={`${inline ? "relative" : "absolute z-[90]"} mt-2 w-full min-w-[280px] overflow-hidden rounded-card border border-mist bg-white shadow-modal`}>
+        <div
+          className={`${
+            inline ? "relative" : "absolute z-[90]"
+          } mt-2 w-full min-w-[280px] overflow-hidden rounded-card border border-mist bg-white shadow-modal`}
+        >
           <div className="flex items-center gap-2 border-b border-mist px-3 py-2.5">
             <Search className="h-4 w-4 shrink-0 text-slate" />
             <input
@@ -79,6 +86,11 @@ export function AirportSelect({
             )}
             {filtered.map((a) => {
               const sel = a.code === value;
+              const sub = a.city
+                ? `${a.city}${a.country ? `, ${a.country}` : ""}`
+                : a.iata
+                  ? `IATA: ${a.iata}`
+                  : "";
               return (
                 <button
                   key={a.code}
@@ -96,9 +108,11 @@ export function AirportSelect({
                     <span className="font-semibold">{a.code}</span>{" "}
                     <span className={sel ? "text-white" : "text-graphite"}>{a.name}</span>
                   </span>
-                  <span className={`font-sans text-xs ${sel ? "text-white/80" : "text-slate"}`}>
-                    {a.city}, {a.country}
-                  </span>
+                  {sub && (
+                    <span className={`font-sans text-xs ${sel ? "text-white/80" : "text-slate"}`}>
+                      {sub}
+                    </span>
+                  )}
                 </button>
               );
             })}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { MultiSelect } from "./MultiSelect";
-import { alertManufacturers, alertModels } from "@/data/alerts";
+import { alertManufacturers, alertMakes, alertModels } from "@/data/alerts";
 import type { marketplaceFormData } from "@/types/forms";
 import { postForm } from "@/lib/api";
 
@@ -25,6 +25,7 @@ export function MarketplaceAlertsModal({
     email: "",
     phoneNumber: "",
     preferredManufacturers: [],
+    preferredMakes: [],
     preferredModels: [],
     minYear: 0,
     maxYear: 0,
@@ -105,6 +106,10 @@ export function MarketplaceAlertsModal({
             <h4 className="display mt-6 text-lg text-ink">Preferred Models <span className="text-gold">*</span></h4>
             <p className="mb-2 mt-1 text-xs text-slate">Select at least one model you're interested in.</p>
             <MultiSelect value={f.preferredModels} onChange={(v) => set({ preferredModels: v })} options={alertModels} placeholder="Select models" noun="models selected" inline />
+
+            <h4 className="display mt-6 text-lg text-ink">Preferred Make</h4>
+            <p className="mb-2 mt-1 text-xs text-slate">Select the aircraft make(s) you're interested in.</p>
+            <MultiSelect value={f.preferredMakes} onChange={(v) => set({ preferredMakes: v })} options={alertMakes} placeholder="Select makes" noun="makes selected" inline />
 
             <h4 className="display mt-7 text-lg text-ink">Age Criteria</h4>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">

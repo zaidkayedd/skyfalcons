@@ -7,8 +7,16 @@ import { Globe } from "./ui/globe";
 import { ArrowRight } from "lucide-react";
 import { cta } from "@/data/site";
 import { splitDisplayText } from "@/lib/utils";
-import { MarketplaceAlertsModal } from "./MarketplaceAlertsModal";
-import { EmptyLegAlertsModal } from "./EmptyLegAlertsModal";
+import dynamic from "next/dynamic";
+
+const MarketplaceAlertsModal = dynamic(
+  () => import("./MarketplaceAlertsModal").then((m) => m.MarketplaceAlertsModal),
+  { ssr: false }
+);
+const EmptyLegAlertsModal = dynamic(
+  () => import("./EmptyLegAlertsModal").then((m) => m.EmptyLegAlertsModal),
+  { ssr: false }
+);
 
 interface GlobalCTAProps {
   heading?: string;
@@ -83,11 +91,12 @@ export function GlobalCTA({
         </Reveal>
       </Container>
 
-      {modalVariant === "emptyleg" ? (
-        <EmptyLegAlertsModal open={open} onClose={() => setOpen(false)} />
-      ) : (
-        <MarketplaceAlertsModal open={open} onClose={() => setOpen(false)} />
-      )}
+      {open &&
+        (modalVariant === "emptyleg" ? (
+          <EmptyLegAlertsModal open onClose={() => setOpen(false)} />
+        ) : (
+          <MarketplaceAlertsModal open onClose={() => setOpen(false)} />
+        ))}
     </section>
   );
 }

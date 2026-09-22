@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { Filter, RotateCcw, ChevronDown, Search as SearchIcon } from "lucide-react";
 import { Dropdown } from "@/components/Dropdown";
-import { aircraftManufacturers, aircraftStatuses } from "@/data/aircraft";
+import {
+  aircraftManufacturers,
+  aircraftStatuses,
+  aircraftMakes,
+  aircraftModels
+} from "@/data/aircraft";
 
 export const advancedCategories = [
   "Light",
@@ -16,6 +21,8 @@ export const advancedCategories = [
 
 export type MarketFilters = {
   manufacturer: string;
+  make: string;
+  model: string;
   search: string;
   status: string;
   minRange: number;
@@ -29,6 +36,8 @@ export type MarketFilters = {
 
 export const emptyFilters: MarketFilters = {
   manufacturer: "",
+  make: "",
+  model: "",
   search: "",
   status: "",
   minRange: 0,
@@ -74,6 +83,24 @@ export function MarketplaceFilters({
             onChange={(v) => set({ manufacturer: v })}
             placeholder="Select manufacturer"
             options={aircraftManufacturers}
+          />
+        </Field>
+
+        <Field label="Make">
+          <Dropdown
+            value={value.make}
+            onChange={(v) => set({ make: v })}
+            placeholder="Select make"
+            options={aircraftMakes}
+          />
+        </Field>
+
+        <Field label="Model">
+          <Dropdown
+            value={value.model}
+            onChange={(v) => set({ model: v })}
+            placeholder="Select model"
+            options={aircraftModels}
           />
         </Field>
 
