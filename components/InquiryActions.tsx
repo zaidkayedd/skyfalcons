@@ -9,7 +9,7 @@ type ModalKind = "viewing" | "spec" | null;
 export function InquiryActions({
   aircraftLabel
 }: {
-  aircraftLabel: string; // e.g. "Falcon 7X (2017)"
+  aircraftLabel: string; 
 }) {
   const [modal, setModal] = useState<ModalKind>(null);
 

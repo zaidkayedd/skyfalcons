@@ -12,7 +12,7 @@ export function HomeHero() {
     if (!v) return;
     v.muted = true;
 
-    // Serve a lightweight video on phones so the hero appears quickly.
+
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     v.src = isMobile ? homeHero.videoSrcMobile : homeHero.videoSrc;
 
@@ -20,7 +20,6 @@ export function HomeHero() {
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
-    // Tell the loading screen the hero video is ready to show.
     const signalReady = () => {
       tryPlay();
       (window as unknown as { __heroReady?: boolean }).__heroReady = true;
