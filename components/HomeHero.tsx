@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import { Container } from "./Container";
 import { homeHero } from "@/data/home";
-
 
 export function HomeHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -13,16 +11,27 @@ export function HomeHero() {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
+
     const tryPlay = () => {
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
-    if (v.readyState >= 2) tryPlay();
-    v.addEventListener("loadeddata", tryPlay);
-    v.addEventListener("canplay", tryPlay);
+   
+    const signalReady = () => {
+      tryPlay();
+      (window as unknown as { __heroReady?: boolean }).__heroReady = true;
+      window.dispatchEvent(new Event("hero:ready"));
+    };
+
+    if (v.readyState >= 3) signalReady();
+    v.addEventListener("loadeddata", signalReady);
+    v.addEventListener("canplay", signalReady);
+
+    v.addEventListener("error", signalReady);
     return () => {
-      v.removeEventListener("loadeddata", tryPlay);
-      v.removeEventListener("canplay", tryPlay);
+      v.removeEventListener("loadeddata", signalReady);
+      v.removeEventListener("canplay", signalReady);
+      v.removeEventListener("error", signalReady);
     };
   }, []);
 
@@ -40,9 +49,7 @@ export function HomeHero() {
         <source src={homeHero.videoSrc} type="video/mp4" />
       </video>
 
-    
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night/65 via-night/15 to-night/15" />
-
       <div className="absolute inset-0 -z-10 bg-white/40" />
 
       <Container className="pt-24">
@@ -61,8 +68,7 @@ export function HomeHero() {
         </div>
       </Container>
 
-  
-   <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <div className="h-10 w-6 rounded-pill border border-white/40 p-1">
           <div className="mx-auto h-2 w-1 animate-bounce rounded-pill bg-white/70" />
         </div>
