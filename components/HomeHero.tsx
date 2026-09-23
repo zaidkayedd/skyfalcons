@@ -12,22 +12,25 @@ export function HomeHero() {
     if (!v) return;
     v.muted = true;
 
+    // Serve a lightweight video on phones so the hero appears quickly.
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    v.src = isMobile ? homeHero.videoSrcMobile : homeHero.videoSrc;
+
     const tryPlay = () => {
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
-   
+    // Tell the loading screen the hero video is ready to show.
     const signalReady = () => {
       tryPlay();
       (window as unknown as { __heroReady?: boolean }).__heroReady = true;
       window.dispatchEvent(new Event("hero:ready"));
     };
 
-    if (v.readyState >= 3) signalReady();
     v.addEventListener("loadeddata", signalReady);
     v.addEventListener("canplay", signalReady);
-
     v.addEventListener("error", signalReady);
+    v.load();
     return () => {
       v.removeEventListener("loadeddata", signalReady);
       v.removeEventListener("canplay", signalReady);
@@ -45,9 +48,7 @@ export function HomeHero() {
         loop
         playsInline
         preload="auto"
-      >
-        <source src={homeHero.videoSrc} type="video/mp4" />
-      </video>
+      />
 
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night/65 via-night/15 to-night/15" />
       <div className="absolute inset-0 -z-10 bg-white/40" />

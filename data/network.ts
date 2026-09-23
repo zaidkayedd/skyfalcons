@@ -1,7 +1,7 @@
 export type Partner = {
   id: string;
   name: string;
-  logo: string; 
+  logo: string;
 };
 
 export type AlliancePoint = {
@@ -13,44 +13,43 @@ export type AlliancePoint = {
 };
 
 export const partners: Partner[] = [
-  { id: "p1", name: "Aegle", logo: "/network/aegle-new.png" },
-  { id: "p2", name: "Airbus", logo: "/network/airbus-new.png" },
+  { id: "p1", name: "Airbus", logo: "/network/airbus-new.webp" },
   {
-    id: "p3",
+    id: "p2",
     name: "Aircraft Marketing",
-    logo: "/network/aircraft-marketing-new.png",
+    logo: "/network/aircraft-marketing-new.webp",
   },
-  { id: "p4", name: "Apex", logo: "/network/apex-new.png" },
-  { id: "p5", name: "Arab Wings", logo: "/network/arabwings.png" },
-  { id: "p6", name: "Ariyax", logo: "/network/ariyax-new.png" },
+  { id: "p3", name: "Apex", logo: "/network/apex-new.webp" },
+  { id: "p4", name: "Arab Wings", logo: "/network/arabwings.webp" },
+  { id: "p5", name: "Ariyax", logo: "/network/ariyax-new.webp" },
+  { id: "p6", name: "AvHub", logo: "/network/avhub-new.webp" },
   { id: "p7", name: "AvHub", logo: "/avhub_Logo_DB.png" },
-  { id: "p8", name: "BAS", logo: "/network/bas-new.png" },
-  { id: "p9", name: "Boeing", logo: "/network/boeing-new.png" },
-  { id: "p10", name: "Bombardier", logo: "/network/bombardier-new.png" },
+  { id: "p8", name: "Boeing", logo: "/network/boeing-new.webp" },
+  { id: "p9", name: "Bombardier", logo: "/network/bombardier-new.webp" },
   {
-    id: "p11",
+    id: "p10",
     name: "Capital Aviation",
-    logo: "/network/capital-aviation-new.png",
+    logo: "/network/capital-aviation-new.webp",
   },
-  { id: "p12", name: "Cessna", logo: "/network/cessna-new.png" },
-  { id: "p13", name: "Creativology", logo: "/network/creativology-new.png" },
-  { id: "p14", name: "Dassault", logo: "/network/dassault-new.png" },
-  { id: "p15", name: "Duncan", logo: "/network/duncan-new.png" },
-  { id: "p16", name: "Embraer", logo: "/network/embraer-new.png" },
-  { id: "p17", name: "Gulfstream", logo: "/network/gulfstream-new.png" },
-  { id: "p18", name: "Hangar7", logo: "/network/hangar7-new.png" },
-  { id: "p19", name: "Jetlings", logo: "/network/jetlings-new.png" },
-  { id: "p20", name: "JMore", logo: "/network/jmore-new.png" },
-  { id: "p21", name: "McAfee Taft", logo: "/network/mcafee-taft-new.png" },
-  { id: "p22", name: "MD Aviation", logo: "/network/md-aviation-new.png" },
-  { id: "p23", name: "Pinnacle", logo: "/network/pinnacle-new.png" },
-  { id: "p24", name: "Polaris", logo: "/network/polaris-new.png" },
-  { id: "p25", name: "Sino Jet", logo: "/network/sino-jet-new.png" },
-  { id: "p26", name: "TVPX", logo: "/network/tvpx-new.png" },
-  { id: "p27", name: "Weststar", logo: "/network/weststar-new.png" },
-  { id: "p28", name: "Global Jet Sales", logo: "/network/globalJetSales.png" },
+  { id: "p11", name: "Cessna", logo: "/network/cessna-new.webp" },
+  { id: "p12", name: "Creativology", logo: "/network/creativology-new.webp" },
+  { id: "p13", name: "Dassault", logo: "/network/dassault-new.webp" },
+  { id: "p14", name: "Duncan", logo: "/network/duncan-new.webp" },
+  { id: "p15", name: "Embraer", logo: "/network/embraer-new.webp" },
+  { id: "p16", name: "Global Jet Sales", logo: "/network/globalJetSales.webp" },
+  { id: "p17", name: "Hangar7", logo: "/network/hangar7-new.webp" },
+  { id: "p18", name: "Jetlings", logo: "/network/jetlings-new.webp" },
+  { id: "p19", name: "JMore", logo: "/network/jmore-new.webp" },
+  { id: "p20", name: "McAfee Taft", logo: "/network/mcafee-taft-new.webp" },
+  { id: "p21", name: "MD Aviation", logo: "/network/md-aviation-new.webp" },
+  { id: "p22", name: "Pinnacle", logo: "/network/pinnacle-new.webp" },
+  { id: "p23", name: "Polaris", logo: "/network/polaris-new.webp" },
+  { id: "p24", name: "Sino Jet", logo: "/network/sino-jet-new.webp" },
+  { id: "p25", name: "TVPX", logo: "/network/tvpx-new.webp" },
+  { id: "p26", name: "Weststar", logo: "/network/weststar-new.webp" },
+    { id: "p27", name: "Weststar", logo: "/network/weststar-new.png" },
+  { id: "p28", name: "Gulfstream", logo: "/network/gulfstream-new.webp" },
 ];
-
 
 export const alliancePoints: AlliancePoint[] = [
   {

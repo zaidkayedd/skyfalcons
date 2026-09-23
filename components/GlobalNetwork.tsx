@@ -31,7 +31,7 @@ export function GlobalNetwork() {
               const totalPartners = partners.length;
               const isAmongLastFour = i >= totalPartners - 4;
               
-              // Target index 6 (which is the 7th logo)
+              
               const isSeventhLogo = i === 6;
 
               const logoContent = (

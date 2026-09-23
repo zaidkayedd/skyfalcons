@@ -14,7 +14,9 @@ export const homeHero = {
     { label: "Charter Services", href: "/charter" }
   ],
   videoSrc: "/hero-video.mp4",
-  poster: "/hero-poster.jpg"
+  videoSrcMobile: "/hero-video-mobile.mp4",
+  videoMobile: "/hero-video-mobile.mp4",
+  poster: "/hero-poster.webp"
 };
 
 export const whoWeAre = {
